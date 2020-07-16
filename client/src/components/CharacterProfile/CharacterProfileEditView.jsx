@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const TemplateEditView = ({
+const CharacterProfileEditView = ({
     data,
     onModeChange,
     onChange,
@@ -56,11 +56,11 @@ const TemplateEditView = ({
                                 variant='standard'
                                 margin='normal'
                                 fullWidth
-                                id='templateField1'
-                                label='Template Field 1'
-                                name='templateField1'
+                                id='name'
+                                label='CharacterProfile Field 1'
+                                name='name'
                                 autoComplete='off'
-                                value={data.templateField1}
+                                value={data.name}
                                 onChange={e => onChange(e)} />
                         </Paper>
                     </Grid>
@@ -70,11 +70,11 @@ const TemplateEditView = ({
                                 variant='standard'
                                 margin='normal'
                                 fullWidth
-                                id='templateField2'
-                                label='Template Field 2'
-                                name='templateField2'
+                                id='name'
+                                label='CharacterProfile Field 2'
+                                name='name'
                                 autoComplete='off'
-                                value={data.templateField2}
+                                value={data.name}
                                 onChange={e => onChange(e)} />
                         </Paper>
                     </Grid>
@@ -84,11 +84,11 @@ const TemplateEditView = ({
                                 variant='standard'
                                 margin='normal'
                                 fullWidth
-                                id='templateField3'
-                                label='Template Field 3'
-                                name='templateField3'
+                                id='gameName'
+                                label='CharacterProfile Field 3'
+                                name='gameName'
                                 autoComplete='off'
-                                value={data.templateField3}
+                                value={data.gameName}
                                 onChange={e => onChange(e)} />
                         </Paper>
                     </Grid>
@@ -109,7 +109,7 @@ const TemplateEditView = ({
                                 <Typography
                                     variant='inherit'
                                     className={classes.buttonText}>
-                                    Save
+                                    Сохранить
                                 </Typography>
                             </Button>
                         </Grid>
@@ -123,7 +123,7 @@ const TemplateEditView = ({
                                 <Typography
                                     variant='inherit'
                                     className={classes.buttonText}>
-                                    Cancel
+                                    Отмена
                                 </Typography>
                             </Button>
                         </Grid>
@@ -134,9 +134,9 @@ const TemplateEditView = ({
     );
 }
 
-TemplateEditView.propTypes = {
+CharacterProfileEditView.propTypes = {
     data: PropTypes.object.isRequired,
     onModeChange: PropTypes.func.isRequired
 }
 
-export default TemplateEditView
+export default CharacterProfileEditView

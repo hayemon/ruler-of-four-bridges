@@ -3,79 +3,78 @@ const router = express.Router()
 const { check, validationResult } = require('express-validator')
 const auth = require('../../middleware/auth')
 
-const Template = require('../../models/Template')
+const ParameterModel = require('../../models/ParameterModel')
 const checkObjectId = require('../../middleware/checkObjectId')
 
-// @route    POST api/templates
-// @desc     Create a template
+// @route    POST api/parameterModels
+// @desc     Create a parameterModel
 // @access   Private
 router.post(
-  '/',
-  [auth, [check('templateField1', 'templateField1 is required').not().isEmpty()]],
+  '/', [auth,
+  [
+    check('name', 'name is required').not().isEmpty()
+  ]
+],
   async (req, res) => {
     const errors = validationResult(req)
+
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() })
     }
 
     try {
-      const newTemplate = new Template({
-        templateField1: req.body.templateField1,
-        templateField2: req.body.templateField2,
-        templateField3: req.body.templateField3
+      const newParameterModel = new ParameterModel({
+        name: req.body.name,
+        relation: req.body.relation
       })
-
-      const template = await newTemplate.save()
-
-      res.json(template)
-    } catch (err) {
+      const parameterModel = await newParameterModel.save()
+      res.json(parameterModel)
+    }
+    catch (err) {
       console.error(err.message)
       res.status(500).send('Server Error')
     }
   }
 )
 
-// @route    GET api/templates
-// @desc     Get all templates
+// @route    GET api/parameterModels
+// @desc     Get all parameterModels
 // @access   Private
 router.get('/', auth, async (req, res) => {
   try {
-    const templates = await Template.find()
-    res.json(templates)
-  } catch (err) {
+    const parameterModels = await ParameterModel.find()
+    res.json(parameterModels)
+  }
+  catch (err) {
     console.error(err.message)
     res.status(500).send('Server Error')
   }
 })
 
-// @route    GET api/templates/:id
-// @desc     Get template by ID
+// @route    GET api/parameterModels/:id
+// @desc     Get parameterModel by ID
 // @access   Private
 router.get('/:id', [auth, checkObjectId('id')], async (req, res) => {
   try {
-    const template = await Template.findById(req.params.id)
-
-    res.json(template)
-  } catch (err) {
+    const parameterModel = await ParameterModel.findById(req.params.id)
+    res.json(parameterModel)
+  }
+  catch (err) {
     console.error(err.message)
-
     res.status(500).send('Server Error')
   }
 })
 
-// @route    DELETE api/templates/:id
-// @desc     Delete a template
+// @route    DELETE api/parameterModels/:id
+// @desc     Delete a parameterModel
 // @access   Private
 router.delete('/:id', [auth, checkObjectId('id')], async (req, res) => {
   try {
-    const template = await Template.findById(req.params.id)
-    
-    await template.remove()
-
-    res.json({ msg: 'Template removed' })
-  } catch (err) {
+    await ParameterModel.findByIdAndDelete(req.params.id)
+    res.json({ msg: 'ParameterModel removed' })
+  }
+  catch (err) {
     console.error(err.message)
-
     res.status(500).send('Server Error')
   }
 })

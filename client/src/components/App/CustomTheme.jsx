@@ -12,10 +12,13 @@ const customTheme = createMuiTheme({
             dark: indigo[900],
 
             white: 'white',
-            grey: grey[50],
+            grey: grey[100],
             black: grey[900]
         }
     },
+    typography: {
+        fontFamily: ['Roboto']
+    }
 })
 
 export default customTheme

@@ -11,14 +11,18 @@ import Auth from '../Auth'
 import NavBar from '../NavBar'
 import Alerts from '../Alert'
 import {
-    Templates,
-    Template
-} from '../Template'
+    CharacterProfiles,
+    CharacterProfile
+} from '../CharacterProfile'
+import {
+    ParameterModels
+} from '../ParameterModel'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
         backgroundColor: customTheme.palette.primary.grey,
+        fontFamily: customTheme.typography.fontFamily,
         height: '100vh'
     }
 }))
@@ -38,8 +42,9 @@ const Routes = () => {
                 <Route exact path='/signup' component={
                     () => <Auth isSignUp signInLink='/signin' />
                 } />
-                <PrivateRoute exact path='/templates' component={Templates} />
-                <PrivateRoute exact path='/templates/:id' component={Template} />
+                <PrivateRoute exact path='/characterProfiles' component={CharacterProfiles} />
+                <PrivateRoute exact path='/characterProfiles/:id' component={CharacterProfile} />
+                <PrivateRoute exact path='/parameterModels' component={ParameterModels} />
             </Switch>
         </div>
     )

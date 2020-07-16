@@ -36,26 +36,31 @@ const NavBar = ({ isAuthenticated, signout }) => {
                     <IconButton edge='start'
                         className={classes.menuButton}
                         color='inherit'
-                        href='/'>
+                        >
                         <MenuIcon />
                     </IconButton>
 
                     <Typography variant='h6' className={classes.title}>
-                        MERN Boilerplate
+                        Владыка Четырех Мостов
                     </Typography>
 
                     <Button color='inherit'
-                        href='/templates/'>
-                        Templates
+                        href='/characterProfiles/'>
+                        Персонажи
+                    </Button>
+
+                    <Button color='inherit'
+                        href='/parameterModels/'>
+                        Конфигурация
                     </Button>
 
                     {isAuthenticated ?
                         <Button onClick={e => signout()} color='inherit'>
-                            Logout
+                            Выйти
                       </Button> :
                         <Button href='/signin'
                             color='inherit'>
-                            Login
+                            Войти
                           </Button>}
                 </Toolbar>
             </AppBar>

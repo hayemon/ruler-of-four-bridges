@@ -17,12 +17,12 @@ const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1
     },
-    paper: {
+    card: {
         padding: theme.spacing(2)
     }
 }))
 
-const TemplatesView = ({
+const CharacterProfilesView = ({
     data
 }) => {
     const classes = useStyles()
@@ -30,9 +30,9 @@ const TemplatesView = ({
     return (
         <Container maxWidth='md' className={classes.root}>
             <Grid container spacing={3}>
-                {data.map(templateItem => (
-                    <Grid item xs={4}>
-                        <Card key={templateItem._id} className={classes.card}>
+                {data.map(characterProfileItem => (
+                    <Grid key={characterProfileItem._id} item xs={4}>
+                        <Card className={classes.card}>
                             <CardActionArea>
                                 <CardMedia
                                     component='img'
@@ -44,14 +44,14 @@ const TemplatesView = ({
 
                                 <CardContent>
                                     <Typography gutterBottom variant='h5' component='h2'>
-                                        Template Header
+                                        CharacterProfile Header
                                     </Typography>
 
                                     <Typography
                                         variant='body2'
                                         color='textSecondary'
                                         component='p'>
-                                        Template Text: [Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam repudiandae libero porro delectus nisi, quia tempore beatae dolorem earum nesciunt corrupti, perspiciatis est nulla hic? Mollitia sit aspernatur velit officia?]
+                                        CharacterProfile Text: [Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam repudiandae libero porro delectus nisi, quia tempore beatae dolorem earum nesciunt corrupti, perspiciatis est nulla hic? Mollitia sit aspernatur velit officia?]
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -60,8 +60,8 @@ const TemplatesView = ({
                                 <Button
                                     size='small'
                                     color='primary'
-                                    href={`/templates/${templateItem._id}`}>
-                                    Template Button
+                                    href={`/characterProfiles/${characterProfileItem._id}`}>
+                                    CharacterProfile Button
                                 </Button>
                             </CardActions>
                         </Card>
@@ -72,4 +72,4 @@ const TemplatesView = ({
     );
 }
 
-export default TemplatesView
+export default CharacterProfilesView

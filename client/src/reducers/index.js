@@ -2,10 +2,12 @@ import { combineReducers } from 'redux'
 
 import alert from './alert'
 import auth from './auth'
-import template from './template'
+import characterProfile from './characterProfile'
+import parameterModel from './parameterModel'
 
 export default combineReducers({
     alert,
     auth,
-    template
+    characterProfile,
+    parameterModel
 })
