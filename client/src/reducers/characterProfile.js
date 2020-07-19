@@ -45,7 +45,7 @@ export default function (state = initialState, action) {
     case DELETE_CHARACTER_PROFILE:
       return {
         ...state,
-        characterProfiles: state.characterProfiles.filter(characterProfile = characterProfile._id !== data),
+        characterProfiles: state.characterProfiles.filter(characterProfile => characterProfile._id !== data),
         loading: false
       }
     case ERROR_CHARACTER_PROFILE:

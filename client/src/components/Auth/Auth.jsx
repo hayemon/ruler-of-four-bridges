@@ -40,16 +40,19 @@ const Auth = ({
         return <Redirect to='/' />
     }
 
-    return <AuthView
-        isSignUp={!!isSignUp}
-        isSignIn={!!isSignIn}
-        signUpLink='/signup'
-        signInLink='/signin'
-        onChange={onChange}
-        onSubmit={onSubmit}
-        username={username}
-        email={email}
-        password={password} />
+    return (
+        <AuthView
+            isSignUp={!!isSignUp}
+            isSignIn={!!isSignIn}
+            signUpLink='/signup'
+            signInLink='/signin'
+            onChange={onChange}
+            onSubmit={onSubmit}
+            username={username}
+            email={email}
+            password={password}
+        />
+    )
 }
 
 Auth.propTypes = {

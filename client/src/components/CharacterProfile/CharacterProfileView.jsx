@@ -23,45 +23,15 @@ import {
 } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
 import { makeStyles } from '@material-ui/core/styles'
-import customTheme from '../App/CustomTheme'
+
+import {
+    SpaceBetweenGrid,
+    TabsContainer
+} from '../Layout'
+import Stats from '../Stats'
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    paper: {
-        textAlign: 'left',
-        color: theme.palette.text.secondary,
-    },
-    marginBox: {
-        margin: theme.spacing(2)
-    },
-    leftEmptySpace: {
-        flexGrow: 1,
-    },
-    toolbar: {
-        paddingTop: theme.spacing(1)
-    },
-    buttonText: {
-        paddingLeft: theme.spacing(1),
-        paddingRight: theme.spacing(1)
-    },
-    tableCell: {
-        padding: theme.spacing(1),
-        borderBottom: 0
-    },
-    tableCellTitle: {
-        backgroundColor: customTheme.palette.primary.grey
-    },
-    noMargin: {
-        margin: '0 !important'
-    },
-    noPadding: {
-        padding: '0 !important'
-    },
-    noBorder: {
-        border: '0 !important'
-    }
+
 }))
 
 const CharacterProfileView = ({
@@ -71,10 +41,10 @@ const CharacterProfileView = ({
     const classes = useStyles()
 
     return (
-        <Container maxWidth='md' className={classes.root}>
-            <Grid container spacing={3}>
-                <Grid item xs={4}>
-                    <Card className={classes.card}>
+        <Container maxWidth='md' className='root'>
+            <Grid container spacing={3} alignItems='stretch'>
+                <Grid item xs={4} container>
+                    <Card>
                         <CardMedia
                             component='img'
                             alt='Contemplative Reptile'
@@ -83,87 +53,83 @@ const CharacterProfileView = ({
                             title='Contemplative Reptile'
                         />
 
-                        <CardContent className={classes.noPadding}>
+                        <CardContent className='no-padding fill-parent'>
                             <Table>
                                 <TableBody>
-                                    <TableRow className={classes.table}>
-                                        <TableCell className={`${classes.tableCell} ${classes.tableCellTitle}`}>
-                                            Мир
+                                    {data.details.map((detail, index) =>
+                                        <TableRow className={classes.tableRow}>
+                                            <TableCell className='small-padding background-grey'>
+                                                {detail.key}
                                             </TableCell>
-                                        <TableCell className={classes.tableCell}>
-                                            Спиритум
+                                            <TableCell className='small-padding'>
+                                                {detail.value}
                                             </TableCell>
-                                    </TableRow>
-
-                                    <TableRow className={classes.tableRow}>
-                                        <TableCell className={`${classes.tableCell} ${classes.tableCellTitle}`}>
-                                            Имя
-                                            </TableCell>
-                                        <TableCell className={classes.tableCell}>
-                                            Гримм
-                                            </TableCell>
-                                    </TableRow>
-
-                                    <TableRow className={classes.tableRow}>
-                                        <TableCell className={`${classes.tableCell} ${classes.tableCellTitle}`}>
-                                            Раса
-                                            </TableCell>
-                                        <TableCell className={classes.tableCell}>
-                                            Человек
-                                            </TableCell>
-                                    </TableRow>
+                                        </TableRow>
+                                    )}
                                 </TableBody>
                             </Table>
                         </CardContent>
                     </Card>
                 </Grid>
-                <Grid item container xs={8}>
-                    <Paper className={classes.paper}>
-                        <Box className={classes.marginBox}>
+
+                <Grid item xs={8} container>
+                    <Paper>
+                        <Box className='basic-margin'>
                             <Typography
-                                variant='h5'
-                                component='h2'>
+                                variant='h5'>
                                 {data.name}
                             </Typography>
                         </Box>
 
                         <Divider variant='middle' />
 
-                        <Box className={classes.marginBox}>
+                        <Box className='basic-margin'>
                             <Typography
                                 variant='body2'
                                 component='p'
                                 color='textSecondary'>
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor voluptatibus, minus delectus, laboriosam perspiciatis molestiae cum accusamus velit vitae numquam error, labore exercitationem voluptate deleniti ab at illo dolorum repellendus?
+                                {data.description}
                             </Typography>
                         </Box>
 
                         <Divider variant='fullWidth' />
                     </Paper>
                 </Grid>
-                <Grid item container xs={12}>
-                    <Paper className={classes.paper}>
-                        <Box className={classes.marginBox}>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Adipisci nemo laboriosam animi, expedita veniam nisi magnam dolore cum numquam fuga exercitationem nesciunt quisquam, a iure tempore velit non eaque. Perferendis?
-                        </Box>
-                    </Paper>
+
+                <Grid item xs={12}>
+                    <TabsContainer>
+                        <Stats className='nullify' tablabel='Параметры' />
+                        <div tablabel='LABEL 2'>
+                            label 2
+                            </div>
+                        <div tablabel='LABEL 3'>
+                            label 3
+                            </div>
+                    </TabsContainer>
+                </Grid>
+
+                <Grid item xs={12}>
+                    <Toolbar disableGutters>
+                        <SpaceBetweenGrid>
+                            <Button
+                                pulledright='true'
+                                edge='start'
+                                variant='contained'
+                                color='primary'
+                                onClick={e => onModeChange(e)}
+                            >
+                                <EditIcon />
+                                <Typography
+                                    variant='inherit'
+                                    className='button-text'
+                                >
+                                    Изменить
+                                </Typography>
+                            </Button>
+                        </SpaceBetweenGrid>
+                    </Toolbar>
                 </Grid>
             </Grid>
-            <Toolbar disableGutters className={classes.toolbar}>
-                <div className={classes.leftEmptySpace}></div>
-
-                <Button edge='start'
-                    variant='contained'
-                    color='primary'
-                    onClick={e => onModeChange(e)}>
-                    <EditIcon />
-                    <Typography
-                        variant='inherit'
-                        className={classes.buttonText}>
-                        Edit
-                    </Typography>
-                </Button>
-            </Toolbar>
         </Container>
     );
 }

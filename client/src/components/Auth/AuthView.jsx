@@ -57,7 +57,7 @@ const AuthView = ({
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
-                
+
                 <Typography component='h1' variant='h5'>
                     {isSignIn && 'Sign In'}
                     {isSignUp && 'Sign Up'}
@@ -79,7 +79,8 @@ const AuthView = ({
                         autoComplete='off'
                         autoFocus
                         value={email}
-                        onChange={e => onChange(e)} />
+                        onChange={e => onChange(e)}
+                    />
 
                     {isSignUp && <TextField
                         variant='outlined'
@@ -92,7 +93,8 @@ const AuthView = ({
                         autoComplete='off'
                         autoFocus
                         value={username}
-                        onChange={e => onChange(e)} />}
+                        onChange={e => onChange(e)}
+                    />}
 
                     <TextField
                         variant='outlined'
@@ -105,7 +107,8 @@ const AuthView = ({
                         id='password'
                         autoComplete='off'
                         value={password}
-                        onChange={e => onChange(e)} />
+                        onChange={e => onChange(e)}
+                    />
 
                     <FormControlLabel
                         control={<Checkbox value='remember' color='primary' />}
@@ -117,7 +120,8 @@ const AuthView = ({
                         variant='contained'
                         color='primary'
                         className={classes.submit}
-                        onClick={e => onSubmit(e)}>
+                        onClick={e => onSubmit(e)}
+                    >
                         {isSignIn && 'Sign In'}
                         {isSignUp && 'Sign Up'}
                     </Button>

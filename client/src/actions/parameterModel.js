@@ -83,7 +83,6 @@ export const updateParameterModel = formData => async dispatch => {
       'Content-Type': 'application/json'
     }
   }
-
   try {
     const res = await axios.put(`/api/parameterModels/${formData._id}`, formData, config)
 
@@ -92,7 +91,7 @@ export const updateParameterModel = formData => async dispatch => {
       data: res.data
     })
 
-    dispatch(setAlert('ParameterModel Updated', 'success'))
+    dispatch(setAlert(`${formData.name} сохранено`, 'success'))
   } catch (err) {
     dispatch({
       type: ERROR_PARAMETER_MODEL,

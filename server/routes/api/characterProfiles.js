@@ -14,7 +14,7 @@ router.post(
   '/', [auth,
   [
     check('name', 'name is required').not().isEmpty(),
-    check('gameName', 'gameName is required').not().isEmpty()
+    check('realName', 'realName is required').not().isEmpty()
   ]
 ],
   async (req, res) => {
@@ -26,11 +26,9 @@ router.post(
     try {
       const newCharacterProfile = new CharacterProfile({
         name: req.body.name,
-        gameName: req.body.gameName,
-        alias: req.body.alias,
-        world: req.body.world,
-        race: req.body.race,
-        gameId: req.body.gameId,
+        realName: req.body.realName,
+        details: req.body.details,
+        description: req.body.description,
         stats: req.body.stats,
         skills: req.body.skills
       })
@@ -81,11 +79,9 @@ router.put(
     try {
       const updateQuery = {
         name: req.body.name,
-        gameName: req.body.gameName,
-        alias: req.body.alias,
-        world: req.body.world,
-        race: req.body.race,
-        gameId: req.body.id,
+        realName: req.body.realName,
+        details: req.body.details,
+        description: req.body.description,
         stats: req.body.stats,
         skills: req.body.skills
       }

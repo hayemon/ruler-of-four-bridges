@@ -5,7 +5,8 @@ import {
 } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 
-import customTheme from './CustomTheme'
+import globalStyles from './GlobalStyles'
+
 import PrivateRoute from './PrivateRoute'
 import Auth from '../Auth'
 import NavBar from '../NavBar'
@@ -15,23 +16,18 @@ import {
     CharacterProfile
 } from '../CharacterProfile'
 import {
-    ParameterModels
-} from '../ParameterModel'
+    Configuration
+} from '../Configuration'
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-        backgroundColor: customTheme.palette.primary.grey,
-        fontFamily: customTheme.typography.fontFamily,
-        height: '100vh'
-    }
+    ...globalStyles(theme)
 }))
 
 const Routes = () => {
     const classes = useStyles()
 
     return (
-        <div className={classes.root}>
+        <div className='root root-container background-grey'>
             <NavBar />
             <Alerts />
             <Switch>
@@ -44,7 +40,7 @@ const Routes = () => {
                 } />
                 <PrivateRoute exact path='/characterProfiles' component={CharacterProfiles} />
                 <PrivateRoute exact path='/characterProfiles/:id' component={CharacterProfile} />
-                <PrivateRoute exact path='/parameterModels' component={ParameterModels} />
+                <PrivateRoute exact path='/configuration' component={Configuration} />
             </Switch>
         </div>
     )

@@ -13,13 +13,8 @@ import {
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 
+
 const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1
-    },
-    card: {
-        padding: theme.spacing(2)
-    }
 }))
 
 const CharacterProfilesView = ({
@@ -28,11 +23,11 @@ const CharacterProfilesView = ({
     const classes = useStyles()
 
     return (
-        <Container maxWidth='md' className={classes.root}>
+        <Container maxWidth='md' className='root'>
             <Grid container spacing={3}>
                 {data.map(characterProfileItem => (
                     <Grid key={characterProfileItem._id} item xs={4}>
-                        <Card className={classes.card}>
+                        <Card>
                             <CardActionArea>
                                 <CardMedia
                                     component='img'
@@ -44,14 +39,15 @@ const CharacterProfilesView = ({
 
                                 <CardContent>
                                     <Typography gutterBottom variant='h5' component='h2'>
-                                        CharacterProfile Header
+                                        {characterProfileItem.name}
                                     </Typography>
 
                                     <Typography
                                         variant='body2'
                                         color='textSecondary'
-                                        component='p'>
-                                        CharacterProfile Text: [Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam repudiandae libero porro delectus nisi, quia tempore beatae dolorem earum nesciunt corrupti, perspiciatis est nulla hic? Mollitia sit aspernatur velit officia?]
+                                        component='p'
+                                    >
+                                        {characterProfileItem.description}
                                     </Typography>
                                 </CardContent>
                             </CardActionArea>
@@ -60,8 +56,9 @@ const CharacterProfilesView = ({
                                 <Button
                                     size='small'
                                     color='primary'
-                                    href={`/characterProfiles/${characterProfileItem._id}`}>
-                                    CharacterProfile Button
+                                    href={`/characterProfiles/${characterProfileItem._id}`}
+                                >
+                                    Подробнее...
                                 </Button>
                             </CardActions>
                         </Card>

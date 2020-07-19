@@ -25,7 +25,9 @@ router.post(
     try {
       const newParameterModel = new ParameterModel({
         name: req.body.name,
-        relation: req.body.relation
+        category: req.body.category,
+        order: req.body.order,
+        relationType: req.body.relationType
       })
       const parameterModel = await newParameterModel.save()
       res.json(parameterModel)
@@ -64,6 +66,34 @@ router.get('/:id', [auth, checkObjectId('id')], async (req, res) => {
     res.status(500).send('Server Error')
   }
 })
+
+// @route    PUT api/parameterModels
+// @desc     Update a parameterModel
+// @access   Private
+router.put('/:id', [auth, checkObjectId('id')], async (req, res) => {
+  console.log(req.params.id)
+  try {
+    const updateQuery = {
+      name: req.body.name,
+      category: req.body.category,
+      order: req.body.order,
+      relationType: req.body.relationType
+    }
+
+    const parameterModel = await ParameterModel.findByIdAndUpdate(
+      req.params.id,
+      updateQuery,
+      { new: true }
+    )
+    console.log(parameterModel)
+    res.json(parameterModel)
+  }
+  catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+}
+)
 
 // @route    DELETE api/parameterModels/:id
 // @desc     Delete a parameterModel

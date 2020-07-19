@@ -12,19 +12,19 @@ import MenuIcon from '@material-ui/icons/Menu'
 import { makeStyles } from '@material-ui/core/styles'
 
 import { signout } from '../../actions/auth'
+import { SpaceBetweenGrid } from '../Layout'
 
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
-        marginBottom: theme.spacing(2)
+        marginBottom: theme.spacing(3)
     },
     menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
+        margin: 0,
+        padding: 0
     },
 }))
+
 
 const NavBar = ({ isAuthenticated, signout }) => {
     const classes = useStyles()
@@ -33,35 +33,56 @@ const NavBar = ({ isAuthenticated, signout }) => {
         <div className={classes.root}>
             <AppBar position='static'>
                 <Toolbar>
-                    <IconButton edge='start'
-                        className={classes.menuButton}
-                        color='inherit'
+                    <SpaceBetweenGrid>
+                        <IconButton
+                            pulledleft='true'
+                            edge='start'
+                            className={classes.menuButton}
+                            color='inherit'
                         >
-                        <MenuIcon />
-                    </IconButton>
+                            <MenuIcon />
+                        </IconButton>
 
-                    <Typography variant='h6' className={classes.title}>
-                        Владыка Четырех Мостов
-                    </Typography>
+                        <Typography
+                            pulledleft='true'
+                            variant='h6'
+                        >
+                            Владыка Четырех Мостов
+                        </Typography>
 
-                    <Button color='inherit'
-                        href='/characterProfiles/'>
-                        Персонажи
-                    </Button>
+                        <Button
+                            pulledright='true'
+                            color='inherit'
+                            href='/characterProfiles/'
+                        >
+                            Персонажи
+                        </Button>
 
-                    <Button color='inherit'
-                        href='/parameterModels/'>
-                        Конфигурация
-                    </Button>
+                        <Button
+                            pulledright='true'
+                            color='inherit'
+                            href='/configuration/'
+                        >
+                            Конфигурация
+                        </Button>
 
-                    {isAuthenticated ?
-                        <Button onClick={e => signout()} color='inherit'>
-                            Выйти
-                      </Button> :
-                        <Button href='/signin'
-                            color='inherit'>
-                            Войти
-                          </Button>}
+                        {isAuthenticated ?
+                            <Button
+                                pulledright='true'
+                                onClick={e => signout()}
+                                color='inherit'
+                            >
+                                Выйти
+                            </Button> :
+                            <Button
+                                pulledright='true'
+                                href='/signin'
+                                color='inherit'
+                            >
+                                Войти
+                            </Button>
+                        }
+                    </SpaceBetweenGrid>
                 </Toolbar>
             </AppBar>
         </div >

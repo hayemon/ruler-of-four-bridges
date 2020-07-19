@@ -14,7 +14,7 @@ const customTheme = createMuiTheme({
             white: 'white',
             grey: grey[100],
             black: grey[900]
-        }
+        },
     },
     typography: {
         fontFamily: ['Roboto']

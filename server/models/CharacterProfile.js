@@ -5,19 +5,14 @@ const CharacterProfileSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    gameName: {
+    realName: {
         type: String,
         required: true
     },
-    world: String,
-    race: String,
-    gameId: String,
-
-    alias: Array,
+    details: Array,
+    description: Array,
     stats: Array,
-    skills: Array,
-
-    statsModel: Array
+    skills: Array
 })
 
 module.exports = CharacterProfile = mongoose.model('characterProfile', CharacterProfileSchema)

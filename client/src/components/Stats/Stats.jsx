@@ -2,28 +2,27 @@ import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
-import { getParameterModels } from '../../actions/parameterModel'
-import ParameterModelsForm from './ParameterModelsForm'
+import {
+    getParameterModels
+} from '../../actions/parameterModel'
+import StatsView from './StatsView'
 
-const ParameterModels = ({
+const Stats = ({
     getParameterModels,
-    parameterModel: { parameterModels }
+    parameterModel: {
+        parameterModels,
+        loading
+    }
 }) => {
     useEffect(() => {
         getParameterModels()
     }, [getParameterModels])
 
-    const onChange = e => { }
-
-    const onSubmit = e => { }
-
-    return <ParameterModelsForm
-        data={parameterModels}
-        onChange={onChange}
-        onSubmit={onSubmit} />
+    return !loading ?
+        <StatsView data={parameterModels} /> : <div></div>
 }
 
-ParameterModels.propTypes = {
+Stats.propTypes = {
     getParameterModels: PropTypes.func.isRequired,
     parameterModel: PropTypes.object.isRequired
 }
@@ -34,5 +33,7 @@ const mapStateToProps = (state) => ({
 
 export default connect(
     mapStateToProps,
-    { getParameterModels }
-)(ParameterModels)
+    {
+        getParameterModels
+    }
+)(Stats)

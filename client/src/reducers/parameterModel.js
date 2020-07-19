@@ -39,13 +39,18 @@ export default function (state = initialState, action) {
     case UPDATE_PARAMETER_MODEL:
       return {
         ...state,
-        parameterModels: [data, ...state.parameterModels],
+        parameterModels: state.parameterModels.map(
+          parameterModelItem =>
+            parameterModelItem._id == data._id ?
+              data :
+              parameterModelItem
+        ),
         loading: false
       }
     case DELETE_PARAMETER_MODEL:
       return {
         ...state,
-        parameterModels: state.parameterModels.filter(parameterModel = parameterModel._id !== data),
+        parameterModels: state.parameterModels.filter(parameterModel => parameterModel._id !== data),
         loading: false
       }
     case ERROR_PARAMETER_MODEL:

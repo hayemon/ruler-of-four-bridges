@@ -1,4 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, {
+    useState,
+    useEffect
+} from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -9,7 +12,7 @@ import {
     deleteCharacterProfile
 } from '../../actions/characterProfile'
 import CharacterProfileView from './CharacterProfileView'
-import CharacterProfileEditView from './CharacterProfileEditView'
+import CharacterProfileForm from './CharacterProfileForm'
 
 const CharacterProfile = ({
     addCharacterProfile,
@@ -27,7 +30,7 @@ const CharacterProfile = ({
     }, [getCharacterProfile, match.params.id])
 
     useEffect(() => {
-        setFormData({...characterProfile})
+        setFormData({ ...characterProfile })
     }, [characterProfile])
 
     const [formData, setFormData] = useState({ ...characterProfile })
@@ -52,15 +55,15 @@ const CharacterProfile = ({
 
     return loading || !!!characterProfile ?
         <div></div> :
-        (isEditMode ?
-            <CharacterProfileEditView
-                data={formData}
-                onModeChange={e => onModeChange(e)}
-                onSubmit={e => onSubmit(e)}
-                onChange={e => onChange(e)} />
-            : <CharacterProfileView
+        (!isEditMode ?
+            <CharacterProfileView
                 data={characterProfile}
-                onModeChange={e => onModeChange(e)} />)
+                onModeChange={onModeChange}
+            /> : <CharacterProfileForm
+                data={characterProfile}
+                onModeChange={onModeChange}
+                onSubmit={onSubmit}
+            />)
 }
 
 CharacterProfile.propTypes = {
