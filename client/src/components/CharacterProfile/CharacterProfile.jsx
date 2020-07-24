@@ -14,42 +14,41 @@ import {
 import CharacterProfileView from './CharacterProfileView'
 import CharacterProfileForm from './CharacterProfileForm'
 
+import {
+    getParameterModels
+} from '../../actions/parameterModel'
+
 const CharacterProfile = ({
     addCharacterProfile,
     getCharacterProfile,
     updateCharacterProfile,
     deleteCharacterProfile,
+    getParameterModels,
     characterProfile: {
         characterProfile,
         loading
+    },
+    parameterModel: {
+        parameterModels
     },
     match
 }) => {
     useEffect(() => {
         getCharacterProfile(match.params.id)
+        getParameterModels()
     }, [getCharacterProfile, match.params.id])
 
-    useEffect(() => {
-        setFormData({ ...characterProfile })
-    }, [characterProfile])
-
-    const [formData, setFormData] = useState({ ...characterProfile })
     const [isEditMode, setIsEditMode] = useState(false)
 
-    const onChange = e => {
-        setFormData({ ...formData, [e.target.name]: e.target.value })
-    }
-
-    const onSubmit = e => {
-        e.preventDefault()
-
-        match.params.id == 0 ?
+    const onSubmit = formData => {
+        console.log(formData)
+        match.params.id === 0 ?
             addCharacterProfile(formData) :
             updateCharacterProfile(formData)
     }
 
     const onModeChange = e => {
-        e.preventDefault()
+        e && e.preventDefault()
         setIsEditMode(value => !value)
     }
 
@@ -57,10 +56,11 @@ const CharacterProfile = ({
         <div></div> :
         (!isEditMode ?
             <CharacterProfileView
-                data={characterProfile}
+                characterProfile={characterProfile}
                 onModeChange={onModeChange}
             /> : <CharacterProfileForm
-                data={characterProfile}
+                characterProfile={characterProfile}
+                parameterModels={parameterModels}
                 onModeChange={onModeChange}
                 onSubmit={onSubmit}
             />)
@@ -71,11 +71,13 @@ CharacterProfile.propTypes = {
     getCharacterProfile: PropTypes.func.isRequired,
     updateCharacterProfile: PropTypes.func.isRequired,
     deleteCharacterProfile: PropTypes.func.isRequired,
+    getParameterModels: PropTypes.func.isRequired,
     characterProfile: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    characterProfile: state.characterProfile
+    characterProfile: state.characterProfile,
+    parameterModel: state.parameterModel
 })
 
 export default connect(
@@ -84,6 +86,7 @@ export default connect(
         addCharacterProfile,
         getCharacterProfile,
         updateCharacterProfile,
-        deleteCharacterProfile
+        deleteCharacterProfile,
+        getParameterModels
     }
 )(CharacterProfile)

@@ -18,8 +18,10 @@ import {
     Typography
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import EditIcon from '@material-ui/icons/Edit'
-import DoneIcon from '@material-ui/icons/Done'
+import {
+    Close as CloseIcon,
+    Done as DoneIcon
+} from '@material-ui/icons'
 
 import { SpaceBetweenGrid } from '../Layout'
 
@@ -27,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const CharacterProfileForm = ({
-    data,
+    characterProfile,
+    parameterModels,
     onModeChange,
     onSubmit
 }) => {
@@ -35,13 +38,30 @@ const CharacterProfileForm = ({
 
     useEffect(() => {
         reset({
-            details: data.details
+            details: details
         })
-    }, [data])
+    }, [characterProfile])
+
+    const { name, realName, details, description, stats, skills } = characterProfile
+
+    const mergedStats = parameterModels.map(parameterModel => {
+        const stat = stats.find(x => x.name === parameterModel.name)
+        return stat ||
+        {
+            ...parameterModel,
+            base: 0,
+            change: 1,
+            valueBasic: 0,
+            valueFinal: 0
+        }
+    })
 
     const { register, control, handleSubmit, reset } = useForm({
         defaultValues: {
-            details: data.details
+            ...characterProfile,
+            details: details,
+            stats: mergedStats
+
         }
     })
 
@@ -50,12 +70,30 @@ const CharacterProfileForm = ({
         name: 'details'
     })
 
+    const statsFieldArray = useFieldArray({
+        control,
+        name: 'stats'
+    })
+
     return (
         <Container maxWidth='md' className='root'>
             <form
                 className={classes.form}
                 noValidate
-                onSubmit={handleSubmit(formData => console.log(formData))}>
+                onSubmit={handleSubmit(formData => {
+                    onSubmit({
+                        ...characterProfile,
+                        ...formData,
+                        stats: mergedStats.map((stat, index) => {
+                            delete stat._id
+                            return {
+                                ...stat,
+                                ...formData.stats[index]
+                            }
+                        })
+                    })
+                    onModeChange()
+                })}>
 
                 <Grid container spacing={3}>
                     <Grid item xs={12}>
@@ -72,7 +110,7 @@ const CharacterProfileForm = ({
                                         label='Имя'
                                         name='name'
                                         autoComplete='off'
-                                        defaultValue={data.name}
+                                        defaultValue={name}
                                     />
                                 </Grid>
 
@@ -87,7 +125,7 @@ const CharacterProfileForm = ({
                                         label='Настоящее имя'
                                         name='realName'
                                         autoComplete='off'
-                                        defaultValue={data.realName}
+                                        defaultValue={realName}
                                     />
                                 </Grid>
                             </Grid>
@@ -96,17 +134,21 @@ const CharacterProfileForm = ({
 
                     <Grid item xs={12}>
                         <Paper className='basic-padding'>
-                            <Grid container spacing={3}>
-                                <Grid item xs={6}>
+                            <Grid container spacing={3} direction='column'>
+                                {detailsFieldArray.fields.map((detail, index) =>
                                     <Grid
-                                        container
-                                        spacing={3}
-                                        direction='column'
+                                        item
+                                        xs={12}
+                                        key={index}
                                     >
-                                        {detailsFieldArray.fields.map((detail, index) =>
+                                        <Grid
+                                            container
+                                            spacing={3}
+                                            alignItems='stretch'
+                                        >
                                             <Grid
                                                 item
-                                                key={index}
+                                                xs={6}
                                             >
                                                 <TextField
                                                     className='no-margin'
@@ -121,20 +163,9 @@ const CharacterProfileForm = ({
                                                     defaultValue={detail.key}
                                                 />
                                             </Grid>
-                                        )}
-                                    </Grid>
-                                </Grid>
-
-                                <Grid item xs={6}>
-                                    <Grid
-                                        container
-                                        spacing={3}
-                                        direction='column'
-                                    >
-                                        {detailsFieldArray.fields.map((detail, index) =>
                                             <Grid
                                                 item
-                                                key={index}
+                                                xs={6}
                                             >
                                                 <TextField
                                                     className='no-margin'
@@ -150,9 +181,9 @@ const CharacterProfileForm = ({
                                                     defaultValue={detail.value}
                                                 />
                                             </Grid>
-                                        )}
+                                        </Grid>
                                     </Grid>
-                                </Grid>
+                                )}
                             </Grid>
                         </Paper>
                     </Grid>
@@ -171,9 +202,71 @@ const CharacterProfileForm = ({
                                         name='description'
                                         autoComplete='off'
                                         multiline
-                                        defaultValue={data.description}
+                                        defaultValue={description}
                                     />
                                 </Grid>
+                            </Grid>
+                        </Paper>
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <Paper className='basic-padding'>
+                            <Grid container spacing={3} direction='column'>
+                                {statsFieldArray.fields.map((stat, index) =>
+                                    <Grid
+                                        item
+                                        xs={12}
+                                        key={index}
+                                    >
+                                        <Grid
+                                            container
+                                            spacing={3}
+                                            alignItems='center'
+                                        >
+                                            <Grid item xs={3}>
+                                                <Typography variant='button'>
+                                                    {stat.name}
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={3}>
+                                                <Typography variant='button'>
+                                                    {stat.relationType}
+                                                </Typography>
+                                            </Grid>
+
+                                            <Grid item xs={3}>
+                                                <TextField
+                                                    className='no-margin'
+                                                    inputRef={register()}
+                                                    margin='normal'
+                                                    fullWidth
+                                                    id={`stats[${index}].base`}
+                                                    label='База'
+                                                    name={`stats[${index}].base`}
+                                                    autoComplete='off'
+                                                    size='small'
+                                                    defaultValue={stat.base}
+                                                />
+                                            </Grid>
+
+                                            <Grid item xs={3}>
+                                                <TextField
+                                                    className='no-margin'
+                                                    inputRef={register()}
+                                                    margin='normal'
+                                                    fullWidth
+                                                    id={`stats[${index}].change`}
+                                                    label='Прирост'
+                                                    name={`stats[${index}].change`}
+                                                    autoComplete='off'
+                                                    size='small'
+                                                    defaultValue={stat.change}
+                                                />
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
+                                )}
                             </Grid>
                         </Paper>
                     </Grid>
@@ -199,10 +292,10 @@ const CharacterProfileForm = ({
                             pulledright='true'
                             edge='start'
                             variant='contained'
-                            color='primary'
+                            color='secondary'
                             onClick={e => onModeChange(e)}
                         >
-                            <EditIcon />
+                            <CloseIcon />
                             <Typography
                                 variant='inherit'
                                 className='button-text'>
@@ -217,7 +310,8 @@ const CharacterProfileForm = ({
 }
 
 CharacterProfileForm.propTypes = {
-    data: PropTypes.object.isRequired,
+    characterProfile: PropTypes.object.isRequired,
+    parameterModels: PropTypes.array.isRequired,
     onModeChange: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired
 }

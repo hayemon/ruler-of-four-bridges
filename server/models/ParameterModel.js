@@ -6,6 +6,11 @@ const ParameterModelSchema = new mongoose.Schema({
         required: true,
         default: 'Характеристика'
     },
+    code: {
+        type: String,
+        required: true,
+        default: 'PARAMETER'
+    },
     category: String,
     order: Number,
     relationType: {

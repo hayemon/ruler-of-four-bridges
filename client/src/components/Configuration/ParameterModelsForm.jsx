@@ -40,13 +40,7 @@ const ParameterModelsForm = ({
 }) => {
     const classes = useStyles()
 
-    useEffect(() => {
-        reset({
-            parameterModels: data
-        })
-    }, [data])
-
-    const { register, control, handleSubmit, reset } = useForm({
+    const { register, control, handleSubmit } = useForm({
         defaultValues: {
             parameterModels: data
         }
@@ -88,7 +82,7 @@ const ParameterModelsForm = ({
                         key={parameterModel._id || `newItem${index}`}>
                         <Paper className='basic-padding'>
                             <Grid container spacing={3}>
-                                <Grid item xs={12}>
+                                <Grid item xs={6}>
                                     <TextField
                                         className='no-margin'
                                         inputRef={register()}
@@ -101,6 +95,22 @@ const ParameterModelsForm = ({
                                         autoComplete='off'
                                         size='small'
                                         defaultValue={parameterModel.name}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={6}>
+                                    <TextField
+                                        className='no-margin'
+                                        inputRef={register()}
+                                        variant='outlined'
+                                        margin='normal'
+                                        fullWidth
+                                        id={`parameterModels[${index}].code`}
+                                        label='Код'
+                                        name={`parameterModels[${index}].code`}
+                                        autoComplete='off'
+                                        size='small'
+                                        defaultValue={parameterModel.code}
                                     />
                                 </Grid>
 

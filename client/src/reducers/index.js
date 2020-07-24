@@ -4,10 +4,12 @@ import alert from './alert'
 import auth from './auth'
 import characterProfile from './characterProfile'
 import parameterModel from './parameterModel'
+import dictionary from './dictionary'
 
 export default combineReducers({
     alert,
     auth,
     characterProfile,
-    parameterModel
+    parameterModel,
+    dictionary
 })

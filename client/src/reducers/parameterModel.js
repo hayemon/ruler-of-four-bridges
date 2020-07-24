@@ -3,6 +3,7 @@ import {
   GET_PARAMETER_MODELS,
   GET_PARAMETER_MODEL,
   UPDATE_PARAMETER_MODEL,
+  UPDATE_PARAMETER_MODELS,
   DELETE_PARAMETER_MODEL,
   ERROR_PARAMETER_MODEL
 } from '../actions/types'
@@ -45,6 +46,12 @@ export default function (state = initialState, action) {
               data :
               parameterModelItem
         ),
+        loading: false
+      }
+    case UPDATE_PARAMETER_MODELS:
+      return {
+        ...state,
+        parameterModels: data,
         loading: false
       }
     case DELETE_PARAMETER_MODEL:

@@ -12,7 +12,8 @@ const checkObjectId = require('../../middleware/checkObjectId')
 router.post(
   '/', [auth,
   [
-    check('name', 'name is required').not().isEmpty()
+    check('name', 'name is required').not().isEmpty(),
+    check('code', 'code is required').not().isEmpty()
   ]
 ],
   async (req, res) => {
@@ -25,6 +26,7 @@ router.post(
     try {
       const newParameterModel = new ParameterModel({
         name: req.body.name,
+        code: req.body.code,
         category: req.body.category,
         order: req.body.order,
         relationType: req.body.relationType
@@ -71,10 +73,10 @@ router.get('/:id', [auth, checkObjectId('id')], async (req, res) => {
 // @desc     Update a parameterModel
 // @access   Private
 router.put('/:id', [auth, checkObjectId('id')], async (req, res) => {
-  console.log(req.params.id)
   try {
     const updateQuery = {
       name: req.body.name,
+      code: req.body.code,
       category: req.body.category,
       order: req.body.order,
       relationType: req.body.relationType
@@ -85,8 +87,38 @@ router.put('/:id', [auth, checkObjectId('id')], async (req, res) => {
       updateQuery,
       { new: true }
     )
-    console.log(parameterModel)
     res.json(parameterModel)
+  }
+  catch (err) {
+    console.error(err.message)
+    res.status(500).send('Server Error')
+  }
+}
+)
+
+// @route    PUT api/parameterModels
+// @desc     Update parameterModels
+// @access   Private
+router.put('/', [auth], async (req, res) => {
+  try {
+    await Promise.all(req.body.map(async (parameterModel) => {
+      const updateQuery = {
+        name: parameterModel.name,
+        code: parameterModel.code,
+        category: parameterModel.category,
+        order: parameterModel.order,
+        relationType: parameterModel.relationType
+      }
+
+      const newParameterModels = await ParameterModel.findByIdAndUpdate(
+        parameterModel._id,
+        updateQuery,
+        { new: true }
+      )
+    }))
+
+    const parameterModels = await ParameterModel.find()
+    res.json(parameterModels)
   }
   catch (err) {
     console.error(err.message)

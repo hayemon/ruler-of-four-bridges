@@ -1,39 +1,17 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
-import { connect } from 'react-redux'
 
-import {
-    getParameterModels
-} from '../../actions/parameterModel'
 import StatsView from './StatsView'
 
 const Stats = ({
-    getParameterModels,
-    parameterModel: {
-        parameterModels,
-        loading
-    }
+    stats
 }) => {
-    useEffect(() => {
-        getParameterModels()
-    }, [getParameterModels])
-
-    return !loading ?
-        <StatsView data={parameterModels} /> : <div></div>
+    return stats ?
+        <StatsView stats={stats} /> : <div></div>
 }
 
 Stats.propTypes = {
-    getParameterModels: PropTypes.func.isRequired,
-    parameterModel: PropTypes.object.isRequired
+    stats: PropTypes.array.isRequired
 }
 
-const mapStateToProps = (state) => ({
-    parameterModel: state.parameterModel
-})
-
-export default connect(
-    mapStateToProps,
-    {
-        getParameterModels
-    }
-)(Stats)
+export default Stats

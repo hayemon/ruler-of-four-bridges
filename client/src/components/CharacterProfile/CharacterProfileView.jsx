@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const CharacterProfileView = ({
-    data,
+    characterProfile,
     onModeChange
 }) => {
     const classes = useStyles()
@@ -56,8 +56,8 @@ const CharacterProfileView = ({
                         <CardContent className='no-padding fill-parent'>
                             <Table>
                                 <TableBody>
-                                    {data.details.map((detail, index) =>
-                                        <TableRow className={classes.tableRow}>
+                                    {characterProfile.details.map((detail, index) =>
+                                        <TableRow key={index} className={classes.tableRow}>
                                             <TableCell className='small-padding background-grey'>
                                                 {detail.key}
                                             </TableCell>
@@ -77,7 +77,7 @@ const CharacterProfileView = ({
                         <Box className='basic-margin'>
                             <Typography
                                 variant='h5'>
-                                {data.name}
+                                {characterProfile.name}
                             </Typography>
                         </Box>
 
@@ -88,7 +88,7 @@ const CharacterProfileView = ({
                                 variant='body2'
                                 component='p'
                                 color='textSecondary'>
-                                {data.description}
+                                {characterProfile.description}
                             </Typography>
                         </Box>
 
@@ -98,7 +98,14 @@ const CharacterProfileView = ({
 
                 <Grid item xs={12}>
                     <TabsContainer>
-                        <Stats className='nullify' tablabel='Параметры' />
+                        <div tablabel='Параметры'>
+                            <Stats
+                                className='nullify'
+                                category='main'
+                                stats={characterProfile.stats}
+                            />
+                        </div>
+
                         <div tablabel='LABEL 2'>
                             label 2
                             </div>
@@ -135,7 +142,7 @@ const CharacterProfileView = ({
 }
 
 CharacterProfileView.propTypes = {
-    data: PropTypes.object.isRequired,
+    characterProfile: PropTypes.object.isRequired,
     onModeChange: PropTypes.func.isRequired
 }
 

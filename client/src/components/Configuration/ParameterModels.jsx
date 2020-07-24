@@ -5,15 +5,16 @@ import { connect } from 'react-redux'
 import {
     addParameterModel,
     getParameterModels,
-    updateParameterModel,
-    deleteParameterModel
+    updateParameterModels,
+    deleteParameterModel,
+    updateParameterModel
 } from '../../actions/parameterModel'
 import ParameterModelsForm from './ParameterModelsForm'
 
 const ParameterModels = ({
     addParameterModel,
     getParameterModels,
-    updateParameterModel,
+    updateParameterModels,
     deleteParameterModel,
     parameterModel: {
         parameterModels,
@@ -39,13 +40,15 @@ const ParameterModels = ({
             deleteParameterModel(parameterModel._id)
         )
 
-        data.parameterModels.forEach(parameterModel => {
-            if (parameterModel._id) {
-                updateParameterModel(parameterModel)
-            } else {
-                addParameterModel(parameterModel)
-            }
-        })
+        updateParameterModels(data.parameterModels)
+
+        // data.parameterModels.forEach(parameterModel => {
+        //     if (parameterModel._id) {
+        //         updateParameterModel(parameterModel)
+        //     } else {
+        //         addParameterModel(parameterModel)
+        //     }
+        // })
     }
 
     return !loading ?
@@ -58,7 +61,7 @@ const ParameterModels = ({
 ParameterModels.propTypes = {
     addParameterModel: PropTypes.func.isRequired,
     getParameterModels: PropTypes.func.isRequired,
-    updateParameterModel: PropTypes.func.isRequired,
+    updateParameterModels: PropTypes.func.isRequired,
     deleteParameterModel: PropTypes.func.isRequired,
     parameterModel: PropTypes.object.isRequired
 }
@@ -72,7 +75,7 @@ export default connect(
     {
         addParameterModel,
         getParameterModels,
-        updateParameterModel,
+        updateParameterModels,
         deleteParameterModel
     }
 )(ParameterModels)

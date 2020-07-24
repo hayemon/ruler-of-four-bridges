@@ -5,6 +5,7 @@ import {
 
 import { TabsContainer } from '../Layout'
 import ParameterModels from './ParameterModels'
+import Dictionaries from './Dictionaries'
 
 const Configuration = () => {
 
@@ -12,6 +13,7 @@ const Configuration = () => {
         <Container maxWidth='md' className='root'>
             <TabsContainer>
                 <ParameterModels tablabel='Параметры' />
+                <Dictionaries tablabel='Справочники' />
             </TabsContainer>
         </Container>
     )

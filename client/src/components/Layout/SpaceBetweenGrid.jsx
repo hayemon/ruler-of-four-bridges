@@ -10,6 +10,7 @@ const SpaceBetweenGrid = ({ children }) => {
             container
             spacing={0}
             justify='space-between'
+            alignItems='center'
         >
             <Grid item>
                 <Grid
@@ -25,9 +26,7 @@ const SpaceBetweenGrid = ({ children }) => {
                             alignItems='center'
                         >
                             {Children.map(children, child =>
-                                <Grid item>
-                                    {!!child.props.pulledleft && child}
-                                </Grid>
+                                !!child.props.pulledleft && <Grid item >{child}</Grid>
                             )}
                         </Grid>
                     </Grid>
@@ -48,15 +47,13 @@ const SpaceBetweenGrid = ({ children }) => {
                             alignItems='center'
                         >
                             {Children.map(children, child =>
-                                <Grid item>
-                                    {!!child.props.pulledright && child}
-                                </Grid>
+                                !!child.props.pulledright && <Grid item >{child}</Grid>
                             )}
                         </Grid>
                     </Grid>
                 </Grid>
             </Grid>
-        </Grid>
+        </Grid >
     )
 }
 

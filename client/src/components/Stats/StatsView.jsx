@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const StatsView = ({
-    data
+    stats
 }) => {
     const classes = useStyles()
 
@@ -100,16 +100,19 @@ const StatsView = ({
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {data.map(parameter => (
-                                <TableRow>
-                                    <TableCell align='center'>
-                                        {parameter.name}
+                            {stats.map((stat, index) => (
+                                <TableRow key={index}>
+                                    <TableCell
+                                        align='left'
+                                        className='background-grey'
+                                    >
+                                        {stat.name}
                                     </TableCell>
                                     <TableCell align='center'>
-                                        200
+                                        {stat.base}
                                     </TableCell>
                                     <TableCell align='center'>
-                                        25
+                                        {stat.change}
                                     </TableCell>
                                     <TableCell align='center'>
                                         200
