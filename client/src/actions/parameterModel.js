@@ -5,7 +5,6 @@ import {
   GET_PARAMETER_MODELS,
   GET_PARAMETER_MODEL,
   UPDATE_PARAMETER_MODEL,
-  UPDATE_PARAMETER_MODELS,
   DELETE_PARAMETER_MODEL,
   ERROR_PARAMETER_MODEL
 } from './types'
@@ -69,30 +68,6 @@ export const getParameterModel = id => async dispatch => {
         data: res.data
       })
     }
-  } catch (err) {
-    dispatch({
-      type: ERROR_PARAMETER_MODEL,
-      data: { msg: err.response.statusText, status: err.response.status }
-    })
-  }
-}
-
-// UPDATE LIST
-export const updateParameterModels = formData => async dispatch => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json'
-    }
-  }
-  try {
-    const res = await axios.put(`/api/parameterModels`, formData, config)
-
-    dispatch({
-      type: UPDATE_PARAMETER_MODELS,
-      data: res.data
-    })
-
-    dispatch(setAlert(`${formData.name} сохранено`, 'success'))
   } catch (err) {
     dispatch({
       type: ERROR_PARAMETER_MODEL,

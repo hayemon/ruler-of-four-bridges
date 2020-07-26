@@ -1,6 +1,5 @@
 import React, {
-    Fragment,
-    useEffect
+    Fragment
 } from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -34,119 +33,80 @@ import { SpaceBetweenGrid } from '../Layout'
 const useStyles = makeStyles((theme) => ({
 }))
 
-const DictionariesForm = ({
-    data,
+const DictionaryForm = ({
+    models,
     onSubmit
 }) => {
     const classes = useStyles()
 
-    useEffect(() => {
-        reset({
-            dictionaries: data
-        })
-    }, [data])
-
-    const { register, control, handleSubmit, reset } = useForm({
+    const { register, control, getValues } = useForm({
         defaultValues: {
-            dictionaries: data
+            models: models
         }
     })
 
     const { fields, append, remove } = useFieldArray({
         control,
-        name: 'dictionaries'
+        name: 'models'
     })
 
     return (
         <form
             className={classes.form}
-            noValidate
-            onSubmit={handleSubmit(formData => {
-                onSubmit({
-                    dictionaries: (formData &&
-                        formData.dictionaries &&
-                        formData.dictionaries.length > 0) ?
-
-                        formData.dictionaries.map(
-                            (dictionary, index) => {
-                                if (data[index]) return {
-                                    ...dictionary,
-                                    _id: data[index]._id
-                                }
-                                else return dictionary
-                            }
-                        ) :
-                        []
-                })
-            })}>
-
+            noValidate>
 
             <Grid container spacing={3} direction='column'>
                 {fields.map((dictionary, index) =>
                     <Grid
                         item
                         key={dictionary._id || `newItem${index}`}>
-                        <Paper className='basic-padding'>
-                            <Grid container spacing={3}>
-                                <Grid item xs={5}>
-                                    <TextField
-                                        className='no-margin'
-                                        inputRef={register()}
-                                        variant='outlined'
-                                        margin='normal'
-                                        fullWidth
-                                        id={`dictionaries[${index}].name`}
-                                        label='Название'
-                                        name={`dictionaries[${index}].name`}
-                                        autoComplete='off'
-                                        size='small'
-                                        defaultValue={dictionary.name}
-                                    />
-                                </Grid>
 
-                                <Grid item xs={5}>
-                                    <TextField
-                                        className='no-margin'
-                                        inputRef={register()}
-                                        variant='outlined'
-                                        margin='normal'
-                                        fullWidth
-                                        id={`dictionaries[${index}].code`}
-                                        label='Код'
-                                        name={`dictionaries[${index}].code`}
-                                        autoComplete='off'
-                                        size='small'
-                                        defaultValue={dictionary.code}
-                                    />
-                                </Grid>
-
-                                <Grid item xs={1}>
-                                    <IconButton
-                                        type='button'
-                                        variant='contained'
-                                        color='primary'
-                                        onClick={() => {
-
-                                        }}
-                                    >
-                                        <AddIcon />
-                                    </IconButton>
-                                </Grid>
-
-                                <Grid item xs={1}>
-                                    <IconButton
-                                        type='button'
-                                        variant='contained'
-                                        color='primary'
-                                        onClick={() => {
-                                            remove(index)
-                                        }}
-                                    >
-                                        <RemoveIcon />
-                                    </IconButton>
-                                </Grid>
+                        <Grid container spacing={3}>
+                            <Grid item xs={5}>
+                                <TextField
+                                    className='no-margin'
+                                    inputRef={register()}
+                                    variant='outlined'
+                                    margin='normal'
+                                    fullWidth
+                                    id={`models[${index}].key`}
+                                    label='Ключ'
+                                    name={`models[${index}].key`}
+                                    autoComplete='off'
+                                    size='small'
+                                    defaultValue={dictionary.key}
+                                />
                             </Grid>
-                        </Paper>
+
+                            <Grid item xs={6}>
+                                <TextField
+                                    className='no-margin'
+                                    inputRef={register()}
+                                    variant='outlined'
+                                    margin='normal'
+                                    fullWidth
+                                    id={`models[${index}].value`}
+                                    label='Значение'
+                                    name={`models[${index}].value`}
+                                    autoComplete='off'
+                                    size='small'
+                                    defaultValue={dictionary.value}
+                                />
+                            </Grid>
+
+                            <Grid item xs={1}>
+                                <IconButton
+                                    type='button'
+                                    variant='contained'
+                                    color='primary'
+                                    onClick={() => {
+                                        remove(index)
+                                    }}
+                                >
+                                    <RemoveIcon />
+                                </IconButton>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 )}
             </Grid>
@@ -160,7 +120,8 @@ const DictionariesForm = ({
                         color='primary'
                         onClick={() => {
                             append({})
-                        }}>
+                        }}
+                    >
                         <AddIcon />
                         <Typography
                             variant='inherit'
@@ -170,9 +131,11 @@ const DictionariesForm = ({
                     </Button>
                     <Button
                         pulledright='true'
-                        type='submit'
+                        type='button'
                         variant='contained'
-                        color='primary'>
+                        color='primary'
+                        onClick={() => onSubmit(getValues().models)}
+                    >
                         <DoneIcon />
                         <Typography
                             variant='inherit'
@@ -186,9 +149,9 @@ const DictionariesForm = ({
     );
 }
 
-DictionariesForm.propTypes = {
-    data: PropTypes.array.isRequired,
+DictionaryForm.propTypes = {
+    models: PropTypes.array.isRequired,
     onSubmit: PropTypes.func.isRequired
 }
 
-export default DictionariesForm
+export default DictionaryForm

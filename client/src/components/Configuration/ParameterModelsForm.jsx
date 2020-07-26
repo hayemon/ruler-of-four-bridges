@@ -1,6 +1,5 @@
 import React, {
-    Fragment,
-    useEffect
+    Fragment
 } from 'react'
 import PropTypes from 'prop-types'
 import {
@@ -35,14 +34,15 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const ParameterModelsForm = ({
-    data,
+    parameterModels,
+    parameterCategories,
     onSubmit
 }) => {
     const classes = useStyles()
 
     const { register, control, handleSubmit } = useForm({
         defaultValues: {
-            parameterModels: data
+            parameterModels: parameterModels.sort((a, b) => a.order - b.order)
         }
     })
 
@@ -63,9 +63,9 @@ const ParameterModelsForm = ({
 
                         formData.parameterModels.map(
                             (parameterModel, index) => {
-                                if (data[index]) return {
+                                if (parameterModels[index]) return {
                                     ...parameterModel,
-                                    _id: data[index]._id
+                                    _id: parameterModels[index]._id
                                 }
                                 else return parameterModel
                             }
@@ -123,11 +123,15 @@ const ParameterModelsForm = ({
                                         <Controller
                                             as={
                                                 <Select>
-                                                    <MenuItem value='main'>Основные</MenuItem>
-                                                    <MenuItem value='physicalDamage'>Физический урон</MenuItem>
-                                                    <MenuItem value='magicalDamage'>Магический урон</MenuItem>
-                                                    <MenuItem value='physicalDefence'>Физическая защита</MenuItem>
-                                                    <MenuItem value='magicalDefence'>Магическая защита</MenuItem>
+                                                    {parameterCategories &&
+                                                        parameterCategories.models.map((parameterCategory, parameterCategoryIndex) =>
+                                                            <MenuItem
+                                                                key={parameterCategoryIndex}
+                                                                value={parameterCategory.key}
+                                                            >
+                                                                {parameterCategory.value}
+                                                            </MenuItem>
+                                                        )}
                                                 </Select>
                                             }
                                             className='no-margin'
@@ -136,7 +140,7 @@ const ParameterModelsForm = ({
                                             label='Категория'
                                             name={`parameterModels[${index}].category`}
                                             control={control}
-                                            defaultValue={parameterModel.category || 'main'}
+                                            defaultValue={parameterCategories && parameterCategories.models ? 'main' : ''}
                                         />
                                     </FormControl>
                                 </Grid>
@@ -237,7 +241,7 @@ const ParameterModelsForm = ({
 }
 
 ParameterModelsForm.propTypes = {
-    data: PropTypes.array.isRequired,
+    parameterModels: PropTypes.array.isRequired,
     onSubmit: PropTypes.func.isRequired
 }
 

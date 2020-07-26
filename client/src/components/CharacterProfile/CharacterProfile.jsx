@@ -13,10 +13,12 @@ import {
 } from '../../actions/characterProfile'
 import CharacterProfileView from './CharacterProfileView'
 import CharacterProfileForm from './CharacterProfileForm'
-
 import {
     getParameterModels
 } from '../../actions/parameterModel'
+import {
+    getDictionaries
+} from '../../actions/dictionary'
 
 const CharacterProfile = ({
     addCharacterProfile,
@@ -24,6 +26,7 @@ const CharacterProfile = ({
     updateCharacterProfile,
     deleteCharacterProfile,
     getParameterModels,
+    getDictionaries,
     characterProfile: {
         characterProfile,
         loading
@@ -31,17 +34,23 @@ const CharacterProfile = ({
     parameterModel: {
         parameterModels
     },
+    parameterCategories,
     match
 }) => {
     useEffect(() => {
         getCharacterProfile(match.params.id)
         getParameterModels()
-    }, [getCharacterProfile, match.params.id])
+        getDictionaries()
+    }, [
+        getCharacterProfile,
+        getParameterModels,
+        getDictionaries,
+        match.params.id
+    ])
 
     const [isEditMode, setIsEditMode] = useState(false)
 
     const onSubmit = formData => {
-        console.log(formData)
         match.params.id === 0 ?
             addCharacterProfile(formData) :
             updateCharacterProfile(formData)
@@ -52,11 +61,14 @@ const CharacterProfile = ({
         setIsEditMode(value => !value)
     }
 
-    return loading || !!!characterProfile ?
+    return loading ||
+        !!!characterProfile ||
+        !!!parameterCategories ?
         <div></div> :
         (!isEditMode ?
             <CharacterProfileView
                 characterProfile={characterProfile}
+                parameterCategories={parameterCategories}
                 onModeChange={onModeChange}
             /> : <CharacterProfileForm
                 characterProfile={characterProfile}
@@ -72,12 +84,14 @@ CharacterProfile.propTypes = {
     updateCharacterProfile: PropTypes.func.isRequired,
     deleteCharacterProfile: PropTypes.func.isRequired,
     getParameterModels: PropTypes.func.isRequired,
+    getDictionaries: PropTypes.func.isRequired,
     characterProfile: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
     characterProfile: state.characterProfile,
-    parameterModel: state.parameterModel
+    parameterModel: state.parameterModel,
+    parameterCategories: state.dictionary.dictionaries.find(x => x.code == 'PARAMETER_CATEGORIES')
 })
 
 export default connect(
@@ -87,6 +101,7 @@ export default connect(
         getCharacterProfile,
         updateCharacterProfile,
         deleteCharacterProfile,
-        getParameterModels
+        getParameterModels,
+        getDictionaries
     }
 )(CharacterProfile)

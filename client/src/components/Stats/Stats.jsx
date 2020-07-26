@@ -4,14 +4,22 @@ import PropTypes from 'prop-types'
 import StatsView from './StatsView'
 
 const Stats = ({
-    stats
+    stats,
+    category,
+    level
 }) => {
     return stats ?
-        <StatsView stats={stats} /> : <div></div>
+        <StatsView
+            stats={stats.sort((a, b) => a.order - b.order)}
+            category={category}
+            level={level}
+        /> : <div></div>
 }
 
 Stats.propTypes = {
-    stats: PropTypes.array.isRequired
+    stats: PropTypes.array.isRequired,
+    category: PropTypes.object.isRequired,
+    level: PropTypes.number.isRequired
 }
 
 export default Stats

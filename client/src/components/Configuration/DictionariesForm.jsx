@@ -10,14 +10,12 @@ import {
 } from 'react-hook-form'
 import {
     Button,
-    Container,
-    FormControl,
+    Dialog,
+    DialogContent,
+    DialogTitle,
     Grid,
     IconButton,
-    InputLabel,
-    MenuItem,
     Paper,
-    Select,
     TextField,
     Toolbar,
     Typography
@@ -26,29 +24,37 @@ import { makeStyles } from '@material-ui/core/styles'
 import {
     Add as AddIcon,
     Done as DoneIcon,
+    Edit as EditIcon,
     Remove as RemoveIcon
 } from '@material-ui/icons'
 
 import { SpaceBetweenGrid } from '../Layout'
+import DictionaryForm from './DictionaryForm'
 
 const useStyles = makeStyles((theme) => ({
 }))
 
 const DictionariesForm = ({
-    data,
+    dictionaries,
+    dictionaryToEdit,
+    onOpenDictionaryForm,
+    onSubmitDictionaryModels,
     onSubmit
-}) => {
+}) => {    
     const classes = useStyles()
 
     useEffect(() => {
         reset({
-            dictionaries: data
+            dictionaries: dictionaries.map(dictionary => ({
+                name: dictionary.name,
+                code: dictionary.code
+            }))
         })
-    }, [data])
+    }, [dictionaries])
 
     const { register, control, handleSubmit, reset } = useForm({
         defaultValues: {
-            dictionaries: data
+            dictionaries: dictionaries
         }
     })
 
@@ -69,9 +75,9 @@ const DictionariesForm = ({
 
                         formData.dictionaries.map(
                             (dictionary, index) => {
-                                if (data[index]) return {
+                                if (dictionaries[index]) return {
                                     ...dictionary,
-                                    _id: data[index]._id
+                                    _id: dictionaries[index]._id
                                 }
                                 else return dictionary
                             }
@@ -126,10 +132,10 @@ const DictionariesForm = ({
                                         variant='contained'
                                         color='primary'
                                         onClick={() => {
-
+                                            onOpenDictionaryForm(dictionaries[index] || null)
                                         }}
                                     >
-                                        <AddIcon />
+                                        <EditIcon />
                                     </IconButton>
                                 </Grid>
 
@@ -150,6 +156,23 @@ const DictionariesForm = ({
                     </Grid>
                 )}
             </Grid>
+
+            <Dialog
+                open={!!dictionaryToEdit}
+                fullWidth={true}
+                maxWidth={'md'}
+            >
+                <DialogTitle>Set backup account</DialogTitle>
+
+                {!!dictionaryToEdit &&
+                    <DialogContent>
+                        <DictionaryForm
+                            models={dictionaryToEdit.models || []}
+                            onSubmit={onSubmitDictionaryModels}
+                        />
+                    </DialogContent>
+                }
+            </Dialog>
 
             <Toolbar disableGutters className={classes.toolbar}>
                 <SpaceBetweenGrid>
@@ -187,7 +210,7 @@ const DictionariesForm = ({
 }
 
 DictionariesForm.propTypes = {
-    data: PropTypes.array.isRequired,
+    dictionaries: PropTypes.array.isRequired,
     onSubmit: PropTypes.func.isRequired
 }
 

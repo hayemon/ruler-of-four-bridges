@@ -5,32 +5,37 @@ import { connect } from 'react-redux'
 import {
     addParameterModel,
     getParameterModels,
-    updateParameterModels,
-    deleteParameterModel,
-    updateParameterModel
+    updateParameterModel,
+    deleteParameterModel
 } from '../../actions/parameterModel'
+import {
+    getDictionaries
+} from '../../actions/dictionary'
 import ParameterModelsForm from './ParameterModelsForm'
 
 const ParameterModels = ({
     addParameterModel,
     getParameterModels,
-    updateParameterModels,
+    updateParameterModel,
     deleteParameterModel,
+    getDictionaries,
     parameterModel: {
         parameterModels,
         loading
-    }
+    },
+    parameterCategories
 }) => {
     useEffect(() => {
         getParameterModels()
-    }, [getParameterModels])
+        getDictionaries()
+    }, [getParameterModels, getDictionaries])
 
-    const onSubmit = data => {
+    const onSubmit = formData => {
         const parameterModelsToDelete = parameterModels.filter(parameterModel => {
-            if (!data ||
-                !data.parameterModels ||
-                data.parameterModels.length == 0 ||
-                !data.parameterModels.find(x => x._id == parameterModel._id))
+            if (!formData ||
+                !formData.parameterModels ||
+                formData.parameterModels.length == 0 ||
+                !formData.parameterModels.find(x => x._id == parameterModel._id))
                 return parameterModel
             else
                 return
@@ -40,20 +45,19 @@ const ParameterModels = ({
             deleteParameterModel(parameterModel._id)
         )
 
-        updateParameterModels(data.parameterModels)
-
-        // data.parameterModels.forEach(parameterModel => {
-        //     if (parameterModel._id) {
-        //         updateParameterModel(parameterModel)
-        //     } else {
-        //         addParameterModel(parameterModel)
-        //     }
-        // })
+        formData.parameterModels.forEach(parameterModel => {
+            if (parameterModel._id) {
+                updateParameterModel(parameterModel)
+            } else {
+                addParameterModel(parameterModel)
+            }
+        })
     }
 
-    return !loading ?
+    return !loading && parameterModels && parameterCategories ?
         <ParameterModelsForm
-            data={parameterModels}
+            parameterModels={parameterModels}
+            parameterCategories={parameterCategories}
             onSubmit={onSubmit}
         /> : <div></div>
 }
@@ -61,13 +65,15 @@ const ParameterModels = ({
 ParameterModels.propTypes = {
     addParameterModel: PropTypes.func.isRequired,
     getParameterModels: PropTypes.func.isRequired,
-    updateParameterModels: PropTypes.func.isRequired,
+    updateParameterModel: PropTypes.func.isRequired,
     deleteParameterModel: PropTypes.func.isRequired,
+    getDictionaries: PropTypes.func.isRequired,
     parameterModel: PropTypes.object.isRequired
 }
 
 const mapStateToProps = (state) => ({
-    parameterModel: state.parameterModel
+    parameterModel: state.parameterModel,
+    parameterCategories: state.dictionary.dictionaries.find(x => x.code == 'PARAMETER_CATEGORIES')
 })
 
 export default connect(
@@ -75,7 +81,8 @@ export default connect(
     {
         addParameterModel,
         getParameterModels,
-        updateParameterModels,
-        deleteParameterModel
+        updateParameterModel,
+        deleteParameterModel,
+        getDictionaries
     }
 )(ParameterModels)

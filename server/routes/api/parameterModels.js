@@ -96,37 +96,6 @@ router.put('/:id', [auth, checkObjectId('id')], async (req, res) => {
 }
 )
 
-// @route    PUT api/parameterModels
-// @desc     Update parameterModels
-// @access   Private
-router.put('/', [auth], async (req, res) => {
-  try {
-    await Promise.all(req.body.map(async (parameterModel) => {
-      const updateQuery = {
-        name: parameterModel.name,
-        code: parameterModel.code,
-        category: parameterModel.category,
-        order: parameterModel.order,
-        relationType: parameterModel.relationType
-      }
-
-      const newParameterModels = await ParameterModel.findByIdAndUpdate(
-        parameterModel._id,
-        updateQuery,
-        { new: true }
-      )
-    }))
-
-    const parameterModels = await ParameterModel.find()
-    res.json(parameterModels)
-  }
-  catch (err) {
-    console.error(err.message)
-    res.status(500).send('Server Error')
-  }
-}
-)
-
 // @route    DELETE api/parameterModels/:id
 // @desc     Delete a parameterModel
 // @access   Private

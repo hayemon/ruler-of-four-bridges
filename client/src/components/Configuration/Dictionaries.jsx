@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 
@@ -23,6 +23,20 @@ const Dictionaries = ({
     useEffect(() => {
         getDictionaries()
     }, [getDictionaries])
+
+    const [dictionaryToEdit, setDictionaryToEdit] = useState(null)
+
+    const onOpenDictionaryForm = dictionaryToEdit => {
+        setDictionaryToEdit(dictionaryToEdit)
+    }
+
+    const onSubmitDictionaryModels = models => {
+        updateDictionary({
+            ...dictionaryToEdit,
+            models: models
+        })        
+        setDictionaryToEdit(null)
+    }
 
     const onSubmit = data => {
         const dictionariesToDelete = dictionaries.filter(dictionary => {
@@ -50,7 +64,10 @@ const Dictionaries = ({
 
     return !loading ?
         <DictionariesForm
-            data={dictionaries}
+            dictionaries={dictionaries}
+            dictionaryToEdit={dictionaryToEdit}
+            onOpenDictionaryForm={onOpenDictionaryForm}
+            onSubmitDictionaryModels={onSubmitDictionaryModels}
             onSubmit={onSubmit}
         /> : <div></div>
 }

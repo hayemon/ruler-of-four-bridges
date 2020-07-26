@@ -27,7 +27,9 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const StatsView = ({
-    stats
+    stats,
+    category,
+    level
 }) => {
     const classes = useStyles()
 
@@ -36,10 +38,10 @@ const StatsView = ({
             <Grid item xs={12}>
                 <Grid container alignItems='center' justify='center'>
                     <Avatar className={classes.avatar}>
-                        M
+                        /
                     </Avatar>
                     <Typography variant='h5'>
-                        Основные
+                        {category && category.value}
                     </Typography>
                 </Grid>
             </Grid>
@@ -115,7 +117,7 @@ const StatsView = ({
                                         {stat.change}
                                     </TableCell>
                                     <TableCell align='center'>
-                                        200
+                                        {Math.round(((parseFloat(stat.base) + parseFloat(stat.change) * (level - 1)) + Number.EPSILON) * 100) / 100}
                                     </TableCell>
                                     <TableCell align='center'>
                                         242
@@ -128,6 +130,12 @@ const StatsView = ({
             </Grid>
         </Grid>
     );
+}
+
+StatsView.propTypes = {
+    stats: PropTypes.array.isRequired,
+    category: PropTypes.object.isRequired,
+    level: PropTypes.number.isRequired
 }
 
 export default StatsView
