@@ -8,6 +8,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import globalStyles from './GlobalStyles'
 
 import PrivateRoute from './PrivateRoute'
+import PublicRoute from './PublicRoute'
 import Auth from '../Auth'
 import NavBar from '../NavBar'
 import Alerts from '../Alert'
@@ -38,8 +39,8 @@ const Routes = () => {
                 <Route exact path='/signup' component={
                     () => <Auth isSignUp signInLink='/signin' />
                 } />
-                <PrivateRoute exact path='/characterProfiles' component={CharacterProfiles} />
-                <PrivateRoute exact path='/characterProfiles/:id' component={CharacterProfile} />
+                <PublicRoute exact path='/characterProfiles' component={CharacterProfiles} />
+                <PublicRoute exact path='/characterProfiles/:id' component={CharacterProfile} />
                 <PrivateRoute exact path='/configuration' component={Configuration} />
             </Switch>
         </div>

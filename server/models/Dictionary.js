@@ -6,6 +6,11 @@ const DictionarySchema = new mongoose.Schema({
         required: true,
         default: 'Справочник'
     },
+    nameSingle: {
+        type: String,
+        required: true,
+        default: 'Наименование'
+    },
     code: {
         type: String,
         required: true,

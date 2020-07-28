@@ -58,13 +58,13 @@ const NavBar = ({ isAuthenticated, signout }) => {
                             Персонажи
                         </Button>
 
-                        <Button
+                        {isAuthenticated && <Button
                             pulledright='true'
                             color='inherit'
                             href='/configuration/'
                         >
                             Конфигурация
-                        </Button>
+                        </Button>}
 
                         {isAuthenticated ?
                             <Button

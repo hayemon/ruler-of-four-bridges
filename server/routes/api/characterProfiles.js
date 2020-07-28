@@ -45,7 +45,7 @@ router.post(
 // @route    GET api/characterProfiles
 // @desc     Get all characterProfiles
 // @access   Private
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const characterProfiles = await CharacterProfile.find()
     res.json(characterProfiles)
@@ -59,7 +59,7 @@ router.get('/', auth, async (req, res) => {
 // @route    GET api/characterProfiles/:id
 // @desc     Get characterProfile by ID
 // @access   Private
-router.get('/:id', [auth, checkObjectId('id')], async (req, res) => {
+router.get('/:id', [checkObjectId('id')], async (req, res) => {
   try {
     const characterProfile = await CharacterProfile.findById(req.params.id)
     res.json(characterProfile)

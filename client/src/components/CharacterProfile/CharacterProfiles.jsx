@@ -13,7 +13,7 @@ const CharacterProfiles = ({
         getCharacterProfiles()
     }, [getCharacterProfiles])
 
-    return <CharacterProfilesView data={characterProfiles} />
+    return <CharacterProfilesView characterProfiles={characterProfiles} />
 }
 
 CharacterProfiles.propTypes = {

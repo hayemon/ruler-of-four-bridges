@@ -26,7 +26,6 @@ import {
     TableRow,
     TableCell,
 
-    Toolbar,
     Typography
 } from '@material-ui/core'
 import EditIcon from '@material-ui/icons/Edit'
@@ -52,11 +51,14 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 const CharacterProfileView = ({
+    isAuthenticated,
     characterProfile,
-    parameterCategories,
+    dictionaries,
     onModeChange
 }) => {
     const classes = useStyles()
+
+    const parameterCategories = dictionaries.find(x => x.code == 'PARAMETER_CATEGORIES')
 
     const [isTopPartVisible, setIsTopPartVisible] = useState(true)
 
@@ -86,118 +88,127 @@ const CharacterProfileView = ({
 
     return (
         <Container maxWidth='md' className='root'>
-            <Grid container spacing={3} alignItems='stretch'>
-                <Grid item xs={12}>
-                    <VisibilitySensor
-                        partialVisibility
-                        onChange={isVisible => setIsTopPartVisible(isVisible)}
-                    >
-                        <Grid container spacing={3}>
-                            <Grid item xs={4} container>
-                                <Card>
-                                    <CardMedia
-                                        component='img'
-                                        alt='Contemplative Reptile'
-                                        height='140'
-                                        image='https://author.today/content/2020/05/23/420985604e9e4f6e8b628e107f0b7800.jpg?width=265&height=400&mode=max'
-                                        title='Contemplative Reptile'
-                                    />
-
-                                    <CardContent className='no-padding fill-parent'>
-                                        <Table>
-                                            <TableBody>
-                                                {characterProfile.details.map((detail, index) =>
-                                                    <TableRow key={index} className={classes.tableRow}>
-                                                        <TableCell className='small-padding background-grey'>
-                                                            {detail.key}
-                                                        </TableCell>
-                                                        <TableCell className='small-padding'>
-                                                            {detail.value}
-                                                        </TableCell>
-                                                    </TableRow>
-                                                )}
-                                            </TableBody>
-                                        </Table>
-                                    </CardContent>
-                                </Card>
-                            </Grid>
-
-                            <Grid item xs={8} container>
-                                <Paper>
-                                    <Box className='basic-margin'>
-                                        <Typography
-                                            variant='h5'>
-                                            {characterProfile.name}
-                                        </Typography>
-                                    </Box>
-
-                                    <Divider variant='middle' />
-
-                                    <Box className='basic-margin'>
-                                        <Typography
-                                            variant='body2'
-                                            component='p'
-                                            color='textSecondary'>
-                                            {characterProfile.description}
-                                        </Typography>
-                                    </Box>
-
-                                    <Divider variant='fullWidth' />
-                                </Paper>
-                            </Grid>
-                        </Grid>
-                    </VisibilitySensor>
-                </Grid>
-
-                <Grid item xs={12}>
-                    <TabsContainer>
-                        <div tablabel='Параметры'>
-                            <animated.div
-                                style={spring}
-                                className={classes.sliderBlock}
-                            >
-                                <Paper className='fill-parent'>
-                                    <Box className='basic-padding'>
-                                        Ур. {level}
-                                    </Box>
-                                    <Box className={classes.slider}>
-                                        <Slider
-                                            orientation='vertical'
-                                            defaultValue={1}
-                                            step={1}
-                                            marks={marks}
-                                            min={marks[0].value}
-                                            max={marks[marks.length - 1].value}
-                                            valueLabelDisplay='auto'
-                                            onChange={(e, v) => setLevel(v)}
+            <Grid container spacing={3} direction='column'>
+                {characterProfile._id &&
+                    <Grid item>
+                        <VisibilitySensor
+                            partialVisibility
+                            onChange={isVisible => setIsTopPartVisible(isVisible)}
+                        >
+                            <Grid container spacing={3}>
+                                <Grid item xs={4} container>
+                                    <Card className='fill-parent'>
+                                        <CardMedia
+                                            component='img'
+                                            alt='Contemplative Reptile'
+                                            height='140'
+                                            image='https://author.today/content/2020/05/23/420985604e9e4f6e8b628e107f0b7800.jpg?width=265&height=400&mode=max'
+                                            title='Contemplative Reptile'
                                         />
-                                    </Box>
-                                </Paper>
-                            </animated.div>
 
-                            {parameterCategories &&
-                                parameterCategories.models.map((parameterCategory, parameterCategoryIndex) =>
-                                    <Stats
-                                        key={parameterCategoryIndex}
-                                        className='nullify'
-                                        category={parameterCategory}
-                                        stats={characterProfile.stats.filter(x => x.category == parameterCategory.key)}
-                                        level={level}
-                                    />
-                                )}
-                        </div>
+                                        <CardContent className='no-padding fill-parent'>
+                                            <Table>
+                                                <TableBody>
+                                                    {
+                                                        characterProfile.details
+                                                            .map((detail, index) =>
+                                                                <TableRow key={index} className={classes.tableRow}>
+                                                                    <TableCell className='small-padding background-grey'>
+                                                                        {detail.name}
+                                                                    </TableCell>
+                                                                    <TableCell className='small-padding'>
+                                                                        {detail.value}
+                                                                    </TableCell>
+                                                                </TableRow>
+                                                            )
+                                                    }
+                                                </TableBody>
+                                            </Table>
+                                        </CardContent>
+                                    </Card>
+                                </Grid>
 
-                        <div tablabel='LABEL 2'>
-                            label 2
+                                <Grid item xs={8} container>
+                                    <Paper className='fill-parent'>
+                                        <Box className='basic-margin'>
+                                            <Typography
+                                                variant='h5'>
+                                                {characterProfile.name}
+                                            </Typography>
+                                        </Box>
+
+                                        <Divider variant='middle' />
+
+                                        <Box className='basic-margin'>
+                                            <Typography
+                                                variant='body2'
+                                                component='p'
+                                                color='textSecondary'>
+                                                {characterProfile.description}
+                                            </Typography>
+                                        </Box>
+
+                                        <Divider variant='fullWidth' />
+                                    </Paper>
+                                </Grid>
+                            </Grid>
+                        </VisibilitySensor>
+                    </Grid>
+                }
+
+                {characterProfile._id &&
+                    <Grid item>
+                        <TabsContainer>
+                            <div tablabel='Параметры'>
+                                <animated.div
+                                    style={spring}
+                                    className={classes.sliderBlock}
+                                >
+                                    <Paper className='fill-parent'>
+                                        <Box className='basic-padding'>
+                                            Ур. {level}
+                                        </Box>
+                                        <Box className={classes.slider}>
+                                            <Slider
+                                                orientation='vertical'
+                                                defaultValue={1}
+                                                step={1}
+                                                marks={marks}
+                                                min={marks[0].value}
+                                                max={marks[marks.length - 1].value}
+                                                valueLabelDisplay='auto'
+                                                onChange={(e, v) => setLevel(v)}
+                                            />
+                                        </Box>
+                                    </Paper>
+                                </animated.div>
+
+                                {parameterCategories &&
+                                    parameterCategories.models
+                                        .map((parameterCategory, parameterCategoryIndex) =>
+                                            <Stats
+                                                key={parameterCategoryIndex}
+                                                className='nullify'
+                                                category={parameterCategory}
+                                                stats={characterProfile.stats.filter(x => x.category == parameterCategory.key)}
+                                                level={level}
+                                            />
+                                        )
+                                }
                             </div>
-                        <div tablabel='LABEL 3'>
-                            label 3
-                            </div>
-                    </TabsContainer>
-                </Grid>
 
-                <Grid item xs={12}>
-                    <Toolbar disableGutters>
+                            <div tablabel='LABEL 2'>
+                                label 2
+                            </div>
+                            <div tablabel='LABEL 3'>
+                                label 3
+                            </div>
+                        </TabsContainer>
+                    </Grid>
+                }
+
+                {isAuthenticated &&
+                    <Grid item>
                         <SpaceBetweenGrid>
                             <Button
                                 pulledright='true'
@@ -215,16 +226,17 @@ const CharacterProfileView = ({
                                 </Typography>
                             </Button>
                         </SpaceBetweenGrid>
-                    </Toolbar>
-                </Grid>
+                    </Grid>
+                }
             </Grid>
         </Container>
     );
 }
 
 CharacterProfileView.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
     characterProfile: PropTypes.object.isRequired,
-    parameterCategories: PropTypes.object.isRequired,
+    dictionaries: PropTypes.array.isRequired,
     onModeChange: PropTypes.func.isRequired
 }
 

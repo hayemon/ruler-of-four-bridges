@@ -26,6 +26,7 @@ router.post(
     try {
       const newDictionary = new Dictionary({
         name: req.body.name,
+        nameSingle: req.body.nameSingle,
         code: req.body.code,
         models: req.body.models
       })
@@ -42,7 +43,7 @@ router.post(
 // @route    GET api/dictionaries
 // @desc     Get all dictionaries
 // @access   Private
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const dictionaries = await Dictionary.find()
     res.json(dictionaries)
@@ -56,7 +57,7 @@ router.get('/', auth, async (req, res) => {
 // @route    GET api/dictionaries/:id
 // @desc     Get dictionary by ID
 // @access   Private
-router.get('/:id', [auth, checkObjectId('id')], async (req, res) => {
+router.get('/:id', [checkObjectId('id')], async (req, res) => {
   try {
     const dictionary = await Dictionary.findById(req.params.id)
     res.json(dictionary)
@@ -75,6 +76,7 @@ router.put('/:id', [auth, checkObjectId('id')], async (req, res) => {
   try {
     const updateQuery = {
       name: req.body.name,
+      nameSingle: req.body.nameSingle,
       code: req.body.code,
       models: req.body.models
     }

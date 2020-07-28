@@ -18,7 +18,6 @@ import {
     Paper,
     Select,
     TextField,
-    Toolbar,
     Typography
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -29,6 +28,7 @@ import {
 } from '@material-ui/icons'
 
 import { SpaceBetweenGrid } from '../Layout'
+import { AddSubmitToolbar } from '../Controls'
 
 const useStyles = makeStyles((theme) => ({
 }))
@@ -51,6 +51,8 @@ const ParameterModelsForm = ({
         name: 'parameterModels'
     })
 
+    const onFieldAppend = () => append({})
+
     return (
         <form
             className={classes.form}
@@ -61,16 +63,16 @@ const ParameterModelsForm = ({
                         formData.parameterModels &&
                         formData.parameterModels.length > 0) ?
 
-                        formData.parameterModels.map(
-                            (parameterModel, index) => {
-                                if (parameterModels[index]) return {
-                                    ...parameterModel,
-                                    _id: parameterModels[index]._id
+                        formData.parameterModels
+                            .map(
+                                (parameterModel, index) => {
+                                    if (parameterModels[index]) return {
+                                        ...parameterModel,
+                                        _id: parameterModels[index]._id
+                                    }
+                                    else return parameterModel
                                 }
-                                else return parameterModel
-                            }
-                        ) :
-                        []
+                            ) : []
                 })
             })}>
 
@@ -124,14 +126,17 @@ const ParameterModelsForm = ({
                                             as={
                                                 <Select>
                                                     {parameterCategories &&
-                                                        parameterCategories.models.map((parameterCategory, parameterCategoryIndex) =>
-                                                            <MenuItem
-                                                                key={parameterCategoryIndex}
-                                                                value={parameterCategory.key}
-                                                            >
-                                                                {parameterCategory.value}
-                                                            </MenuItem>
-                                                        )}
+                                                        parameterCategories.models &&
+                                                        parameterCategories.models
+                                                            .map((parameterCategory, parameterCategoryIndex) =>
+                                                                <MenuItem
+                                                                    key={parameterCategoryIndex}
+                                                                    value={parameterCategory.key}
+                                                                >
+                                                                    {parameterCategory.value}
+                                                                </MenuItem>
+                                                            )
+                                                    }
                                                 </Select>
                                             }
                                             className='no-margin'
@@ -203,39 +208,13 @@ const ParameterModelsForm = ({
                         </Paper>
                     </Grid>
                 )}
+                <Grid item>
+                    <AddSubmitToolbar
+                        onSubmit={() => { }}
+                        onAdd={onFieldAppend}
+                    />
+                </Grid>
             </Grid>
-
-            <Toolbar disableGutters className={classes.toolbar}>
-                <SpaceBetweenGrid>
-                    <Button
-                        pulledright='true'
-                        type='button'
-                        variant='contained'
-                        color='primary'
-                        onClick={() => {
-                            append({})
-                        }}>
-                        <AddIcon />
-                        <Typography
-                            variant='inherit'
-                            className='button-text'>
-                            Добавить
-                        </Typography>
-                    </Button>
-                    <Button
-                        pulledright='true'
-                        type='submit'
-                        variant='contained'
-                        color='primary'>
-                        <DoneIcon />
-                        <Typography
-                            variant='inherit'
-                            className='button-text'>
-                            Сохранить
-                        </Typography>
-                    </Button>
-                </SpaceBetweenGrid>
-            </Toolbar>
         </form>
     );
 }

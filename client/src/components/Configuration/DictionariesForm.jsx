@@ -1,7 +1,4 @@
-import React, {
-    Fragment,
-    useEffect
-} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {
     useForm,
@@ -17,7 +14,6 @@ import {
     IconButton,
     Paper,
     TextField,
-    Toolbar,
     Typography
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -29,6 +25,7 @@ import {
 } from '@material-ui/icons'
 
 import { SpaceBetweenGrid } from '../Layout'
+import { AddSubmitToolbar } from '../Controls'
 import DictionaryForm from './DictionaryForm'
 
 const useStyles = makeStyles((theme) => ({
@@ -40,17 +37,8 @@ const DictionariesForm = ({
     onOpenDictionaryForm,
     onSubmitDictionaryModels,
     onSubmit
-}) => {    
+}) => {
     const classes = useStyles()
-
-    useEffect(() => {
-        reset({
-            dictionaries: dictionaries.map(dictionary => ({
-                name: dictionary.name,
-                code: dictionary.code
-            }))
-        })
-    }, [dictionaries])
 
     const { register, control, handleSubmit, reset } = useForm({
         defaultValues: {
@@ -63,6 +51,8 @@ const DictionariesForm = ({
         name: 'dictionaries'
     })
 
+    const onFieldAppend = () => append({})
+
     return (
         <form
             className={classes.form}
@@ -73,16 +63,17 @@ const DictionariesForm = ({
                         formData.dictionaries &&
                         formData.dictionaries.length > 0) ?
 
-                        formData.dictionaries.map(
-                            (dictionary, index) => {
-                                if (dictionaries[index]) return {
-                                    ...dictionary,
-                                    _id: dictionaries[index]._id
+                        formData.dictionaries
+                            .map(
+                                (dictionary, index) => {
+                                    if (dictionaries[index]) return {
+                                        ...dictionary,
+                                        _id: dictionaries[index]._id,
+                                        models: dictionaries[index].models
+                                    }
+                                    else return dictionary
                                 }
-                                else return dictionary
-                            }
-                        ) :
-                        []
+                            ) : []
                 })
             })}>
 
@@ -94,7 +85,7 @@ const DictionariesForm = ({
                         key={dictionary._id || `newItem${index}`}>
                         <Paper className='basic-padding'>
                             <Grid container spacing={3}>
-                                <Grid item xs={5}>
+                                <Grid item xs={3}>
                                     <TextField
                                         className='no-margin'
                                         inputRef={register()}
@@ -102,7 +93,7 @@ const DictionariesForm = ({
                                         margin='normal'
                                         fullWidth
                                         id={`dictionaries[${index}].name`}
-                                        label='Название'
+                                        label='Название справочника'
                                         name={`dictionaries[${index}].name`}
                                         autoComplete='off'
                                         size='small'
@@ -110,7 +101,23 @@ const DictionariesForm = ({
                                     />
                                 </Grid>
 
-                                <Grid item xs={5}>
+                                <Grid item xs={3}>
+                                    <TextField
+                                        className='no-margin'
+                                        inputRef={register()}
+                                        variant='outlined'
+                                        margin='normal'
+                                        fullWidth
+                                        id={`dictionaries[${index}].nameSingle`}
+                                        label='Название поля'
+                                        name={`dictionaries[${index}].nameSingle`}
+                                        autoComplete='off'
+                                        size='small'
+                                        defaultValue={dictionary.nameSingle}
+                                    />
+                                </Grid>
+
+                                <Grid item xs={4}>
                                     <TextField
                                         className='no-margin'
                                         inputRef={register()}
@@ -155,57 +162,30 @@ const DictionariesForm = ({
                         </Paper>
                     </Grid>
                 )}
+                <Grid item>
+                    <AddSubmitToolbar
+                        onSubmit={() => { }}
+                        onAdd={onFieldAppend}
+                    />
+                </Grid>
             </Grid>
 
-            <Dialog
-                open={!!dictionaryToEdit}
-                fullWidth={true}
-                maxWidth={'md'}
-            >
-                <DialogTitle>Set backup account</DialogTitle>
-
-                {!!dictionaryToEdit &&
+            {!!dictionaryToEdit &&
+                <Dialog
+                    open={!!dictionaryToEdit}
+                    fullWidth={true}
+                    maxWidth={'md'}
+                >
+                    <DialogTitle>{dictionaryToEdit.name}</DialogTitle>
                     <DialogContent>
                         <DictionaryForm
                             models={dictionaryToEdit.models || []}
                             onSubmit={onSubmitDictionaryModels}
                         />
                     </DialogContent>
-                }
-            </Dialog>
-
-            <Toolbar disableGutters className={classes.toolbar}>
-                <SpaceBetweenGrid>
-                    <Button
-                        pulledright='true'
-                        type='button'
-                        variant='contained'
-                        color='primary'
-                        onClick={() => {
-                            append({})
-                        }}>
-                        <AddIcon />
-                        <Typography
-                            variant='inherit'
-                            className='button-text'>
-                            Добавить
-                        </Typography>
-                    </Button>
-                    <Button
-                        pulledright='true'
-                        type='submit'
-                        variant='contained'
-                        color='primary'>
-                        <DoneIcon />
-                        <Typography
-                            variant='inherit'
-                            className='button-text'>
-                            Сохранить
-                        </Typography>
-                    </Button>
-                </SpaceBetweenGrid>
-            </Toolbar>
-        </form>
+                </Dialog>
+            }
+        </form >
     );
 }
 

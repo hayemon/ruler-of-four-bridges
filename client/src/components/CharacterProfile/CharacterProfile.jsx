@@ -21,6 +21,7 @@ import {
 } from '../../actions/dictionary'
 
 const CharacterProfile = ({
+    isAuthenticated,
     addCharacterProfile,
     getCharacterProfile,
     updateCharacterProfile,
@@ -34,7 +35,7 @@ const CharacterProfile = ({
     parameterModel: {
         parameterModels
     },
-    parameterCategories,
+    dictionaries,
     match
 }) => {
     useEffect(() => {
@@ -51,7 +52,7 @@ const CharacterProfile = ({
     const [isEditMode, setIsEditMode] = useState(false)
 
     const onSubmit = formData => {
-        match.params.id === 0 ?
+        match.params.id == 0 ?
             addCharacterProfile(formData) :
             updateCharacterProfile(formData)
     }
@@ -63,22 +64,25 @@ const CharacterProfile = ({
 
     return loading ||
         !!!characterProfile ||
-        !!!parameterCategories ?
+        !!!dictionaries ?
         <div></div> :
         (!isEditMode ?
             <CharacterProfileView
+                isAuthenticated={isAuthenticated}
                 characterProfile={characterProfile}
-                parameterCategories={parameterCategories}
+                dictionaries={dictionaries}
                 onModeChange={onModeChange}
             /> : <CharacterProfileForm
                 characterProfile={characterProfile}
-                parameterModels={parameterModels}
+                parameterModels={parameterModels}                
+                dictionaries={dictionaries}
                 onModeChange={onModeChange}
                 onSubmit={onSubmit}
             />)
 }
 
 CharacterProfile.propTypes = {
+    isAuthenticated: PropTypes.bool.isRequired,
     addCharacterProfile: PropTypes.func.isRequired,
     getCharacterProfile: PropTypes.func.isRequired,
     updateCharacterProfile: PropTypes.func.isRequired,
@@ -89,9 +93,10 @@ CharacterProfile.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
     characterProfile: state.characterProfile,
     parameterModel: state.parameterModel,
-    parameterCategories: state.dictionary.dictionaries.find(x => x.code == 'PARAMETER_CATEGORIES')
+    dictionaries: state.dictionary.dictionaries
 })
 
 export default connect(

@@ -89,41 +89,31 @@ const StatsView = ({
                                         Чистое значение
                                     </Typography>
                                 </TableCell>
-
-                                <TableCell
-                                    align='center'
-                                    variant='head'
-                                    className={classes.tableCellHeader}
-                                >
-                                    <Typography variant='button'>
-                                        Значение с бонусами экипировки
-                                    </Typography>
-                                </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
-                            {stats.map((stat, index) => (
-                                <TableRow key={index}>
-                                    <TableCell
-                                        align='left'
-                                        className='background-grey'
-                                    >
-                                        {stat.name}
-                                    </TableCell>
-                                    <TableCell align='center'>
-                                        {stat.base}
-                                    </TableCell>
-                                    <TableCell align='center'>
-                                        {stat.change}
-                                    </TableCell>
-                                    <TableCell align='center'>
-                                        {Math.round(((parseFloat(stat.base) + parseFloat(stat.change) * (level - 1)) + Number.EPSILON) * 100) / 100}
-                                    </TableCell>
-                                    <TableCell align='center'>
-                                        242
-                                    </TableCell>
-                                </TableRow>
-                            ))}
+                            {
+                                stats
+                                    .map((stat, index) => (
+                                        <TableRow key={index}>
+                                            <TableCell
+                                                align='left'
+                                                className='background-grey'
+                                            >
+                                                {stat.name}
+                                            </TableCell>
+                                            <TableCell align='center'>
+                                                {stat.base}
+                                            </TableCell>
+                                            <TableCell align='center'>
+                                                {stat.change}
+                                            </TableCell>
+                                            <TableCell align='center'>
+                                                {Math.round(((parseFloat(stat.base) + parseFloat(stat.change) * (level - 1)) + Number.EPSILON) * 100) / 100}
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                            }
                         </TableBody>
                     </Table>
                 </TableContainer>

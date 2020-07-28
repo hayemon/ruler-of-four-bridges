@@ -44,7 +44,7 @@ router.post(
 // @route    GET api/parameterModels
 // @desc     Get all parameterModels
 // @access   Private
-router.get('/', auth, async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     const parameterModels = await ParameterModel.find()
     res.json(parameterModels)
@@ -58,7 +58,7 @@ router.get('/', auth, async (req, res) => {
 // @route    GET api/parameterModels/:id
 // @desc     Get parameterModel by ID
 // @access   Private
-router.get('/:id', [auth, checkObjectId('id')], async (req, res) => {
+router.get('/:id', [checkObjectId('id')], async (req, res) => {
   try {
     const parameterModel = await ParameterModel.findById(req.params.id)
     res.json(parameterModel)

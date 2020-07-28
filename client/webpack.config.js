@@ -11,6 +11,7 @@ module.exports = {
         },
         historyApiFallback: true
     },
+    devtool: false,
     resolve: {
         extensions: ['.js', '.jsx']
     },
@@ -37,5 +38,11 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html'
         })
-    ]
+    ],
+    optimization: {
+        splitChunks: {
+            minSize: 10000,
+            maxSize: 250000,
+        }
+    }
 }

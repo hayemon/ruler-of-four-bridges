@@ -18,7 +18,6 @@ import {
     Paper,
     Select,
     TextField,
-    Toolbar,
     Typography
 } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
@@ -109,42 +108,41 @@ const DictionaryForm = ({
                         </Grid>
                     </Grid>
                 )}
+                <Grid item>
+                    <SpaceBetweenGrid>
+                        <Button
+                            pulledright='true'
+                            type='button'
+                            variant='contained'
+                            color='primary'
+                            onClick={() => {
+                                append({})
+                            }}
+                        >
+                            <AddIcon />
+                            <Typography
+                                variant='inherit'
+                                className='button-text'>
+                                Добавить
+                        </Typography>
+                        </Button>
+                        <Button
+                            pulledright='true'
+                            type='button'
+                            variant='contained'
+                            color='primary'
+                            onClick={() => onSubmit(getValues().models)}
+                        >
+                            <DoneIcon />
+                            <Typography
+                                variant='inherit'
+                                className='button-text'>
+                                Сохранить
+                        </Typography>
+                        </Button>
+                    </SpaceBetweenGrid>
+                </Grid>
             </Grid>
-
-            <Toolbar disableGutters className={classes.toolbar}>
-                <SpaceBetweenGrid>
-                    <Button
-                        pulledright='true'
-                        type='button'
-                        variant='contained'
-                        color='primary'
-                        onClick={() => {
-                            append({})
-                        }}
-                    >
-                        <AddIcon />
-                        <Typography
-                            variant='inherit'
-                            className='button-text'>
-                            Добавить
-                        </Typography>
-                    </Button>
-                    <Button
-                        pulledright='true'
-                        type='button'
-                        variant='contained'
-                        color='primary'
-                        onClick={() => onSubmit(getValues().models)}
-                    >
-                        <DoneIcon />
-                        <Typography
-                            variant='inherit'
-                            className='button-text'>
-                            Сохранить
-                        </Typography>
-                    </Button>
-                </SpaceBetweenGrid>
-            </Toolbar>
         </form>
     );
 }
