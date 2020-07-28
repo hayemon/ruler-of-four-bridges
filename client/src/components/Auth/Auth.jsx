@@ -28,9 +28,9 @@ const Auth = ({
 
     const onSubmit = e => {
         e.preventDefault()
-        if (isSignUp) {
-            signup({ username, email, password })
-        }
+        // if (isSignUp) {
+        //     signup({ username, email, password })
+        // }
         if (isSignIn) {
             signin({ email, password })
         }

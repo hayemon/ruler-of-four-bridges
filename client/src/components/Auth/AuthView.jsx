@@ -59,8 +59,8 @@ const AuthView = ({
                 </Avatar>
 
                 <Typography component='h1' variant='h5'>
-                    {isSignIn && 'Sign In'}
-                    {isSignUp && 'Sign Up'}
+                    {isSignIn && 'Вход'}
+                    {/* {isSignUp && 'Sign Up'} */}
                 </Typography>
 
                 <form
@@ -123,10 +123,10 @@ const AuthView = ({
                         onClick={e => onSubmit(e)}
                     >
                         {isSignIn && 'Sign In'}
-                        {isSignUp && 'Sign Up'}
+                        {/* {isSignUp && 'Sign Up'} */}
                     </Button>
 
-                    <Grid container>
+                    {/* <Grid container>
                         <Grid item>
                             {isSignIn && <Link href={signUpLink} variant='body2'>
                                 Don't have an account? Sign Up
@@ -135,7 +135,7 @@ const AuthView = ({
                                 Have an account? Sign In
                             </Link>}
                         </Grid>
-                    </Grid>
+                    </Grid> */}
                 </form>
             </div>
         </Container>

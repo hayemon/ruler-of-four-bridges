@@ -36,9 +36,9 @@ const Routes = () => {
                 <Route exact path='/signin' component={
                     () => <Auth isSignIn signUpLink='/signup' />
                 } />
-                <Route exact path='/signup' component={
+                {/* <Route exact path='/signup' component={
                     () => <Auth isSignUp signInLink='/signin' />
-                } />
+                } /> */}
                 <PublicRoute exact path='/characterProfiles' component={CharacterProfiles} />
                 <PublicRoute exact path='/characterProfiles/:id' component={CharacterProfile} />
                 <PrivateRoute exact path='/configuration' component={Configuration} />
