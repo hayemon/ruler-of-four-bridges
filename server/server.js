@@ -1,5 +1,6 @@
 const express = require('express')
 const connectDB = require('./config/db')
+const path = require('path')
 
 const app = express()
 connectDB()
@@ -7,6 +8,12 @@ connectDB()
 // Init Middleware
 app.use(express.json({ extended: false }))
 
+// app.use(express.static(path.join(__dirname, '../dist')))
+// app.get('*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../dist'))
+// })
+
+console.log(path.join(__dirname, '../client/dist'))
 app.get('/', (req, res) => res.send('API Running'))
 // Define Routes
 app.use('/api/users', require('./routes/api/users'))
