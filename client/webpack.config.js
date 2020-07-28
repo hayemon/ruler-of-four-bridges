@@ -2,7 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
-    entry: './src/index.js',
+    entry: path.join(__dirname, './src/index.js'),
     devServer: {
         hot: true,
         contentBase: "build/",
@@ -38,11 +38,5 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html'
         })
-    ],
-    optimization: {
-        splitChunks: {
-            minSize: 10000,
-            maxSize: 250000,
-        }
-    }
+    ]
 }
