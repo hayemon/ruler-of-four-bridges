@@ -21,6 +21,7 @@
     "axios": "^0.19.2",
     "babel-loader": "^8.1.0",
     "css-loader": "^4.0.0",
+    "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

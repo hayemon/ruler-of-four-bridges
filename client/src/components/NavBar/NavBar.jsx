@@ -14,6 +14,8 @@ import { makeStyles } from '@material-ui/core/styles'
 import { signout } from '../../actions/auth'
 import { SpaceBetweenGrid } from '../Layout'
 
+import logoImg from '../../../public/the-island-logo.png'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         flexGrow: 1,
@@ -23,6 +25,10 @@ const useStyles = makeStyles((theme) => ({
         margin: 0,
         padding: 0
     },
+    logo: {
+        height: '50px',
+        maxHeigh: '50px'
+    }
 }))
 
 
@@ -40,15 +46,11 @@ const NavBar = ({ isAuthenticated, signout }) => {
                             className={classes.menuButton}
                             color='inherit'
                         >
-                            <MenuIcon />
+                            <img
+                                src={logoImg}
+                                className={classes.logo}
+                            />
                         </IconButton>
-
-                        <Typography
-                            pulledleft='true'
-                            variant='h6'
-                        >
-                            Владыка Четырех Мостов
-                        </Typography>
 
                         <Button
                             pulledright='true'
