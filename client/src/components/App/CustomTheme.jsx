@@ -1,23 +1,24 @@
 import { createMuiTheme } from '@material-ui/core/styles'
 import {
     indigo,
-    grey
+    grey,
+    teal,
+    blueGrey,
+    yellow
 } from '@material-ui/core/colors'
 
 const customTheme = createMuiTheme({
     palette: {
         primary: {
-            light: indigo[50],
-            main: indigo[500],
-            dark: indigo[900],
-
-            white: 'white',
-            grey: grey[100],
-            black: grey[900]
+            light: grey[50],
+            main: grey[900],
+            dark: grey[900]
         },
-    },
-    typography: {
-        fontFamily: ['Roboto']
+        secondary: {
+            light: yellow[50],
+            main: yellow[600],
+            dark: yellow[900]
+        }
     }
 })
 

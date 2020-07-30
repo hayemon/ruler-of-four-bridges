@@ -1,3 +1,8 @@
+import backgroundImg from '../../../public/columns-background.png'
+import marbleTexture from '../../../public/marble-texture.png'
+import rockTexture from '../../../public/rock-texture.png'
+import goldTexture from '../../../public/gold-texture.png'
+
 const globalStyles = theme => {
     return {
         '@global': {
@@ -15,6 +20,53 @@ const globalStyles = theme => {
 
             '.background-grey': {
                 backgroundColor: theme.palette.grey[200]
+            },
+            '.background-marble': {
+                backgroundImage: `url(${marbleTexture})`,
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover'
+            },
+            '.background-rock-black': {
+                background: `linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9) ), url(${rockTexture})`,
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover'
+            },
+            '.background-gold': {
+                background: `url(${goldTexture})`,
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover'
+            },
+            '.text-black': {
+                'color': 'transparent',
+                'background': `linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9) ), url(${rockTexture})`,
+                'background-size': 'cover',
+                'background-clip': 'text',
+                '-webkit-background-clip': 'text',
+                'text-shadow': '-1px -1px 1px rgba(0,0,0,0.1)'
+            },
+            '.text-gold': {
+                'color': 'transparent',
+                'background': `url(${goldTexture})`,
+                'background-size': 'cover',
+                'background-clip': 'text',
+                '-webkit-background-clip': 'text',
+                'text-shadow': '-1px -1px 1px rgba(0,0,0,0.1)'
+            },
+            '.landing': {
+                position: 'fixed',
+                width: '100vw',
+                height: '100vh',
+                background: `linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) ), url(${backgroundImg})`,
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'cover'
+            },
+            '.landing-navbar': {
+                backgroundColor: 'transparent',
+                color: 'white'
             },
 
             '.nullify': {

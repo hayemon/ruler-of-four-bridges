@@ -18,7 +18,6 @@ import { makeStyles } from '@material-ui/core/styles'
 const useStyles = makeStyles((theme) => ({
     avatar: {
         margin: theme.spacing(1),
-        backgroundColor: theme.palette.secondary.main,
     },
     tableCellHeader: {
         backgroundColor: theme.palette.primary.main,
@@ -37,8 +36,8 @@ const StatsView = ({
         <Grid container spacing={3}>
             <Grid item xs={12}>
                 <Grid container alignItems='center' justify='center'>
-                    <Avatar className={classes.avatar}>
-                        /
+                    <Avatar className='background-rock-black'>
+                        <div className='text-gold'>/</div>
                     </Avatar>
                     <Typography variant='h5'>
                         {category && category.value}

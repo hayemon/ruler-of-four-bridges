@@ -5,6 +5,7 @@ import React, {
 import PropTypes from 'prop-types'
 import SwipeableViews from 'react-swipeable-views'
 import {
+    AppBar,
     Box,
     Container,
     Paper,
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TabsContainer = ({ children }) => {
     const classes = useStyles()
-    
+
     const [value, setValue] = useState(0)
 
     const handleChange = (event, newValue) => {
@@ -31,12 +32,13 @@ const TabsContainer = ({ children }) => {
 
     return (
         <Box className='full-width'>
-            <Paper className={classes.tabControlBar}>
+            <AppBar position='static'>
                 <Tabs
+                    className='gold-text'
                     value={value}
                     onChange={handleChange}
-                    indicatorColor='primary'
-                    textColor='primary'
+                    indicatorColor='secondary'
+                    textColor='inherit'
                     variant='fullWidth'
                     aria-label='full width tabs example'
                 >
@@ -44,7 +46,7 @@ const TabsContainer = ({ children }) => {
                         <Tab label={child.props.tablabel} />
                     )}
                 </Tabs>
-            </Paper>
+            </AppBar>
             {Children.map(children, (child, index) =>
                 value == index ? <div>{child}</div> : <div></div>
             )}

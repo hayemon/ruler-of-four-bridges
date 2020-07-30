@@ -14,6 +14,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { signout } from '../../actions/auth'
 import { SpaceBetweenGrid } from '../Layout'
 
+import goldTexture from '../../../public/gold-texture.png'
 import logoImg from '../../../public/the-island-logo.png'
 
 const useStyles = makeStyles((theme) => ({
@@ -21,41 +22,44 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
         marginBottom: theme.spacing(3)
     },
-    menuButton: {
-        margin: 0,
-        padding: 0
-    },
     logo: {
         height: '50px',
-        maxHeigh: '50px'
+        width: '214px',
+        maxHeight: '50px',
+        background: `url(${goldTexture})`,
+        backgroundSize: 'cover',
+        mask: `url(${logoImg})`,
+        WebkitMask: `url(${logoImg})`,
+        WebkitMaskSize: 'auto 50px'
     }
 }))
 
 
-const NavBar = ({ isAuthenticated, signout }) => {
-    const classes = useStyles()
+const NavBar = ({ landing, isAuthenticated, signout }) => {
+    const classes = useStyles(!!landing)
 
     return (
         <div className={classes.root}>
-            <AppBar position='static'>
+            <AppBar
+                elevation={landing ? 0 : 3}
+                position='static'
+                className={landing ? 'landing-navbar' : 'background-rock-black'}
+            >
                 <Toolbar>
                     <SpaceBetweenGrid>
                         <IconButton
                             pulledleft='true'
                             edge='start'
-                            className={classes.menuButton}
                             color='inherit'
+                            href='/'
                         >
-                            <img
-                                src={logoImg}
-                                className={classes.logo}
-                            />
+                            <div className={classes.logo}></div>
                         </IconButton>
 
                         <Button
                             pulledright='true'
-                            color='inherit'
                             href='/characterProfiles/'
+                            className='text-gold'
                         >
                             Персонажи
                         </Button>

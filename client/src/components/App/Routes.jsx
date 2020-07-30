@@ -3,12 +3,14 @@ import {
     Switch,
     Route
 } from 'react-router-dom'
-import { makeStyles } from '@material-ui/core/styles'
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles'
 
 import globalStyles from './GlobalStyles'
+import customTheme from './CustomTheme'
 
 import PrivateRoute from './PrivateRoute'
 import PublicRoute from './PublicRoute'
+import Landing from '../Landing'
 import Auth from '../Auth'
 import NavBar from '../NavBar'
 import Alerts from '../Alert'
@@ -28,22 +30,30 @@ const Routes = () => {
     const classes = useStyles()
 
     return (
-        <div className='root root-container background-grey'>
-            <NavBar />
-            <Alerts />
+        <ThemeProvider theme={customTheme}>
             <Switch>
-                <Route exact path='/' />
-                <Route exact path='/signin' component={
-                    () => <Auth isSignIn signUpLink='/signup' />
+                <Route exact path='/' component={Landing} />
+                <Route path='*' component={
+                    () => (
+                        <div className='root root-container background-marble'>
+                            <NavBar />
+                            <Alerts />
+                            <Switch>
+                                <Route exact path='/signin' component={
+                                    () => <Auth isSignIn signUpLink='/signup' />
+                                } />
+                                {/* <Route exact path='/signup' component={
+                                    () => <Auth isSignUp signInLink='/signin' />
+                                } /> */}
+                                <PublicRoute exact path='/characterProfiles' component={CharacterProfiles} />
+                                <PublicRoute exact path='/characterProfiles/:id' component={CharacterProfile} />
+                                <PrivateRoute exact path='/configuration' component={Configuration} />
+                            </Switch>
+                        </div>
+                    )
                 } />
-                {/* <Route exact path='/signup' component={
-                    () => <Auth isSignUp signInLink='/signin' />
-                } /> */}
-                <PublicRoute exact path='/characterProfiles' component={CharacterProfiles} />
-                <PublicRoute exact path='/characterProfiles/:id' component={CharacterProfile} />
-                <PrivateRoute exact path='/configuration' component={Configuration} />
             </Switch>
-        </div>
+        </ThemeProvider>
     )
 }
 

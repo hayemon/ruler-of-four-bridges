@@ -61,7 +61,7 @@ const CharacterProfilesView = ({
                                             href={`/characterProfiles/${characterProfileItem._id}`}
                                         >
                                             Подробнее...
-                                </Button>
+                                        </Button>
                                     </CardActions>
                                 </Card>
                             </Grid>
