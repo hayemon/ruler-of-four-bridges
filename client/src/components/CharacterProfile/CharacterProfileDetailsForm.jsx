@@ -69,7 +69,7 @@ const CharacterProfileDetailsForm = ({
             direction='column'
         >
             {detailsFieldArray.fields.map((detail, index) =>
-                <Grid item>
+                <Grid item key={index}>
                     <Paper
                         className='basic-padding'
                         key={index}>
@@ -91,7 +91,7 @@ const CharacterProfileDetailsForm = ({
                                 />
                             </Grid>
 
-                            <Grid item xs={9}>
+                            {types[index] ? <Grid item xs={9}>
                                 {
                                     dictionaries &&
                                     details &&
@@ -113,14 +113,42 @@ const CharacterProfileDetailsForm = ({
                                         dictionaryFieldLabel='Ключ'
                                         dictionaryFieldValue='nameSingle'
                                         dictionaryFieldDisplay='name'
+                                        dictionaryDefaultValue={detail.key}
 
                                         modelFieldName='value'
                                         modelFieldLabel='Значение'
                                         modelFieldValue='value'
                                         modelFieldDisplay='value'
+                                        modelDefaultValue={detail.value}
                                     />
                                 }
-                            </Grid>
+                            </Grid> :
+                                <Grid item xs={9}>
+                                    <TextField
+                                        className='no-margin'
+                                        inputRef={register()}
+                                        variant='standard'
+                                        margin='normal'
+                                        fullWidth
+                                        id={`details[${index}].key`}
+                                        label='Ключ'
+                                        name={`details[${index}].key`}
+                                        autoComplete='off'
+                                    />
+
+                                    <TextField
+                                        className='no-margin'
+                                        inputRef={register()}
+                                        variant='standard'
+                                        margin='normal'
+                                        fullWidth
+                                        id={`details[${index}].value`}
+                                        label='Значение'
+                                        name={`details[${index}].value`}
+                                        autoComplete='off'
+                                    />
+                                </Grid>
+                            }
 
                             <Grid item xs={1}>
                                 <IconButton

@@ -17,11 +17,14 @@ import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
     avatar: {
-        margin: theme.spacing(1),
+        marginRight: theme.spacing(1)
     },
     tableCellHeader: {
         backgroundColor: theme.palette.primary.main,
         color: theme.palette.primary.contrastText
+    },
+    section: {
+        marginTop: theme.spacing(2)
     }
 }))
 
@@ -33,10 +36,14 @@ const StatsView = ({
     const classes = useStyles()
 
     return (
-        <Grid container spacing={3}>
+        <Grid
+            container
+            spacing={3}
+            className={classes.section}
+        >
             <Grid item xs={12}>
                 <Grid container alignItems='center' justify='center'>
-                    <Avatar className='background-rock-black'>
+                    <Avatar className={`${classes.avatar} background-rock-black`}>
                         <div className='text-gold'>/</div>
                     </Avatar>
                     <Typography variant='h5'>

@@ -71,9 +71,11 @@ const CharacterProfileForm = ({
                 className={classes.form}
                 noValidate
                 onSubmit={handleSubmit(formData => {
+                    console.log(formData)
                     onSubmit({
                         ...characterProfile,
                         ...formData,
+                        details: formData.details || [],
                         stats: mergedStats
                             .map((stat, index) => {
                                 delete stat._id
@@ -81,7 +83,8 @@ const CharacterProfileForm = ({
                                     ...stat,
                                     ...formData.stats[index]
                                 }
-                            })
+                            }),
+
                     })
                     onModeChange()
                 })}>

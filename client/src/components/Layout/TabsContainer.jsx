@@ -16,9 +16,6 @@ import {
 import { makeStyles, useTheme } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
-    tabControlBar: {
-        marginBottom: theme.spacing(2)
-    }
 }))
 
 const TabsContainer = ({ children }) => {

@@ -114,7 +114,7 @@ const CharacterProfileView = ({
                                                             .map((detail, index) =>
                                                                 <TableRow key={index} className={classes.tableRow}>
                                                                     <TableCell className='small-padding background-grey'>
-                                                                        {detail.name}
+                                                                        {detail.key}
                                                                     </TableCell>
                                                                     <TableCell className='small-padding'>
                                                                         {detail.value}
