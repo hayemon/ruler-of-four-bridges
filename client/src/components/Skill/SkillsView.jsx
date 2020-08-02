@@ -18,12 +18,11 @@ const SkillsView = ({
         <Grid
             container
             spacing={3}
-            direction='column'
         >
             {
                 skills
                     .map(skillItem => (
-                        <Grid key={skillItem._id} item xs>
+                        <Grid key={skillItem._id} item xs={12}>
                             <SkillItemView
                                 _id={skillItem._id}
                                 name={skillItem.name}

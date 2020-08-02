@@ -92,16 +92,16 @@ const CharacterProfileView = ({
     ]
     return (
         <Container maxWidth='md' className='root'>
-            <Grid container spacing={3} direction='column'>
+            <Grid container spacing={3}>
                 {characterProfile._id &&
-                    <Grid item>
+                    <Grid item xs={12}>
                         <VisibilitySensor
                             partialVisibility
                             onChange={isVisible => setIsTopPartVisible(isVisible)}
                         >
-                            <Grid container spacing={3}>
+                            <Grid container spacing={3} alignItems='flex-start'>
                                 <Grid item xs={4} container>
-                                    <Card className='fill-parent'>
+                                    <Card>
                                         <CardMedia
                                             component='img'
                                             alt={characterProfile.name}
@@ -112,7 +112,7 @@ const CharacterProfileView = ({
                                 </Grid>
 
                                 <Grid item xs={8} container>
-                                    <Paper className='fill-parent'>
+                                    <Paper>
                                         <Box className='basic-margin'>
                                             <Typography
                                                 variant='h5'>
@@ -157,7 +157,7 @@ const CharacterProfileView = ({
                 }
 
                 {characterProfile._id &&
-                    <Grid item>
+                    <Grid item xs={12}>
                         <TabsContainer>
                             <div tablabel='Параметры'>
                                 <animated.div
@@ -212,7 +212,7 @@ const CharacterProfileView = ({
                 }
 
                 {isAuthenticated &&
-                    <Grid item>
+                    <Grid item xs={12}>
                         <SpaceBetweenGrid>
                             <Button
                                 pulledright='true'

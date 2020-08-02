@@ -129,9 +129,9 @@ const SkillView = ({
         </Paper>
     )
     return (
-        <Grid container spacing={3} direction='column'>
+        <Grid container spacing={3}>
             {skill._id &&
-                <Grid item container>
+                <Grid item xs={12} container>
                     <SkillItemView
                         _id={skill._id}
                         name={name}
@@ -143,7 +143,7 @@ const SkillView = ({
             }
 
             {skill._id &&
-                <Grid item container>
+                <Grid item xs={12} container>
                     <Grid container spacing={3}>
                         <Grid item xs>
                             <SkillDetailsView
@@ -167,19 +167,19 @@ const SkillView = ({
             }
 
             {skill._id &&
-                <Grid item container>
+                <Grid item xs={12} container>
                     {sliderHorizontal('Уровень', levelMarks, level, setLevel)}
                 </Grid>
             }
 
             {skill._id &&
-                <Grid item container>
+                <Grid item xs={12} container>
                     {sliderHorizontal('Уровень мастерства', masteryLevelMarks, masteryLevel, setMasteryLevel)}
                 </Grid>
             }
 
             {skill._id &&
-                <Grid item container>
+                <Grid item xs={12} container>
                     <SkillParametersView
                         level={level + masteryLevel}
                         areaParameters={areaParameters}
@@ -192,7 +192,7 @@ const SkillView = ({
             }
 
             {isAuthenticated &&
-                <Grid item>
+                <Grid item xs={12}>
                     <SpaceBetweenGrid>
                         <Button
                             pulledright='true'

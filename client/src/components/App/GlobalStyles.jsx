@@ -98,6 +98,13 @@ const globalStyles = theme => {
                 width: '100% !important',
                 height: '100% !important'
             },
+            '.fill-parent-width': {
+                width: '100% !important'
+            },
+            '.fill-parent-height': {
+                height: '100% !important'
+            },
+
 
             '.button-text': {
                 paddingLeft: theme.spacing(1),
