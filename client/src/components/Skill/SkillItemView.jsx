@@ -27,7 +27,7 @@ const SkillItemView = ({
 
     return (
         <Grid container spacing={3}>
-            <Grid item xs={2} container>
+            <Grid item xs={2}>
                 <Card>
                     <CardActionArea href={`/skills/${_id}`}>
                         <CardMedia

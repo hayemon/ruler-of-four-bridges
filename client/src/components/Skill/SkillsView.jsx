@@ -13,7 +13,7 @@ const SkillsView = ({
     skills
 }) => {
     const history = useHistory()
-    
+
     return (
         <Grid
             container
@@ -23,7 +23,7 @@ const SkillsView = ({
             {
                 skills
                     .map(skillItem => (
-                        <Grid key={skillItem._id} item xs container>
+                        <Grid key={skillItem._id} item xs>
                             <SkillItemView
                                 _id={skillItem._id}
                                 name={skillItem.name}
