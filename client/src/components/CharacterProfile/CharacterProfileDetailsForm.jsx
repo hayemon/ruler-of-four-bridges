@@ -1,20 +1,12 @@
 import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import {
-    Controller
-} from 'react-hook-form'
-import {
     FormControl,
     FormControlLabel,
     Grid,
     IconButton,
-    InputLabel,
-    MenuItem,
     Paper,
-    Select,
-    Switch,
-    TextField,
-    Typography
+    Switch
 } from '@material-ui/core'
 import {
     Add as AddIcon,
@@ -22,7 +14,10 @@ import {
 } from '@material-ui/icons'
 
 import { SpaceBetweenGrid } from '../Layout'
-import { DictionaryInput } from '../Controls'
+import {
+    SelectDictionaryInput,
+    KeyValueInput
+} from '../Controls'
 
 const CharacterProfileDetailsForm = ({
     detailsFieldArray,
@@ -95,13 +90,12 @@ const CharacterProfileDetailsForm = ({
                                 {
                                     dictionaries &&
                                     details &&
-                                    <DictionaryInput
-                                        index={index}
+                                    <SelectDictionaryInput
+                                        fieldName={`details[${index}]`}
                                         control={control}
                                         register={register}
                                         setValue={setValue}
                                         dictionaries={dictionaries}
-                                        fieldsName='details'
                                         selectedDictionaryInitialValue={
                                             details[index] ?
                                                 dictionaries.find(x =>
@@ -124,28 +118,9 @@ const CharacterProfileDetailsForm = ({
                                 }
                             </Grid> :
                                 <Grid item xs={9}>
-                                    <TextField
-                                        className='no-margin'
-                                        inputRef={register()}
-                                        variant='standard'
-                                        margin='normal'
-                                        fullWidth
-                                        id={`details[${index}].key`}
-                                        label='Ключ'
-                                        name={`details[${index}].key`}
-                                        autoComplete='off'
-                                    />
-
-                                    <TextField
-                                        className='no-margin'
-                                        inputRef={register()}
-                                        variant='standard'
-                                        margin='normal'
-                                        fullWidth
-                                        id={`details[${index}].value`}
-                                        label='Значение'
-                                        name={`details[${index}].value`}
-                                        autoComplete='off'
+                                    <KeyValueInput
+                                    fieldName={`details[${index}]`}
+                                    register={register}
                                     />
                                 </Grid>
                             }

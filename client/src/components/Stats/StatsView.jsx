@@ -35,6 +35,16 @@ const StatsView = ({
 }) => {
     const classes = useStyles()
 
+    const calculate = (stat) => {
+        if (stat.relationType == 'linear') {
+            return Math.round(((parseFloat(stat.base) + parseFloat(stat.change) * (level - 1)) + Number.EPSILON) * 100) / 100
+        }
+        else {
+            console.log(stat)
+            return Math.round(((parseFloat(stat.base) * Math.pow(parseFloat(stat.change), (level - 1))) + Number.EPSILON) * 100) / 100
+        }
+    }
+
     return (
         <Grid
             container
@@ -59,7 +69,7 @@ const StatsView = ({
                                 <TableCell
                                     align='center'
                                     variant='head'
-                                    className={classes.tableCellHeader}
+                                    className={`${classes.tableCellHeader} table-cell-name`}
                                 >
                                     <Typography variant='button'>
                                         Характеристика
@@ -69,7 +79,7 @@ const StatsView = ({
                                 <TableCell
                                     align='center'
                                     variant='head'
-                                    className={classes.tableCellHeader}
+                                    className={`${classes.tableCellHeader} table-cell-base`}
                                 >
                                     <Typography variant='button'>
                                         База
@@ -79,7 +89,7 @@ const StatsView = ({
                                 <TableCell
                                     align='center'
                                     variant='head'
-                                    className={classes.tableCellHeader}
+                                    className={`${classes.tableCellHeader} table-cell-change`}
                                 >
                                     <Typography variant='button'>
                                         Прирост
@@ -89,7 +99,7 @@ const StatsView = ({
                                 <TableCell
                                     align='center'
                                     variant='head'
-                                    className={classes.tableCellHeader}
+                                    className={`${classes.tableCellHeader} table-cell-value`}
                                 >
                                     <Typography variant='button'>
                                         Чистое значение
@@ -115,7 +125,7 @@ const StatsView = ({
                                                 {stat.change}
                                             </TableCell>
                                             <TableCell align='center'>
-                                                {Math.round(((parseFloat(stat.base) + parseFloat(stat.change) * (level - 1)) + Number.EPSILON) * 100) / 100}
+                                                {calculate(stat)}
                                             </TableCell>
                                         </TableRow>
                                     ))

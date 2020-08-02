@@ -15,6 +15,16 @@ import { makeStyles } from '@material-ui/core/styles'
 
 
 const useStyles = makeStyles((theme) => ({
+    overlayBox: {
+        position: 'absolute',
+        color: 'white',
+        backgroundColor: 'black',
+        fontSize: '30px',
+        opacity: '0.7',
+        bottom: '0',
+        width: '100%',
+        textAlign: 'center'
+    },
 }))
 
 const CharacterProfilesView = ({
@@ -28,41 +38,21 @@ const CharacterProfilesView = ({
                 {
                     characterProfiles
                         .map(characterProfileItem => (
-                            <Grid key={characterProfileItem._id} item xs={4}>
+                            <Grid key={characterProfileItem._id} item xs={3}>
                                 <Card>
-                                    <CardActionArea>
+                                    <CardActionArea
+                                        href={`/characterProfiles/${characterProfileItem._id}`}
+                                    >
                                         <CardMedia
                                             component='img'
-                                            alt='Contemplative Reptile'
-                                            height='140'
-                                            image='https://author.today/content/2020/05/23/420985604e9e4f6e8b628e107f0b7800.jpg?width=265&height=400&mode=max'
-                                            title='Contemplative Reptile'
+                                            alt={characterProfileItem.name}
+                                            image={characterProfileItem.imgUrl}
+                                            title={characterProfileItem.name}
                                         />
-
-                                        <CardContent>
-                                            <Typography gutterBottom variant='h5' component='h2'>
-                                                {characterProfileItem.name}
-                                            </Typography>
-
-                                            <Typography
-                                                variant='body2'
-                                                color='textSecondary'
-                                                component='p'
-                                            >
-                                                {characterProfileItem.description}
-                                            </Typography>
-                                        </CardContent>
+                                        <div className={classes.overlayBox}>
+                                            {characterProfileItem.name}
+                                        </div>
                                     </CardActionArea>
-
-                                    <CardActions>
-                                        <Button
-                                            size='small'
-                                            color='primary'
-                                            href={`/characterProfiles/${characterProfileItem._id}`}
-                                        >
-                                            Подробнее...
-                                        </Button>
-                                    </CardActions>
                                 </Card>
                             </Grid>
                         ))

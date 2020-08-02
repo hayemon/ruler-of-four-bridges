@@ -11,7 +11,7 @@ module.exports = {
         },
         historyApiFallback: true
     },
-    devtool: false,
+    devtool: 'cheap-module-eval-source-map',
     resolve: {
         extensions: ['.js', '.jsx']
     },

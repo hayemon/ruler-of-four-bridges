@@ -22,99 +22,74 @@ import {
 } from '@material-ui/icons'
 
 const DictionaryInput = ({
-    index,
-    control,
+    fieldName,
+    fieldLabel,
+    defaultValue,
+    modelFieldDisplay,
     register,
     setValue,
-    dictionaries,
-    fieldsName,
-    selectedDictionaryInitialValue,
-
-    dictionaryFieldName,
-    dictionaryFieldLabel,
-    dictionaryFieldValue,
-    dictionaryFieldDisplay,
-    dictionaryDefaultValue,
-
-    modelFieldName,
-    modelFieldLabel,
-    modelFieldValue,
-    modelFieldDisplay,
-    modelDefaultValue
+    dictionary
 }) => {
-    const [selectedDictionary, setSelectedDictionary] = useState(selectedDictionaryInitialValue)
-
     const [checkedModels, setCheckedModels] = useState(
-        selectedDictionaryInitialValue ?
-            selectedDictionaryInitialValue.models.map(model => false) :
+        dictionary ?
+            dictionary.models.map(model => false) :
             []
     )
 
+    const onCheck = (e, modelIndex) => {
+        let currentModelsCheckedStates = [...checkedModels]
+        if (e.target.checked) {
+            currentModelsCheckedStates[modelIndex] = true
+        }
+        else {
+            currentModelsCheckedStates[modelIndex] = false
+        }
+        setCheckedModels(currentModelsCheckedStates)
+
+        let currentCheckedModels = []
+        dictionary.models.forEach((modelLocal, modelLocalIndex) => {
+            if (!!currentModelsCheckedStates[modelLocalIndex]) {
+                currentCheckedModels.push(modelLocal)
+            }
+        })
+
+        let modelsList = ''
+        currentCheckedModels.forEach((checkedModel, checkedModelIndex) => {
+            modelsList =
+                modelsList +
+                checkedModel.value.toString() +
+                (checkedModelIndex < currentCheckedModels.length - 1 ? ', ' : '')
+        })
+
+        setValue(fieldName, modelsList)
+    }
+
     return (
         <Grid container spacing={3} alignItems='center'>
-            <Grid item xs={6}>
-                <FormControl
-                    variant='outlined'
-                    fullWidth
-                    size='small'>
-                    <InputLabel id={`${fieldsName}[${index}].${dictionaryFieldName}-label`}>
-                        {dictionaryFieldLabel}
-                    </InputLabel>
-                    <Controller
-                        as={
-                            <Select>
-                                {
-                                    dictionaries
-                                        .map((dictionary, dictionaryIndex) =>
-                                            <MenuItem
-                                                key={dictionaryIndex}
-                                                value={dictionary[dictionaryFieldValue]}
-                                                onClick={() => {
-                                                    setValue(`${fieldsName}[${index}].${modelFieldName}`, [])
-                                                    setCheckedModels(dictionary.models.map(model => false))
-                                                    setSelectedDictionary(dictionary)
-                                                }}
-                                            >
-                                                {dictionary[dictionaryFieldDisplay]}
-                                            </MenuItem>
-                                        )
-                                }
-                            </Select>
-                        }
-                        className='no-margin'
-                        id={`${fieldsName}[${index}].${dictionaryFieldName}`}
-                        labelId={`${fieldsName}[${index}].${dictionaryFieldName}-label`}
-                        label={dictionaryFieldLabel}
-                        name={`${fieldsName}[${index}].${dictionaryFieldName}`}
-                        control={control}
-                        defaultValue={dictionaryDefaultValue || ''}
-                    />
-                </FormControl>
-
+            <Grid item xs={12}>
                 <TextField
                     multiline
                     inputRef={register()}
                     variant='outlined'
                     margin='normal'
                     fullWidth
-                    id={`${fieldsName}[${index}].${modelFieldName}`}
-                    label={modelFieldLabel}
-                    name={`${fieldsName}[${index}].${modelFieldName}`}
+                    id={fieldName}
+                    label={fieldLabel}
+                    name={fieldName}
                     autoComplete='off'
-                    defaultValue={modelDefaultValue || ''}
+                    defaultValue={defaultValue || ''}
                 />
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={12}>
                 <Grid
                     container
                     spacing={3}
-                    direction='column'
                 >
                     {
-                        selectedDictionary &&
-                        selectedDictionary.models &&
-                        selectedDictionary.models
+                        dictionary &&
+                        dictionary.models &&
+                        dictionary.models
                             .map((model, modelIndex) =>
                                 <Grid
                                     item
@@ -123,33 +98,7 @@ const DictionaryInput = ({
                                     <FormControlLabel
                                         control={<Checkbox />}
                                         label={model[modelFieldDisplay]}
-                                        onChange={e => {
-                                            let currentModelsCheckedStates = [...checkedModels]
-                                            if (e.target.checked) {
-                                                currentModelsCheckedStates[modelIndex] = true
-                                            }
-                                            else {
-                                                currentModelsCheckedStates[modelIndex] = false
-                                            }
-                                            setCheckedModels(currentModelsCheckedStates)
-
-                                            let currentCheckedModels = []
-                                            selectedDictionary.models.forEach((modelLocal, modelLocalIndex) => {
-                                                if (!!currentModelsCheckedStates[modelLocalIndex]) {
-                                                    currentCheckedModels.push(modelLocal)
-                                                }
-                                            })
-
-                                            let modelsList = ''
-                                            currentCheckedModels.forEach((checkedModel, checkedModelIndex) => {
-                                                modelsList =
-                                                    modelsList +
-                                                    checkedModel.value.toString() +
-                                                    (checkedModelIndex < currentCheckedModels.length - 1 ? ', ' : '')
-                                            })
-
-                                            setValue(`${fieldsName}[${index}].${modelFieldName}`, modelsList)
-                                        }}
+                                        onChange={e => onCheck(e, modelIndex)}
                                     />
                                 </Grid>
                             )

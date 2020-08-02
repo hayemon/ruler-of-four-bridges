@@ -4,31 +4,37 @@ const SkillSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        default: 'Навык'
+        default: 'Умение'
     },
     code: {
         type: String,
         required: true,
         default: 'SKILL'
     },
+    description: {
+        type: String,
+        required: true,
+        default: ''
+    },
+    imgUrl: String,
 
     type: {
         type: String,
         required: true,
-        default: 'active'
+        default: 'Активный'
         // active, passive, both
     },
-    actionType: {
-        type: Array,
+    actionTypes: {
+        type: String,
         required: true,
-        default: []
+        default: ''
         // attack, defence, buff, debuff, aura, control, create, effect, summon
     },
 
     targetType: {
         type: String,
         required: true,
-        default: 'unit'
+        default: 'На цель'
         // self, unit, point, around, direction
     },
     singleTarget: {
@@ -38,38 +44,37 @@ const SkillSchema = new mongoose.Schema({
     },
     areaType: String, // vector, circle, sector, sphere, cylinder, cone, pyramid, box
     areaParameters: {
-        distance: Number,
-        radius: Number,
-        angleHorizontal: Number,
-        angleVertical: Number,
-        height: Number,
-        width: Number
+        type: Object,
+        default: {}
     },
 
     affectedUnits: {
-        type: Array,
+        type: String,
         required: true,
-        default: []
+        default: ''
         // ally, enemy, structure
     },
-    maximumAffectedUnitsCount: Number,
+    maximumAffectedUnitsCount: Object,
 
     attributes: {
-        type: Array,
+        type: String,
         required: true,
-        default: []
+        default: ''
         // physical, magical, fire, ice, etc.
     },
 
-    time: {
-        cooldown: Number,
-        cast: Number,
-        duration: Number,
-        channelingDuration: Number,
-        interval: Number
+    timeParameters: {
+        type: Object,
+        default: {}
     },
-    cost: Array,
-    fields: Object
+    costs: {
+        type: Array,
+        default: []
+    },
+    parameters: {
+        type: Array,
+        default: []
+    }
 })
 
 module.exports = Skill = mongoose.model('skill', SkillSchema)

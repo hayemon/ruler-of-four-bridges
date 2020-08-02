@@ -9,6 +9,7 @@ const CharacterProfileSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    imgUrl: String,
     details: Array,
     description: Array,
     stats: Array,

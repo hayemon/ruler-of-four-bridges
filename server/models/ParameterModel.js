@@ -15,7 +15,7 @@ const ParameterModelSchema = new mongoose.Schema({
     order: Number,
     relationType: {
         // linear:          result = a + b * input
-        // exponential:     result = a + b ^ input
+        // exponential:     result = a * b ^ input
         type: String,
         default: 'linear'
     }

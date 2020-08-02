@@ -19,6 +19,9 @@ import {
 import {
     getDictionaries
 } from '../../actions/dictionary'
+import {
+    getSkills
+} from '../../actions/skill'
 
 const CharacterProfile = ({
     isAuthenticated,
@@ -28,12 +31,16 @@ const CharacterProfile = ({
     deleteCharacterProfile,
     getParameterModels,
     getDictionaries,
+    getSkills,
     characterProfile: {
         characterProfile,
         loading
     },
     parameterModel: {
         parameterModels
+    },
+    skill: {
+        skills
     },
     dictionaries,
     match
@@ -42,14 +49,31 @@ const CharacterProfile = ({
         getCharacterProfile(match.params.id)
         getParameterModels()
         getDictionaries()
+        getSkills()
     }, [
         getCharacterProfile,
         getParameterModels,
         getDictionaries,
+        getSkills,
         match.params.id
     ])
 
+    useEffect(() => {
+        if (!characterProfile || !characterProfile.skills || characterSkills.length > 0) return
+
+        let characterSkillsTemp = []
+        characterProfile.skills.forEach((skill, skillIndex) => {
+            characterSkillsTemp.push(skills.find(x => x._id == skill.id))
+        })
+        setCharacterSkills(characterSkillsTemp)
+    }, [
+        characterProfile,
+        skills
+    ])
+
     const [isEditMode, setIsEditMode] = useState(false)
+
+    const [characterSkills, setCharacterSkills] = useState([])
 
     const onSubmit = formData => {
         match.params.id == 0 ?
@@ -62,6 +86,7 @@ const CharacterProfile = ({
         setIsEditMode(value => !value)
     }
 
+
     return loading ||
         !!!characterProfile ||
         !!!dictionaries ?
@@ -70,12 +95,14 @@ const CharacterProfile = ({
             <CharacterProfileView
                 isAuthenticated={isAuthenticated}
                 characterProfile={characterProfile}
+                characterSkills={characterSkills}
                 dictionaries={dictionaries}
                 onModeChange={onModeChange}
             /> : <CharacterProfileForm
                 characterProfile={characterProfile}
-                parameterModels={parameterModels}                
+                parameterModels={parameterModels}
                 dictionaries={dictionaries}
+                allSkills={skills}
                 onModeChange={onModeChange}
                 onSubmit={onSubmit}
             />)
@@ -89,6 +116,7 @@ CharacterProfile.propTypes = {
     deleteCharacterProfile: PropTypes.func.isRequired,
     getParameterModels: PropTypes.func.isRequired,
     getDictionaries: PropTypes.func.isRequired,
+    getSkills: PropTypes.func.isRequired,
     characterProfile: PropTypes.object.isRequired
 }
 
@@ -96,7 +124,8 @@ const mapStateToProps = (state) => ({
     isAuthenticated: state.auth.isAuthenticated,
     characterProfile: state.characterProfile,
     parameterModel: state.parameterModel,
-    dictionaries: state.dictionary.dictionaries
+    dictionaries: state.dictionary.dictionaries,
+    skill: state.skill
 })
 
 export default connect(
@@ -107,6 +136,7 @@ export default connect(
         updateCharacterProfile,
         deleteCharacterProfile,
         getParameterModels,
-        getDictionaries
+        getDictionaries,
+        getSkills
     }
 )(CharacterProfile)

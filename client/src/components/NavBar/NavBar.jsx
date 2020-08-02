@@ -64,6 +64,14 @@ const NavBar = ({ landing, isAuthenticated, signout }) => {
                             Персонажи
                         </Button>
 
+                        <Button
+                            pulledright='true'
+                            href='/skills/'
+                            className='text-gold'
+                        >
+                            Умения
+                        </Button>
+
                         {isAuthenticated && <Button
                             pulledright='true'
                             color='inherit'

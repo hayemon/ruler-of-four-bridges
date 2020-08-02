@@ -19,6 +19,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import { CancelSubmitToolbar } from '../Controls'
 import CharacterProfileStatsForm from './CharacterProfileStatsForm'
 import CharacterProfileDetailsForm from './CharacterProfileDetailsForm'
+import CharacterProfileSkillsForm from './CharacterProfileSkillsForm'
 
 const useStyles = makeStyles((theme) => ({
 }))
@@ -27,31 +28,47 @@ const CharacterProfileForm = ({
     characterProfile,
     parameterModels,
     dictionaries,
+    allSkills,
     onModeChange,
     onSubmit
 }) => {
     const classes = useStyles()
 
-    const { name, realName, details, description, stats, skills } = characterProfile
+    const {
+        name,
+        realName,
+        imgUrl,
+        details,
+        description,
+        stats,
+        skills
+    } = characterProfile
 
     const mergedStats = parameterModels
         .map(parameterModel => {
             const stat = stats ? stats.find(x => x.name === parameterModel.name) : null
-            return stat ||
+            return {
+                ...stat,
+                relationType: parameterModel.relationType
+            } ||
             {
                 ...parameterModel,
                 base: 0,
-                change: 1,
-                valueBasic: 0,
-                valueFinal: 0
+                change: 1
             }
         })
 
-    const { register, control, handleSubmit, setValue } = useForm({
+    const {
+        register,
+        control,
+        handleSubmit,
+        setValue
+    } = useForm({
         defaultValues: {
             ...characterProfile,
             details: details,
-            stats: mergedStats.sort((a, b) => a.order - b.order)
+            stats: mergedStats.sort((a, b) => a.order - b.order),
+            skills: skills
         }
     })
 
@@ -65,13 +82,17 @@ const CharacterProfileForm = ({
         name: 'stats'
     })
 
+    const skillsFieldArray = useFieldArray({
+        control,
+        name: 'skills'
+    })
+
     return (
         <Container maxWidth='md' className='root'>
             <form
                 className={classes.form}
                 noValidate
                 onSubmit={handleSubmit(formData => {
-                    console.log(formData)
                     onSubmit({
                         ...characterProfile,
                         ...formData,
@@ -122,6 +143,21 @@ const CharacterProfileForm = ({
                                         defaultValue={realName}
                                     />
                                 </Grid>
+
+                                <Grid item xs={12}>
+                                    <TextField
+                                        className='no-margin'
+                                        inputRef={register()}
+                                        variant='standard'
+                                        margin='normal'
+                                        fullWidth
+                                        id='imgUrl'
+                                        label='Ссылка на изображение'
+                                        name='imgUrl'
+                                        autoComplete='off'
+                                        defaultValue={imgUrl}
+                                    />
+                                </Grid>
                             </Grid>
                         </Paper>
                     </Grid>
@@ -158,6 +194,16 @@ const CharacterProfileForm = ({
                         <CharacterProfileStatsForm
                             statsFieldArray={statsFieldArray}
                             register={register}
+                        />
+                    </Grid>
+
+                    <Grid item xs={12}>
+                        <CharacterProfileSkillsForm
+                            skillsFieldArray={skillsFieldArray}
+                            register={register}
+                            control={control}
+                            skills={skills}
+                            allSkills={allSkills}
                         />
                     </Grid>
 

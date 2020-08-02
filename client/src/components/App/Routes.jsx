@@ -19,6 +19,10 @@ import {
     CharacterProfile
 } from '../CharacterProfile'
 import {
+    Skills,
+    Skill
+} from '../Skill'
+import {
     Configuration
 } from '../Configuration'
 
@@ -47,6 +51,10 @@ const Routes = () => {
                                 } /> */}
                                 <PublicRoute exact path='/characterProfiles' component={CharacterProfiles} />
                                 <PublicRoute exact path='/characterProfiles/:id' component={CharacterProfile} />
+
+                                <PublicRoute exact path='/skills' component={Skills} />
+                                <PublicRoute exact path='/skills/:id' component={Skill} />
+
                                 <PrivateRoute exact path='/configuration' component={Configuration} />
                             </Switch>
                         </div>

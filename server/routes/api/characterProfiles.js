@@ -4,7 +4,6 @@ const { check, validationResult } = require('express-validator')
 const auth = require('../../middleware/auth')
 
 const CharacterProfile = require('../../models/CharacterProfile')
-const ParameterModel = require('../../models/ParameterModel')
 const checkObjectId = require('../../middleware/checkObjectId')
 
 // @route    POST api/characterProfiles
@@ -27,6 +26,7 @@ router.post(
       const newCharacterProfile = new CharacterProfile({
         name: req.body.name,
         realName: req.body.realName,
+        imgUrl: req.body.imgUrl,
         details: req.body.details,
         description: req.body.description,
         stats: req.body.stats,
@@ -80,14 +80,15 @@ router.put(
       const updateQuery = {
         name: req.body.name,
         realName: req.body.realName,
+        imgUrl: req.body.imgUrl,
         details: req.body.details,
         description: req.body.description,
         stats: req.body.stats,
         skills: req.body.skills
       }
 
-      const characterProfile = await CharacterProfile.findOneAndUpdate(
-        { id: req.body.id },
+      const characterProfile = await CharacterProfile.findByIdAndUpdate(
+        req.params.id,
         updateQuery,
         { new: true }
       )

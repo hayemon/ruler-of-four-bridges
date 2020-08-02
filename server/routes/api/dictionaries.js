@@ -72,7 +72,6 @@ router.get('/:id', [checkObjectId('id')], async (req, res) => {
 // @desc     Update a dictionary
 // @access   Private
 router.put('/:id', [auth, checkObjectId('id')], async (req, res) => {
-  console.log(req.params.id)
   try {
     const updateQuery = {
       name: req.body.name,

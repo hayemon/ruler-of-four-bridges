@@ -36,6 +36,7 @@ import {
     TabsContainer
 } from '../Layout'
 import Stats from '../Stats'
+import { SkillsView } from '../Skill'
 
 const useStyles = makeStyles((theme) => ({
     sliderBlock: {
@@ -47,12 +48,16 @@ const useStyles = makeStyles((theme) => ({
     slider: {
         height: '88%',
         margin: '0 8px'
+    },
+    section: {
+        marginTop: theme.spacing(3)
     }
 }))
 
 const CharacterProfileView = ({
     isAuthenticated,
     characterProfile,
+    characterSkills,
     dictionaries,
     onModeChange
 }) => {
@@ -85,7 +90,6 @@ const CharacterProfileView = ({
             })
         )
     ]
-
     return (
         <Container maxWidth='md' className='root'>
             <Grid container spacing={3} direction='column'>
@@ -96,39 +100,18 @@ const CharacterProfileView = ({
                             onChange={isVisible => setIsTopPartVisible(isVisible)}
                         >
                             <Grid container spacing={3}>
-                                <Grid item xs={4} container>
+                                <Grid item xs={3} container>
                                     <Card className='fill-parent'>
                                         <CardMedia
                                             component='img'
-                                            alt='Contemplative Reptile'
-                                            height='140'
-                                            image='https://author.today/content/2020/05/23/420985604e9e4f6e8b628e107f0b7800.jpg?width=265&height=400&mode=max'
-                                            title='Contemplative Reptile'
+                                            alt={characterProfile.name}
+                                            image={characterProfile.imgUrl}
+                                            title={characterProfile.name}
                                         />
-
-                                        <CardContent className='no-padding fill-parent'>
-                                            <Table>
-                                                <TableBody>
-                                                    {
-                                                        characterProfile.details
-                                                            .map((detail, index) =>
-                                                                <TableRow key={index} className={classes.tableRow}>
-                                                                    <TableCell className='small-padding background-grey'>
-                                                                        {detail.key}
-                                                                    </TableCell>
-                                                                    <TableCell className='small-padding'>
-                                                                        {detail.value}
-                                                                    </TableCell>
-                                                                </TableRow>
-                                                            )
-                                                    }
-                                                </TableBody>
-                                            </Table>
-                                        </CardContent>
                                     </Card>
                                 </Grid>
 
-                                <Grid item xs={8} container>
+                                <Grid item xs={9} container>
                                     <Paper className='fill-parent'>
                                         <Box className='basic-margin'>
                                             <Typography
@@ -149,6 +132,23 @@ const CharacterProfileView = ({
                                         </Box>
 
                                         <Divider variant='fullWidth' />
+                                        <Table>
+                                            <TableBody>
+                                                {
+                                                    characterProfile.details
+                                                        .map((detail, index) =>
+                                                            <TableRow key={index} className={classes.tableRow}>
+                                                                <TableCell className='small-padding background-grey'>
+                                                                    {detail.key}
+                                                                </TableCell>
+                                                                <TableCell className='small-padding'>
+                                                                    {detail.value}
+                                                                </TableCell>
+                                                            </TableRow>
+                                                        )
+                                                }
+                                            </TableBody>
+                                        </Table>
                                     </Paper>
                                 </Grid>
                             </Grid>
@@ -197,11 +197,14 @@ const CharacterProfileView = ({
                                 }
                             </div>
 
-                            <div tablabel='LABEL 2'>
-                                label 2
-                            </div>
-                            <div tablabel='LABEL 3'>
-                                label 3
+                            <div tablabel='Умения'>
+                                <Box className={classes.section}>
+                                    {
+                                        characterSkills && <SkillsView
+                                            skills={characterSkills}
+                                        />
+                                    }
+                                </Box>
                             </div>
                         </TabsContainer>
                     </Grid>

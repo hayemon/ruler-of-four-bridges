@@ -14,6 +14,7 @@ app.use('/api/auth', require('./routes/api/auth'))
 app.use('/api/characterProfiles', require('./routes/api/characterProfiles'))
 app.use('/api/parameterModels', require('./routes/api/parameterModels'))
 app.use('/api/dictionaries', require('./routes/api/dictionaries'))
+app.use('/api/skills', require('./routes/api/skills'))
 
 app.use(express.static(path.join(__dirname, '../client/dist/')))
 app.use('*', (req, res) => {

@@ -28,7 +28,7 @@ const globalStyles = theme => {
                 backgroundSize: 'cover'
             },
             '.background-rock-black': {
-                background: `linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9) ), url(${rockTexture})`,
+                background: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9) ), url(${rockTexture})`,
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover'
@@ -41,7 +41,7 @@ const globalStyles = theme => {
             },
             '.text-black': {
                 'color': 'transparent',
-                'background': `linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9) ), url(${rockTexture})`,
+                'background': `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9) ), url(${rockTexture})`,
                 'background-size': 'cover',
                 'background-clip': 'text',
                 '-webkit-background-clip': 'text',
@@ -59,7 +59,7 @@ const globalStyles = theme => {
                 position: 'fixed',
                 width: '100vw',
                 height: '100vh',
-                background: `linear-gradient( rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) ), url(${backgroundImg})`,
+                background: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0) ), url(${backgroundImg})`,
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
                 backgroundSize: 'cover'
@@ -103,6 +103,19 @@ const globalStyles = theme => {
                 paddingLeft: theme.spacing(1),
                 paddingRight: theme.spacing(1)
             },
+
+            '.table-cell-name': {
+                width: '40%'
+            },
+            '.table-cell-base': {
+                width: '15%'
+            },
+            '.table-cell-change': {
+                width: '15%'
+            },
+            '.table-cell-value': {
+                width: '30%'
+            }
         }
     }
 }

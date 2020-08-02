@@ -38,7 +38,11 @@ const DictionaryForm = ({
 }) => {
     const classes = useStyles()
 
-    const { register, control, getValues } = useForm({
+    const {
+        register,
+        control,
+        getValues
+    } = useForm({
         defaultValues: {
             models: models
         }

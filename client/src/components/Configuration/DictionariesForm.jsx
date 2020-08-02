@@ -40,7 +40,12 @@ const DictionariesForm = ({
 }) => {
     const classes = useStyles()
 
-    const { register, control, handleSubmit, reset } = useForm({
+    const {
+        register,
+        control,
+        handleSubmit,
+        reset
+    } = useForm({
         defaultValues: {
             dictionaries: dictionaries
         }
