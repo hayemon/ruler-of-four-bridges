@@ -100,7 +100,7 @@ const CharacterProfileView = ({
                             onChange={isVisible => setIsTopPartVisible(isVisible)}
                         >
                             <Grid container spacing={3}>
-                                <Grid item xs={3} container>
+                                <Grid item xs={4} container>
                                     <Card className='fill-parent'>
                                         <CardMedia
                                             component='img'
@@ -111,7 +111,7 @@ const CharacterProfileView = ({
                                     </Card>
                                 </Grid>
 
-                                <Grid item xs={9} container>
+                                <Grid item xs={8} container>
                                     <Paper className='fill-parent'>
                                         <Box className='basic-margin'>
                                             <Typography
@@ -201,7 +201,7 @@ const CharacterProfileView = ({
                                 <Box className={classes.section}>
                                     {
                                         characterSkills && <SkillsView
-                                            isAuthenticated
+                                            isAuthenticated={isAuthenticated}
                                             skills={characterSkills}
                                         />
                                     }
