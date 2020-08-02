@@ -9,6 +9,7 @@ import { getSkills } from '../../actions/skill'
 import SkillsView from './SkillsView'
 
 const Skills = ({
+    isAuthenticated,
     getSkills,
     skill: { skills }
 }) => {
@@ -17,7 +18,10 @@ const Skills = ({
     }, [getSkills])
 
     return <Container maxWidth='md' className='root'>
-        <SkillsView skills={skills} />
+        <SkillsView
+            isAuthenticated={isAuthenticated}
+            skills={skills}
+        />
     </Container>
 }
 
@@ -27,6 +31,7 @@ Skills.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
+    isAuthenticated: state.auth.isAuthenticated,
     skill: state.skill
 })
 

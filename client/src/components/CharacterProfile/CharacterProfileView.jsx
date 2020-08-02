@@ -201,6 +201,7 @@ const CharacterProfileView = ({
                                 <Box className={classes.section}>
                                     {
                                         characterSkills && <SkillsView
+                                            isAuthenticated
                                             skills={characterSkills}
                                         />
                                     }

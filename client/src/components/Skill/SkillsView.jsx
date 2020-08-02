@@ -2,19 +2,18 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import {
-    Container,
     Grid
 } from '@material-ui/core'
-import { makeStyles } from '@material-ui/core/styles'
 
 import { AddToolbar } from '../Controls'
 import SkillItemView from './SkillItemView'
 
 const SkillsView = ({
+    isAuthenticated,
     skills
 }) => {
     const history = useHistory()
-
+console.log(isAuthenticated)
     return (
         <Grid
             container
@@ -35,13 +34,15 @@ const SkillsView = ({
                         </Grid>
                     ))
             }
-            <Grid item>
-                <AddToolbar
-                    onAdd={() => {
-                        history.push('/skills/0')
-                    }}
-                />
-            </Grid>
+            {isAuthenticated &&
+                <Grid item>
+                    <AddToolbar
+                        onAdd={() => {
+                            history.push('/skills/0')
+                        }}
+                    />
+                </Grid>
+            }
         </Grid>
     );
 }
