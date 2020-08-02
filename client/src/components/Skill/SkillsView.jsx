@@ -13,7 +13,7 @@ const SkillsView = ({
     skills
 }) => {
     const history = useHistory()
-console.log(isAuthenticated)
+    
     return (
         <Grid
             container

@@ -40,7 +40,6 @@ const StatsView = ({
             return Math.round(((parseFloat(stat.base) + parseFloat(stat.change) * (level - 1)) + Number.EPSILON) * 100) / 100
         }
         else {
-            console.log(stat)
             return Math.round(((parseFloat(stat.base) * Math.pow(parseFloat(stat.change), (level - 1))) + Number.EPSILON) * 100) / 100
         }
     }

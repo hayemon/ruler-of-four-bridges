@@ -59,11 +59,21 @@ const CharacterProfile = ({
     ])
 
     useEffect(() => {
-        if (!characterProfile || !characterProfile.skills || characterSkills.length > 0) return
+        if (
+            !characterProfile ||
+            !characterProfile.skills ||
+            (
+                characterSkills.length > 0 &&
+                !characterSkills.find(x => !!x)
+            )
+        ) return
 
         let characterSkillsTemp = []
         characterProfile.skills.forEach((skill, skillIndex) => {
-            characterSkillsTemp.push(skills.find(x => x._id == skill.id))
+            const foundSkill = skills.find(x => x._id == skill.id)
+            if (!!foundSkill) {
+                characterSkillsTemp.push(foundSkill)
+            }
         })
         setCharacterSkills(characterSkillsTemp)
     }, [
