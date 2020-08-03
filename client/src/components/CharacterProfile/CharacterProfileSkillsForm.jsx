@@ -51,7 +51,7 @@ const CharacterProfileSkillsForm = ({
                                     variant='outlined'
                                     fullWidth
                                     size='small'>
-                                    <InputLabel id={`skills[${index}].id-label`}>Категория</InputLabel>
+                                    <InputLabel id={`skills[${index}].id-label`}>Ссылка</InputLabel>
                                     <Controller
                                         as={
                                             <Select>

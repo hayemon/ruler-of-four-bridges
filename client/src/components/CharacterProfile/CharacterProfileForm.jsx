@@ -168,7 +168,7 @@ const CharacterProfileForm = ({
                             control={control}
                             register={register}
                             setValue={setValue}
-                            details={characterProfile.details}
+                            details={characterProfile.details || []}
                             dictionaries={dictionaries}
                         />
                     </Grid>
@@ -202,8 +202,8 @@ const CharacterProfileForm = ({
                             skillsFieldArray={skillsFieldArray}
                             register={register}
                             control={control}
-                            skills={skills}
-                            allSkills={allSkills}
+                            skills={skills || []}
+                            allSkills={allSkills || []}
                         />
                     </Grid>
 
