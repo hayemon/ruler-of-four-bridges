@@ -26,8 +26,8 @@ const SkillItemView = ({
     const history = useHistory()
 
     return (
-        <Grid container spacing={3} alignItems='flex-start'>
-            <Grid item xs={2} container>
+        <Grid container spacing={3} alignItems='stretch'>
+            <Grid item xs={2}>
                 <Card>
                     <CardActionArea href={`/skills/${_id}`}>
                         <CardMedia
@@ -41,7 +41,7 @@ const SkillItemView = ({
             </Grid>
 
             <Grid item xs={10} container>
-                <Paper className='fill-parent-width'>
+                <Paper className='fill-parent'>
                     <Box className='basic-padding'>
                         <Typography
                             variant='h6'>
@@ -50,7 +50,8 @@ const SkillItemView = ({
                         <Typography
                             variant='body2'
                             component='p'
-                            color='textSecondary'>
+                            color='textSecondary'
+                        >
                             {description}
                         </Typography>
                     </Box>

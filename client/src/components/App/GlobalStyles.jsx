@@ -40,20 +40,20 @@ const globalStyles = theme => {
                 backgroundSize: 'cover'
             },
             '.text-black': {
-                'color': 'transparent',
-                'background': `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9) ), url(${rockTexture})`,
-                'background-size': 'cover',
-                'background-clip': 'text',
-                '-webkit-background-clip': 'text',
-                'text-shadow': '-1px -1px 1px rgba(0,0,0,0.1)'
+                color: 'transparent',
+                background: `linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9) ), url(${rockTexture})`,
+                backgroundSize: 'cover',
+                backgroundClip: 'text',
+                'webkit-background-clip': 'text',
+                textShadow: '-1px -1px 1px rgba(0,0,0,0.1)'
             },
             '.text-gold': {
-                'color': 'transparent',
-                'background': `url(${goldTexture})`,
-                'background-size': 'cover',
-                'background-clip': 'text',
+                color: 'transparent',
+                background: `url(${goldTexture})`,
+                backgroundSize: 'cover',
+                backgroundClip: 'text',
                 '-webkit-background-clip': 'text',
-                'text-shadow': '-1px -1px 1px rgba(0,0,0,0.1)'
+                textShadow: '-1px -1px 1px rgba(0,0,0,0.1)'
             },
             '.landing': {
                 position: 'fixed',
@@ -104,7 +104,16 @@ const globalStyles = theme => {
             '.fill-parent-height': {
                 height: '100% !important'
             },
-
+            '.crop-long-text': {
+                display: '-webkit-box',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                '-webkit-line-clamp': '3',
+                '-webkit-box-orient': 'vertical'
+            },
+            '.overflow-hidden': {
+                overflow: 'hidden'
+            },
 
             '.button-text': {
                 paddingLeft: theme.spacing(1),

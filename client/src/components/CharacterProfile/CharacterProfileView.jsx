@@ -99,7 +99,7 @@ const CharacterProfileView = ({
                             partialVisibility
                             onChange={isVisible => setIsTopPartVisible(isVisible)}
                         >
-                            <Grid container spacing={3} alignItems='flex-start'>
+                            <Grid container spacing={3} alignItems='stretch'>
                                 <Grid item xs={4} container>
                                     <Card>
                                         <CardMedia
@@ -112,43 +112,57 @@ const CharacterProfileView = ({
                                 </Grid>
 
                                 <Grid item xs={8} container>
-                                    <Paper>
-                                        <Box className='basic-margin'>
-                                            <Typography
-                                                variant='h5'>
-                                                {characterProfile.name}
-                                            </Typography>
+                                    <Paper className='fill-parent overflow-hidden'>
+                                        <Box display='flex' className='fill-parent'>
+                                            <Grid
+                                                container
+                                                spacing={3}
+                                                direction='column'
+                                                justify='space-between'
+                                            >
+                                                <Grid item>
+                                                    <Box className='basic-margin'>
+                                                        <Typography
+                                                            variant='h5'>
+                                                            {characterProfile.name}
+                                                        </Typography>
+                                                    </Box>
+                                                    <Divider variant='middle' />
+                                                </Grid>
+
+                                                <Grid item>
+                                                    <Box className='basic-margin'>
+                                                        <Typography
+                                                            variant='body2'
+                                                            component='p'
+                                                            color='textSecondary'>
+                                                            {characterProfile.description}
+                                                        </Typography>
+                                                    </Box>
+                                                </Grid>
+
+                                                <Grid item>
+                                                    <Divider variant='fullWidth' />
+                                                    <Table>
+                                                        <TableBody>
+                                                            {
+                                                                characterProfile.details
+                                                                    .map((detail, index) =>
+                                                                        <TableRow key={index} className={classes.tableRow}>
+                                                                            <TableCell className='small-padding background-grey'>
+                                                                                {detail.key}
+                                                                            </TableCell>
+                                                                            <TableCell className='small-padding'>
+                                                                                {detail.value}
+                                                                            </TableCell>
+                                                                        </TableRow>
+                                                                    )
+                                                            }
+                                                        </TableBody>
+                                                    </Table>
+                                                </Grid>
+                                            </Grid>
                                         </Box>
-
-                                        <Divider variant='middle' />
-
-                                        <Box className='basic-margin'>
-                                            <Typography
-                                                variant='body2'
-                                                component='p'
-                                                color='textSecondary'>
-                                                {characterProfile.description}
-                                            </Typography>
-                                        </Box>
-
-                                        <Divider variant='fullWidth' />
-                                        <Table>
-                                            <TableBody>
-                                                {
-                                                    characterProfile.details
-                                                        .map((detail, index) =>
-                                                            <TableRow key={index} className={classes.tableRow}>
-                                                                <TableCell className='small-padding background-grey'>
-                                                                    {detail.key}
-                                                                </TableCell>
-                                                                <TableCell className='small-padding'>
-                                                                    {detail.value}
-                                                                </TableCell>
-                                                            </TableRow>
-                                                        )
-                                                }
-                                            </TableBody>
-                                        </Table>
                                     </Paper>
                                 </Grid>
                             </Grid>
