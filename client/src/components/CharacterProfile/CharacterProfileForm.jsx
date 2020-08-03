@@ -47,17 +47,17 @@ const CharacterProfileForm = ({
     const mergedStats = parameterModels
         .map(parameterModel => {
             const stat = stats ? stats.find(x => x.name === parameterModel.name) : null
-            return {
+            return stat ? {
                 ...stat,
                 relationType: parameterModel.relationType
-            } ||
-            {
-                ...parameterModel,
-                base: 0,
-                change: 1
-            }
+            } :
+                {
+                    ...parameterModel,
+                    base: 0,
+                    change: 1
+                }
         })
-
+        
     const {
         register,
         control,
