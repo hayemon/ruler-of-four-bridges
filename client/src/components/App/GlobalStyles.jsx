@@ -111,6 +111,9 @@ const globalStyles = theme => {
                 '-webkit-line-clamp': '3',
                 '-webkit-box-orient': 'vertical'
             },
+            '.text-display-new-lines':{
+                whiteSpace: 'pre-line'
+            },
             '.overflow-hidden': {
                 overflow: 'hidden'
             },

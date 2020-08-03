@@ -100,7 +100,7 @@ const CharacterProfileView = ({
                             onChange={isVisible => setIsTopPartVisible(isVisible)}
                         >
                             <Grid container spacing={3} alignItems='stretch'>
-                                <Grid item xs={4} container>
+                                <Grid item xs={4}>
                                     <Card>
                                         <CardMedia
                                             component='img'
@@ -135,7 +135,9 @@ const CharacterProfileView = ({
                                                         <Typography
                                                             variant='body2'
                                                             component='p'
-                                                            color='textSecondary'>
+                                                            color='textSecondary'
+                                                            className='text-display-new-lines'
+                                                        >
                                                             {characterProfile.description}
                                                         </Typography>
                                                     </Box>

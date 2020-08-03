@@ -51,6 +51,7 @@ const SkillItemView = ({
                             variant='body2'
                             component='p'
                             color='textSecondary'
+                            className='text-display-new-lines'
                         >
                             {description}
                         </Typography>

@@ -34,7 +34,7 @@ const SkillsView = ({
                     ))
             }
             {isAuthenticated &&
-                <Grid item>
+                <Grid item xs={12}>
                     <AddToolbar
                         onAdd={() => {
                             history.push('/skills/0')
