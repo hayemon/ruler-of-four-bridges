@@ -2,7 +2,6 @@ import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { useHistory } from 'react-router-dom'
 import {
-    Grid,
     Paper,
     Table,
     TableBody,
@@ -38,9 +37,12 @@ const SkillParametersView = ({
         delay
     } = timeParameters
 
-    const calculate = (base, change, level) => (
-        Math.round(((parseFloat(base) + parseFloat(change) * (level - 1)) + Number.EPSILON) * 100) / 100
-    )
+    const calculate = (parameter) => {
+        const { base, change } = parameter
+        return isNaN(parseFloat(base)) ?
+            base :
+            Math.round(((parseFloat(base) + parseFloat(change) * (level - 1)) + Number.EPSILON) * 100) / 100
+    }
 
     const tableHeader = () => (
         <TableHead>
@@ -108,7 +110,7 @@ const SkillParametersView = ({
                         {distance.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(distance.base, distance.change, level)}
+                        {calculate(distance)}
                     </TableCell>
                 </TableRow>
             }
@@ -131,7 +133,7 @@ const SkillParametersView = ({
                         {radius.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(radius.base, radius.change, level)}
+                        {calculate(radius)}
                     </TableCell>
                 </TableRow>
             }
@@ -154,7 +156,7 @@ const SkillParametersView = ({
                         {angleHorizontal.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(angleHorizontal.base, angleHorizontal.change, level)}
+                        {calculate(angleHorizontal)}
                     </TableCell>
                 </TableRow>
             }
@@ -177,7 +179,7 @@ const SkillParametersView = ({
                         {angleVertical.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(angleVertical.base, angleVertical.change, level)}
+                        {calculate(angleVertical)}
                     </TableCell>
                 </TableRow>
             }
@@ -200,7 +202,7 @@ const SkillParametersView = ({
                         {width.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(width.base, width.change, level)}
+                        {calculate(width)}
                     </TableCell>
                 </TableRow>
             }
@@ -223,7 +225,7 @@ const SkillParametersView = ({
                         {height.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(height.base, height.change, level)}
+                        {calculate(height)}
                     </TableCell>
                 </TableRow>
             }
@@ -246,7 +248,7 @@ const SkillParametersView = ({
                         {maximumAffectedUnitsCount.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(maximumAffectedUnitsCount.base, maximumAffectedUnitsCount.change, level)}
+                        {calculate(maximumAffectedUnitsCount)}
                     </TableCell>
                 </TableRow>
             }
@@ -288,7 +290,7 @@ const SkillParametersView = ({
                         {cooldown.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(cooldown.base, cooldown.change, level)}
+                        {calculate(cooldown)}
                     </TableCell>
                 </TableRow>
             }
@@ -311,7 +313,7 @@ const SkillParametersView = ({
                         {cast.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(cast.base, cast.change, level)}
+                        {calculate(cast)}
                     </TableCell>
                 </TableRow>
             }
@@ -334,7 +336,7 @@ const SkillParametersView = ({
                         {duration.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(duration.base, duration.change, level)}
+                        {calculate(duration)}
                     </TableCell>
                 </TableRow>
             }
@@ -357,7 +359,7 @@ const SkillParametersView = ({
                         {interval.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(interval.base, interval.change, level)}
+                        {calculate(interval)}
                     </TableCell>
                 </TableRow>
             }
@@ -380,7 +382,7 @@ const SkillParametersView = ({
                         {delay.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(delay.base, delay.change, level)}
+                        {calculate(delay)}
                     </TableCell>
                 </TableRow>
             }
@@ -403,7 +405,7 @@ const SkillParametersView = ({
                     {cost.change}
                 </TableCell>
                 <TableCell align='center'>
-                    {cost.placeholder.replace('COST', calculate(cost.base, cost.change, level).toString())}
+                    {cost.placeholder.replace('COST', calculate(cost).toString())}
                 </TableCell>
             </TableRow>
         ))
@@ -425,80 +427,24 @@ const SkillParametersView = ({
                     {parameter.change}
                 </TableCell>
                 <TableCell align='center'>
-                    {parameter.placeholder.replace('PARAMETER', calculate(parameter.base, parameter.change, level).toString())}
+                    {parameter.placeholder.replace('PARAMETER', calculate(parameter).toString())}
                 </TableCell>
             </TableRow>
         ))
     )
 
     return (
-        <Grid container spacing={3}>
-            {
-                (distance.base ||
-                    radius.base ||
-                    angleHorizontal.base ||
-                    angleVertical.base ||
-                    height.base ||
-                    width.base) &&
-                <Grid item xs>
-                    <Paper>
-                        <Table size='small'>
-                            {tableHeader()}
-                            <TableBody>
-                                {areaTable()}
-                            </TableBody>
-                        </Table>
-                    </Paper>
-                </Grid>
-            }
-
-            {
-                parameters.length > 0 &&
-                <Grid item xs>
-                    <Paper>
-                        <Table size='small'>
-                            {tableHeader()}
-                            <TableBody>
-                                {parametersTable()}
-                            </TableBody>
-                        </Table>
-                    </Paper>
-                </Grid>
-            }
-
-            {
-                costs.length > 0 &&
-                <Grid item xs>
-                    <Paper>
-                        <Table size='small'>
-                            {tableHeader()}
-                            <TableBody>
-                                {costsTable()}
-                            </TableBody>
-                        </Table>
-                    </Paper>
-                </Grid>
-            }
-
-            {
-                (isChanneling ||
-                    cooldown.base ||
-                    cast.base ||
-                    duration.base ||
-                    interval.base ||
-                    delay.base) &&
-                <Grid item xs>
-                    <Paper>
-                        <Table size='small'>
-                            {tableHeader()}
-                            <TableBody>
-                                {timeTable()}
-                            </TableBody>
-                        </Table>
-                    </Paper>
-                </Grid>
-            }
-        </Grid >
+        <Paper className='fill-parent'>
+            <Table size='small'>
+                {tableHeader()}
+                <TableBody>
+                    {areaTable()}
+                    {parametersTable()}
+                    {costsTable()}
+                    {timeTable()}
+                </TableBody>
+            </Table>
+        </Paper>
     );
 }
 

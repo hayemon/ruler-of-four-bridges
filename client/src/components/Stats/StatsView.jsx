@@ -36,11 +36,15 @@ const StatsView = ({
     const classes = useStyles()
 
     const calculate = (stat) => {
-        if (stat.relationType == 'linear') {
-            return Math.round(((parseFloat(stat.base) + parseFloat(stat.change) * (level - 1)) + Number.EPSILON) * 100) / 100
+        const { relationType, base, change } = stat
+        if (isNaN(parseFloat(stat.base))) {
+            return base
+        }
+        else if (relationType == 'linear') {
+            return Math.round(((parseFloat(base) + parseFloat(change) * (level - 1)) + Number.EPSILON) * 100) / 100
         }
         else {
-            return Math.round(((parseFloat(stat.base) * Math.pow(parseFloat(stat.change), (level - 1))) + Number.EPSILON) * 100) / 100
+            return Math.round(((parseFloat(base) * Math.pow(parseFloat(change), (level - 1))) + Number.EPSILON) * 100) / 100
         }
     }
 
