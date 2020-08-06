@@ -44,6 +44,7 @@ const SkillParameterForm = ({
             <Grid
                 container
                 spacing={3}
+                alignItems='stretch'
             >
                 <Grid item xs={4}>
                     <FormControl
@@ -61,7 +62,7 @@ const SkillParameterForm = ({
                                     <MenuItem value='exponential'>y = a + b * (c ^ x)</MenuItem>
                                 </Select>
                             }
-                            className='no-margin'
+                            className='select-flex-stretch-margin'
                             id={`${fieldName}.relationType`}
                             labelId={`${fieldName}.relationType-label`}
                             label='Тип зависимости'

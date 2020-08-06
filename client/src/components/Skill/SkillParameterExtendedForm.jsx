@@ -51,18 +51,16 @@ const SkillParameterExtendedForm = ({
                         options={parameterModels}
                         getOptionLabel={(option) => option.name || option}
                         freeSolo
+                        fullWidth
+                        defaultValue={field.name}
                         renderInput={(params) =>
                             <TextField
                                 {...params}
                                 inputRef={register()}
                                 variant='outlined'
-                                margin='normal'
-                                fullWidth
                                 id={`${fieldName}.name`}
-                                label='База'
+                                label='Название'
                                 name={`${fieldName}.name`}
-                                autoComplete='off'
-                                defaultValue={field.name}
                             />
                         }
                     />
