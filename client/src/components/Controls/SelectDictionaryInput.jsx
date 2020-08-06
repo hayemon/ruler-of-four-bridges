@@ -21,7 +21,7 @@ import {
     Remove as RemoveIcon
 } from '@material-ui/icons'
 
-const DictionaryInput = ({
+const SelectDictionaryInput = ({
     fieldName,
     control,
     register,
@@ -161,4 +161,4 @@ const DictionaryInput = ({
     )
 }
 
-export default DictionaryInput
+export default SelectDictionaryInput

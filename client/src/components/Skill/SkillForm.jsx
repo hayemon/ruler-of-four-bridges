@@ -31,7 +31,6 @@ import {
 import { DictionaryInput } from '../Controls'
 import SkillParameterForm from './SkillParameterForm'
 import SkillParameterExtendedForm from './SkillParameterExtendedForm'
-import SkillCostForm from './SkillCostForm'
 
 const useStyles = makeStyles((theme) => ({
 }))
@@ -107,12 +106,12 @@ const SkillForm = ({
                 className={classes.form}
                 noValidate
                 onSubmit={handleSubmit(formData => {
-                    console.log(formData.description)
-                    onSubmit({
+                    console.log(formData)
+                    {/* onSubmit({
                         ...skill,
                         ...formData
                     })
-                    onModeChange()
+                    onModeChange() */}
                 })}>
 
                 <Grid
@@ -232,31 +231,11 @@ const SkillForm = ({
 
                     <Grid item>
                         <Paper className='basic-padding'>
-                            <FormControlLabel
-                                control={
-                                    <Controller
-                                        name='singleTarget'
-                                        render={
-                                            () => {
-                                                return (
-                                                    <Checkbox
-                                                        defaultChecked={!!singleTarget}
-                                                        onChange={e => setValue('singleTarget', false)}
-                                                    />
-                                                )
-                                            }
-                                        }
-                                        control={control}
-                                    />
-                                }
-                                label='Одиночная цель'
-                            />
-                        </Paper>
-                    </Grid>
-
-                    <Grid item>
-                        <Paper className='basic-padding'>
-                            <Grid container spacing={3}>
+                            <Grid
+                                container
+                                spacing={3}
+                                justify='center'
+                            >
                                 <Grid item xs={12}>
                                     <DictionaryInput
                                         fieldName='areaType'
@@ -269,57 +248,63 @@ const SkillForm = ({
                                     />
                                 </Grid>
 
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SkillParameterForm
                                         field={areaParameters.distance}
                                         fieldName='areaParameters.distance'
                                         fieldLabel='Дальность применения'
                                         register={register}
+                                        control={control}
                                     />
                                 </Grid>
 
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SkillParameterForm
                                         field={areaParameters.radius}
                                         fieldName='areaParameters.radius'
                                         fieldLabel='Радиус действия'
                                         register={register}
+                                        control={control}
                                     />
                                 </Grid>
 
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SkillParameterForm
                                         field={areaParameters.angleHorizontal}
                                         fieldName='areaParameters.angleHorizontal'
                                         fieldLabel='Охват по горизонтали (градусы)'
                                         register={register}
+                                        control={control}
                                     />
                                 </Grid>
 
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SkillParameterForm
                                         field={areaParameters.angleVertical}
                                         fieldName='areaParameters.angleVertical'
                                         fieldLabel='Охват по вертикали (градусы)'
                                         register={register}
+                                        control={control}
                                     />
                                 </Grid>
 
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SkillParameterForm
                                         field={areaParameters.width}
                                         fieldName='areaParameters.width'
                                         fieldLabel='Ширина охвата (метры)'
                                         register={register}
+                                        control={control}
                                     />
                                 </Grid>
 
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SkillParameterForm
                                         field={areaParameters.height}
                                         fieldName='areaParameters.height'
                                         fieldLabel='Высота охвата (метры)'
                                         register={register}
+                                        control={control}
                                     />
                                 </Grid>
 
@@ -329,6 +314,7 @@ const SkillForm = ({
                                         fieldName='maximumAffectedUnitsCount'
                                         fieldLabel='Максимальное количество целей'
                                         register={register}
+                                        control={control}
                                     />
                                 </Grid>
                             </Grid>
@@ -375,48 +361,53 @@ const SkillForm = ({
                                     />
                                 </Grid>
 
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SkillParameterForm
                                         field={timeParameters.cooldown}
                                         fieldName='timeParameters.cooldown'
                                         fieldLabel='Перезарядка'
                                         register={register}
+                                        control={control}
                                     />
                                 </Grid>
 
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SkillParameterForm
                                         field={timeParameters.cast}
                                         fieldName='timeParameters.cast'
                                         fieldLabel='Длительность подготовки'
                                         register={register}
+                                        control={control}
                                     />
                                 </Grid>
 
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SkillParameterForm
                                         field={timeParameters.duration}
                                         fieldName='timeParameters.duration'
                                         fieldLabel='Время действия'
                                         register={register}
+                                        control={control}
                                     />
                                 </Grid>
 
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SkillParameterForm
                                         field={timeParameters.interval}
                                         fieldName='timeParameters.interval'
                                         fieldLabel='Интервалы по'
                                         register={register}
+                                        control={control}
                                     />
                                 </Grid>
 
-                                <Grid item xs={6}>
+                                <Grid item xs={12}>
                                     <SkillParameterForm
                                         field={timeParameters.delay}
                                         fieldName='timeParameters.delay'
                                         fieldLabel='Задержка перед активацией'
                                         register={register}
+                                        control={control}
                                     />
                                 </Grid>
                             </Grid>
@@ -438,10 +429,12 @@ const SkillForm = ({
 
                                 {costFields.fields.map((cost, costIndex) => (
                                     <Grid item key={costIndex}>
-                                        <SkillCostForm
+                                        <SkillParameterExtendedForm
                                             field={cost}
                                             fieldName={`costs[${costIndex}]`}
                                             register={register}
+                                            control={control}
+                                            parameterModels={parameterModels}
                                         />
                                     </Grid>
                                 ))}
@@ -469,6 +462,7 @@ const SkillForm = ({
                                 container
                                 spacing={3}
                                 direction='column'
+                                justify='center'
                             >
                                 <Grid item>
                                     <Typography variant='h6'>

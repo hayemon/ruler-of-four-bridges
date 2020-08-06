@@ -35,17 +35,22 @@ const StatsView = ({
 }) => {
     const classes = useStyles()
 
+    const getValue = (stat) => {
+        const { base } = stat
+        if (isNaN(parseFloat(base))) return base
+        else return calculate(stat)
+    }
+
     const calculate = (stat) => {
         const { relationType, base, change } = stat
-        if (isNaN(parseFloat(stat.base))) {
-            return base
-        }
-        else if (relationType == 'linear') {
-            return Math.round(((parseFloat(base) + parseFloat(change) * (level - 1)) + Number.EPSILON) * 100) / 100
+        let value;
+        if (relationType == 'linear') {
+            value = Math.round(((parseFloat(base) + parseFloat(change) * (level - 1)) + Number.EPSILON) * 100) / 100
         }
         else {
-            return Math.round(((parseFloat(base) * Math.pow(parseFloat(change), (level - 1))) + Number.EPSILON) * 100) / 100
+            value = Math.round(((parseFloat(base) * Math.pow(parseFloat(change), (level - 1))) + Number.EPSILON) * 100) / 100
         }
+        return value > 0 ? value : 0
     }
 
     return (
@@ -128,7 +133,7 @@ const StatsView = ({
                                                 {stat.change}
                                             </TableCell>
                                             <TableCell align='center'>
-                                                {calculate(stat)}
+                                                {getValue(stat)}
                                             </TableCell>
                                         </TableRow>
                                     ))

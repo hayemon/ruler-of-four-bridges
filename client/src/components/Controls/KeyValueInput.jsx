@@ -6,7 +6,6 @@ import {
     Controller
 } from 'react-hook-form'
 import {
-    Checkbox,
     FormControl,
     FormControlLabel,
     Grid,

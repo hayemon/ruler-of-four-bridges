@@ -3,8 +3,6 @@ import React, {
 } from 'react'
 import PropTypes from 'prop-types'
 import {
-    useForm,
-    useFieldArray,
     Controller
 } from 'react-hook-form'
 import {
@@ -19,6 +17,9 @@ import {
     TextField,
     Typography
 } from '@material-ui/core'
+import {
+    Autocomplete
+} from '@material-ui/lab'
 import { makeStyles } from '@material-ui/core/styles'
 
 const useStyles = makeStyles((theme) => ({
@@ -43,55 +44,54 @@ const SkillParameterExtendedForm = ({
             <Grid
                 container
                 spacing={3}
-                justify='center'
+                alignItems='stretch'
             >
+                <Grid item xs={6}>
+                    <Autocomplete
+                        id={`${fieldName}.name`}
+                        options={parameterModels}
+                        getOptionLabel={(option) => option.name}
+                        margin='normal'
+                        fullWidth
+                        id={`${fieldName}.name`}
+                        name={`${fieldName}.name`}
+                        defaultValue={field.name}
+
+                        renderInput={(params) =>
+                            <TextField
+                                {...params}
+                                variant='outlined'
+                                label='Параметр'
+                            />
+                        }
+                    />
+                </Grid>
+
                 <Grid item xs={6}>
                     <FormControl
                         variant='outlined'
                         fullWidth
-                        size='small'>
-                        <InputLabel id={`${fieldName}.name-label`}>
-                            Параметр
+                    >
+                        <InputLabel id={`${fieldName}.relationType-label`}>
+                            Тип зависимости
                         </InputLabel>
                         <Controller
                             as={
                                 <Select>
-                                    {
-                                        parameterModels
-                                            .map((parameterModel, parameterModelIndex) =>
-                                                <MenuItem
-                                                    key={parameterModelIndex}
-                                                    value={parameterModel.name}
-                                                >
-                                                    {parameterModel.name}
-                                                </MenuItem>
-                                            )
-                                    }
+                                    <MenuItem value='none'>Нет</MenuItem>
+                                    <MenuItem value='linear'>y = a + b * x</MenuItem>
+                                    <MenuItem value='exponential'>y = a + b * (c ^ x)</MenuItem>
                                 </Select>
                             }
                             className='no-margin'
-                            id={`${fieldName}.name`}
-                            labelId={`${fieldName}.name-label`}
-                            label='Параметр'
-                            name={`${fieldName}.name`}
+                            id={`${fieldName}.relationType`}
+                            labelId={`${fieldName}.relationType-label`}
+                            label='Тип зависимости'
+                            name={`${fieldName}.relationType`}
                             control={control}
                             defaultValue=''
                         />
                     </FormControl>
-                </Grid>
-
-                <Grid item xs={6}>
-                    <TextField
-                        inputRef={register()}
-                        variant='standard'
-                        margin='normal'
-                        fullWidth
-                        id={`${fieldName}.name`}
-                        label='Параметр'
-                        name={`${fieldName}.name`}
-                        autoComplete='off'
-                        defaultValue={field.name}
-                    />
                 </Grid>
 
                 <Grid item xs={3}>
@@ -136,7 +136,7 @@ const SkillParameterExtendedForm = ({
                     />
                 </Grid>
             </Grid>
-        </Paper>
+        </Paper >
     );
 }
 

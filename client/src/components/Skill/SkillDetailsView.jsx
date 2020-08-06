@@ -1,12 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {
-    Grid,
     Paper,
     Table,
     TableBody,
     TableCell,
     TableContainer,
+    TableHead,
     TableRow,
     Typography
 } from '@material-ui/core'
@@ -15,129 +15,165 @@ const SkillDetailsView = ({
     type,
     actionTypes,
     attributes,
-    level,
-
     targetType,
-    singleTarget,
     areaType,
     affectedUnits
 }) => {
+    const tableHeader = () => (
+        <TableHead>
+            <TableRow>
+                {
+                    type &&
+                    type != '' &&
+                    <TableCell
+                        align='center'
+                        variant='head'
+                        className='table-cell-vertical background-grey'
+                    >
+                        Тип умения
+                    </TableCell>
+                }
+
+                {
+                    actionTypes &&
+                    actionTypes != '' &&
+                    <TableCell
+                        align='center'
+                        variant='head'
+                        className='table-cell-vertical background-grey'
+                    >
+                        Тип действия
+                    </TableCell>
+                }
+
+                {
+                    attributes &&
+                    attributes != '' &&
+                    <TableCell
+                        align='center'
+                        variant='head'
+                        className='table-cell-vertical background-grey'
+                    >
+                        Атрибуты
+                    </TableCell>
+                }
+
+                {
+                    affectedUnits &&
+                    affectedUnits != '' &&
+                    <TableCell
+                        align='center'
+                        variant='head'
+                        className='table-cell-vertical background-grey'
+                    >
+                        Действует на
+                    </TableCell>
+                }
+
+                {
+                    targetType &&
+                    targetType != '' &&
+                    <TableCell
+                        align='center'
+                        variant='head'
+                        className='table-cell-vertical background-grey'
+                    >
+                        Цель
+                    </TableCell>
+                }
+
+                {
+                    areaType &&
+                    areaType != '' &&
+                    <TableCell
+                        align='center'
+                        variant='head'
+                        className='table-cell-vertical background-grey'
+                    >
+                        Зона действия
+                    </TableCell>
+                }
+            </TableRow>
+        </TableHead>
+    )
+
+    const tableBody = () => (
+        <TableBody>
+            <TableRow>
+                {
+                    type &&
+                    type != '' &&
+                    <TableCell
+                        align='center'
+                        className='table-cell-vertical'
+                    >
+                        {type}
+                    </TableCell>
+                }
+
+                {
+                    actionTypes &&
+                    actionTypes != '' &&
+                    <TableCell
+                        align='center'
+                        className='table-cell-vertical'
+                    >
+                        {actionTypes}
+                    </TableCell>
+                }
+
+                {
+                    attributes &&
+                    attributes != '' &&
+                    <TableCell
+                        align='center'
+                        className='table-cell-vertical'
+                    >
+                        {attributes}
+                    </TableCell>
+                }
+
+                {
+                    affectedUnits &&
+                    affectedUnits != '' &&
+                    <TableCell
+                        align='center'
+                        className='table-cell-vertical'
+                    >
+                        {affectedUnits}
+                    </TableCell>
+                }
+
+                {
+                    targetType &&
+                    targetType != '' &&
+                    <TableCell
+                        align='center'
+                        className='table-cell-vertical'
+                    >
+                        {targetType}
+                    </TableCell>
+                }
+
+                {
+                    areaType &&
+                    areaType != '' &&
+                    <TableCell
+                        align='center'
+                        className='table-cell-vertical'
+                    >
+                        {areaType}
+                    </TableCell>
+                }
+            </TableRow>
+        </TableBody>
+    )
+
     return (
         <TableContainer component={Paper}>
             <Table size='small'>
-                <TableBody>
-                    {type &&
-                        <TableRow>
-                            <TableCell
-                                align='left'
-                                className='background-grey'
-                            >
-                                Тип умения
-                        </TableCell>
-                            <TableCell align='center'>
-                                {type}
-                            </TableCell>
-                        </TableRow>
-                    }
-
-                    {actionTypes &&
-                        <TableRow>
-                            <TableCell
-                                align='left'
-                                className='background-grey'
-                            >
-                                Тип действия
-                        </TableCell>
-                            <TableCell align='center'>
-                                {actionTypes}
-                            </TableCell>
-                        </TableRow>
-                    }
-
-                    {attributes &&
-                        <TableRow>
-                            <TableCell
-                                align='left'
-                                className='background-grey'
-                            >
-                                Атрибуты
-                        </TableCell>
-                            <TableCell align='center'>
-                                {attributes}
-                            </TableCell>
-                        </TableRow>
-                    }
-
-                    {level &&
-                        <TableRow>
-                            <TableCell
-                                align='left'
-                                className='background-grey'
-                            >
-                                Уровень
-                        </TableCell>
-                            <TableCell align='center'>
-                                {level}
-                            </TableCell>
-                        </TableRow>
-                    }
-
-                    {affectedUnits &&
-                        <TableRow>
-                            <TableCell
-                                align='left'
-                                className='background-grey'
-                            >
-                                Действует на
-                        </TableCell>
-                            <TableCell align='center'>
-                                {affectedUnits}
-                            </TableCell>
-                        </TableRow>
-                    }
-
-                    {targetType &&
-                        <TableRow>
-                            <TableCell
-                                align='left'
-                                className='background-grey'
-                            >
-                                Цель
-                        </TableCell>
-                            <TableCell align='center'>
-                                {targetType}
-                            </TableCell>
-                        </TableRow>
-                    }
-
-                    {singleTarget != null && singleTarget != undefined &&
-                        <TableRow>
-                            <TableCell
-                                align='left'
-                                className='background-grey'
-                            >
-                                Одиночная цель
-                                                </TableCell>
-                            <TableCell align='center'>
-                                {singleTarget ? 'Да' : 'Нет'}
-                            </TableCell>
-                        </TableRow>
-                    }
-
-                    {areaType &&
-                        <TableRow>
-                            <TableCell
-                                align='left'
-                                className='background-grey'
-                            >
-                                Зона действия
-                        </TableCell>
-                            <TableCell align='center'>
-                                {singleTarget ? 'Неприменимо' : areaType}
-                            </TableCell>
-                        </TableRow>
-                    }
-                </TableBody>
+                {tableHeader()}
+                {tableBody()}
             </Table>
         </TableContainer>
     );

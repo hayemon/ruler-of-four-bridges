@@ -111,7 +111,7 @@ const globalStyles = theme => {
                 '-webkit-line-clamp': '3',
                 '-webkit-box-orient': 'vertical'
             },
-            '.text-display-new-lines':{
+            '.text-display-new-lines': {
                 whiteSpace: 'pre-line'
             },
             '.overflow-hidden': {
@@ -134,6 +134,20 @@ const globalStyles = theme => {
             },
             '.table-cell-value': {
                 width: '30%'
+            },
+            '.table-cell-vertical': {
+                borderRight: `1px solid ${theme.palette.grey[200]}`
+            },
+
+            '.select-flex-stretch-margin': {
+                marginTop: '16px'
+            },
+
+            '.scale-on-hover': {
+                transition: 'transform .5s',
+                '&:hover': {
+                    transform: 'scale(1.1)'
+                }
             }
         }
     }

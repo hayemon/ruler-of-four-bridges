@@ -37,11 +37,17 @@ const SkillParametersView = ({
         delay
     } = timeParameters
 
-    const calculate = (parameter) => {
-        const { base, change } = parameter
+    const getValue = (parameter) => {
+        const { base } = parameter
         return isNaN(parseFloat(base)) ?
             base :
-            Math.round(((parseFloat(base) + parseFloat(change) * (level - 1)) + Number.EPSILON) * 100) / 100
+            calculate(parameter)
+    }
+
+    const calculate = (parameter) => {
+        const { base, change } = parameter
+        const value = Math.round(((parseFloat(base) + parseFloat(change) * (level - 1)) + Number.EPSILON) * 100) / 100
+        return value > 0 ? value : 0
     }
 
     const tableHeader = () => (
@@ -110,7 +116,7 @@ const SkillParametersView = ({
                         {distance.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(distance)}
+                        {getValue(distance)}
                     </TableCell>
                 </TableRow>
             }
@@ -133,7 +139,7 @@ const SkillParametersView = ({
                         {radius.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(radius)}
+                        {getValue(radius)}
                     </TableCell>
                 </TableRow>
             }
@@ -156,7 +162,7 @@ const SkillParametersView = ({
                         {angleHorizontal.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(angleHorizontal)}
+                        {getValue(angleHorizontal)}
                     </TableCell>
                 </TableRow>
             }
@@ -179,7 +185,7 @@ const SkillParametersView = ({
                         {angleVertical.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(angleVertical)}
+                        {getValue(angleVertical)}
                     </TableCell>
                 </TableRow>
             }
@@ -202,7 +208,7 @@ const SkillParametersView = ({
                         {width.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(width)}
+                        {getValue(width)}
                     </TableCell>
                 </TableRow>
             }
@@ -225,7 +231,7 @@ const SkillParametersView = ({
                         {height.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(height)}
+                        {getValue(height)}
                     </TableCell>
                 </TableRow>
             }
@@ -248,7 +254,7 @@ const SkillParametersView = ({
                         {maximumAffectedUnitsCount.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(maximumAffectedUnitsCount)}
+                        {getValue(maximumAffectedUnitsCount)}
                     </TableCell>
                 </TableRow>
             }
@@ -290,7 +296,7 @@ const SkillParametersView = ({
                         {cooldown.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(cooldown)}
+                        {getValue(cooldown)}
                     </TableCell>
                 </TableRow>
             }
@@ -313,7 +319,7 @@ const SkillParametersView = ({
                         {cast.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(cast)}
+                        {getValue(cast)}
                     </TableCell>
                 </TableRow>
             }
@@ -336,7 +342,7 @@ const SkillParametersView = ({
                         {duration.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(duration)}
+                        {getValue(duration)}
                     </TableCell>
                 </TableRow>
             }
@@ -359,7 +365,7 @@ const SkillParametersView = ({
                         {interval.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(interval)}
+                        {getValue(interval)}
                     </TableCell>
                 </TableRow>
             }
@@ -382,7 +388,7 @@ const SkillParametersView = ({
                         {delay.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {calculate(delay)}
+                        {getValue(delay)}
                     </TableCell>
                 </TableRow>
             }
@@ -405,7 +411,7 @@ const SkillParametersView = ({
                     {cost.change}
                 </TableCell>
                 <TableCell align='center'>
-                    {cost.placeholder.replace('COST', calculate(cost).toString())}
+                    {cost.placeholder.replace('COST', getValue(cost).toString())}
                 </TableCell>
             </TableRow>
         ))
@@ -427,7 +433,7 @@ const SkillParametersView = ({
                     {parameter.change}
                 </TableCell>
                 <TableCell align='center'>
-                    {parameter.placeholder.replace('PARAMETER', calculate(parameter).toString())}
+                    {parameter.placeholder.replace('PARAMETER', getValue(parameter).toString())}
                 </TableCell>
             </TableRow>
         ))

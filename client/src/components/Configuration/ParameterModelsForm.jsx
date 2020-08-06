@@ -170,7 +170,7 @@ const ParameterModelsForm = ({
                                     <FormControl
                                         variant='outlined'
                                         fullWidth
-                                        size='small'>
+                                    >
                                         <InputLabel>Тип зависимости</InputLabel>
                                         <Controller
                                             as={
@@ -188,6 +188,7 @@ const ParameterModelsForm = ({
                                             name={`parameterModels[${index}].relationType`}
                                             control={control}
                                             defaultValue={parameterModel.relationType || 'linear'}
+                                            className='select-flex-stretch-margin'
                                         />
                                     </FormControl>
                                 </Grid>

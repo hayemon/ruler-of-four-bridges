@@ -3,17 +3,17 @@ import React, {
 } from 'react'
 import PropTypes from 'prop-types'
 import {
-    useForm,
-    useFieldArray,
     Controller
 } from 'react-hook-form'
 import {
-    Checkbox,
     Container,
     FormControl,
     FormControlLabel,
     Grid,
+    InputLabel,
+    MenuItem,
     Paper,
+    Select,
     TextField,
     Typography
 } from '@material-ui/core'
@@ -29,7 +29,8 @@ const SkillParameterForm = ({
     field,
     fieldName,
     fieldLabel,
-    register
+    register,
+    control
 }) => {
     const classes = useStyles()
 
@@ -44,7 +45,34 @@ const SkillParameterForm = ({
                 container
                 spacing={3}
             >
-                <Grid item xs={6}>
+                <Grid item xs={4}>
+                    <FormControl
+                        variant='outlined'
+                        fullWidth
+                    >
+                        <InputLabel id={`${fieldName}.relationType-label`}>
+                            Тип зависимости
+                        </InputLabel>
+                        <Controller
+                            as={
+                                <Select>
+                                    <MenuItem value='none'>Нет</MenuItem>
+                                    <MenuItem value='linear'>y = a + b * x</MenuItem>
+                                    <MenuItem value='exponential'>y = a + b * (c ^ x)</MenuItem>
+                                </Select>
+                            }
+                            className='no-margin'
+                            id={`${fieldName}.relationType`}
+                            labelId={`${fieldName}.relationType-label`}
+                            label='Тип зависимости'
+                            name={`${fieldName}.relationType`}
+                            control={control}
+                            defaultValue=''
+                        />
+                    </FormControl>
+                </Grid>
+
+                <Grid item xs={4}>
                     <TextField
                         inputRef={register()}
                         variant='standard'
@@ -59,7 +87,7 @@ const SkillParameterForm = ({
                     />
                 </Grid>
 
-                <Grid item xs={6}>
+                <Grid item xs={4}>
                     <TextField
                         inputRef={register()}
                         variant='standard'

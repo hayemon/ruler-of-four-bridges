@@ -6,7 +6,6 @@ import {
     CssBaseline,
     TextField,
     FormControlLabel,
-    Checkbox,
     Link,
     Grid,
     Box,
@@ -109,10 +108,6 @@ const AuthView = ({
                         value={password}
                         onChange={e => onChange(e)}
                     />
-
-                    <FormControlLabel
-                        control={<Checkbox value='remember' color='primary' />}
-                        label='Remember me' />
 
                     <Button
                         type='submit'

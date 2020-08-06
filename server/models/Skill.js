@@ -37,11 +37,6 @@ const SkillSchema = new mongoose.Schema({
         default: 'На цель'
         // self, unit, point, around, direction
     },
-    singleTarget: {
-        type: Boolean,
-        required: true,
-        default: true
-    },
     areaType: String, // vector, circle, sector, sphere, cylinder, cone, pyramid, box
     areaParameters: {
         type: Object,

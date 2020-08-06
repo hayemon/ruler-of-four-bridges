@@ -44,14 +44,16 @@ const CharacterProfileSkillsForm = ({
                         <Grid
                             container
                             spacing={3}
-                            alignItems='center'
+                            alignItems='stretch'
                         >
                             <Grid item xs={4}>
                                 <FormControl
                                     variant='outlined'
                                     fullWidth
-                                    size='small'>
-                                    <InputLabel id={`skills[${index}].id-label`}>Ссылка</InputLabel>
+                                >
+                                    <InputLabel id={`skills[${index}].id-label`}>
+                                        Ссылка
+                                    </InputLabel>
                                     <Controller
                                         as={
                                             <Select>
@@ -68,13 +70,13 @@ const CharacterProfileSkillsForm = ({
                                                 }
                                             </Select>
                                         }
-                                        className='no-margin'
                                         id={`skills[${index}].id`}
                                         labelId={`skills[${index}].id-label`}
                                         label='Ссылка'
                                         name={`skills[${index}].id`}
                                         control={control}
                                         defaultValue=''
+                                        className='select-flex-stretch-margin'                                        
                                     />
                                 </FormControl>
                             </Grid>
@@ -82,7 +84,7 @@ const CharacterProfileSkillsForm = ({
                             <Grid item xs={4}>
                                 <TextField
                                     inputRef={register()}
-                                    variant='standard'
+                                    variant='outlined'
                                     margin='normal'
                                     fullWidth
                                     id={`skills[${index}].category`}

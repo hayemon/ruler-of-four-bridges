@@ -93,6 +93,29 @@ const CharacterProfileView = ({
     return (
         <Container maxWidth='md' className='root'>
             <Grid container spacing={3}>
+                <animated.div
+                    style={spring}
+                    className={classes.sliderBlock}
+                >
+                    <Paper className='fill-parent'>
+                        <Box className='basic-padding'>
+                            Ур. {level}
+                        </Box>
+                        <Box className={classes.slider}>
+                            <Slider
+                                orientation='vertical'
+                                defaultValue={1}
+                                step={1}
+                                marks={marks}
+                                min={marks[0].value}
+                                max={marks[marks.length - 1].value}
+                                valueLabelDisplay='auto'
+                                onChange={(e, v) => setLevel(v)}
+                            />
+                        </Box>
+                    </Paper>
+                </animated.div>
+
                 {characterProfile._id &&
                     <Grid item xs={12}>
                         <VisibilitySensor
@@ -147,6 +170,14 @@ const CharacterProfileView = ({
                                                     <Divider variant='fullWidth' />
                                                     <Table>
                                                         <TableBody>
+                                                            <TableRow className={classes.tableRow}>
+                                                                <TableCell className='small-padding background-grey'>
+                                                                    Настоящее имя
+                                                                </TableCell>
+                                                                <TableCell className='small-padding'>
+                                                                    {characterProfile.realName}
+                                                                </TableCell>
+                                                            </TableRow>
                                                             {
                                                                 characterProfile.details
                                                                     .map((detail, index) =>
@@ -176,29 +207,6 @@ const CharacterProfileView = ({
                     <Grid item xs={12}>
                         <TabsContainer>
                             <div tablabel='Параметры'>
-                                <animated.div
-                                    style={spring}
-                                    className={classes.sliderBlock}
-                                >
-                                    <Paper className='fill-parent'>
-                                        <Box className='basic-padding'>
-                                            Ур. {level}
-                                        </Box>
-                                        <Box className={classes.slider}>
-                                            <Slider
-                                                orientation='vertical'
-                                                defaultValue={1}
-                                                step={1}
-                                                marks={marks}
-                                                min={marks[0].value}
-                                                max={marks[marks.length - 1].value}
-                                                valueLabelDisplay='auto'
-                                                onChange={(e, v) => setLevel(v)}
-                                            />
-                                        </Box>
-                                    </Paper>
-                                </animated.div>
-
                                 {parameterCategories &&
                                     parameterCategories.models
                                         .map((parameterCategory, parameterCategoryIndex) =>

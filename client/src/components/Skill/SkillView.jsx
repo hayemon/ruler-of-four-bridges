@@ -34,13 +34,16 @@ import SkillDetailsView from './SkillDetailsView'
 import SkillParametersView from './SkillParametersView'
 
 const useStyles = makeStyles((theme) => ({
-    sliderLabel: {
-        paddingLeft: '16px'
+    sliderBlock: {
+        position: 'fixed !important',
+        height: '80vh !important',
+        bottom: '2.5vh !important',
+        right: '16px !important'
     },
     slider: {
-        width: '97%',
+        height: '84%',
         margin: '0 8px'
-    }
+    },
 }))
 
 const SkillView = ({
@@ -62,17 +65,12 @@ const SkillView = ({
                 value: (num + 1) * 50,
                 label: (num + 1) * 50
             })
-        )
+        ),
+        {
+            value: 310,
+            label: 310
+        }
     ]
-
-    const [masteryLevel, setMasteryLevel] = useState(0)
-
-    const masteryLevelMarks = [...Array(11).keys()].map(
-        num => ({
-            value: num,
-            label: num
-        })
-    )
 
     const {
         name,
@@ -96,40 +94,29 @@ const SkillView = ({
         parameters
     } = skill
 
-    const sliderHorizontal = (label, valueMarks, value, setValue) => (
-        <Paper className='fill-parent'>
-            <Grid container spacing={3} justify='center'>
-                <Grid
-                    item
-                    xs={2}
-                    container
-                    justify='center'
-                    alignItems='center'
-                >
-                    <Box className={classes.sliderLabel}>
-                        {`${label} ${value}`}
-                    </Box>
-                </Grid>
-
-                <Grid item xs={10}>
-                    <Box className={classes.slider}>
-                        <Slider
-                            orientation='horizontal'
-                            defaultValue={0}
-                            step={1}
-                            marks={valueMarks}
-                            min={valueMarks[0].value}
-                            max={valueMarks[valueMarks.length - 1].value}
-                            valueLabelDisplay='auto'
-                            onChange={(e, v) => setValue(v)}
-                        />
-                    </Box>
-                </Grid>
-            </Grid>
-        </Paper>
-    )
     return (
         <Grid container spacing={3}>
+
+            <div className={classes.sliderBlock}>
+                <Paper className='fill-parent'>
+                    <Box className='basic-padding'>
+                        Ур. {level}
+                    </Box>
+                    <Box className={classes.slider}>
+                        <Slider
+                            orientation='vertical'
+                            defaultValue={1}
+                            step={1}
+                            marks={levelMarks}
+                            min={levelMarks[0].value}
+                            max={levelMarks[levelMarks.length - 1].value}
+                            valueLabelDisplay='auto'
+                            onChange={(e, v) => setLevel(v)}
+                        />
+                    </Box>
+                </Paper>
+            </div>
+
             {skill._id &&
                 <Grid item xs={12} container>
                     <SkillItemView
@@ -144,44 +131,21 @@ const SkillView = ({
 
             {skill._id &&
                 <Grid item xs={12} container>
-                    <Grid container spacing={3}>
-                        <Grid item xs>
-                            <SkillDetailsView
-                                type={type}
-                                actionTypes={actionTypes}
-                                attributes={attributes}
-                                level={level + masteryLevel}
-                            />
-                        </Grid>
-
-                        <Grid item xs>
-                            <SkillDetailsView
-                                targetType={targetType}
-                                singleTarget={singleTarget}
-                                areaType={areaType}
-                                affectedUnits={affectedUnits}
-                            />
-                        </Grid>
-                    </Grid>
-                </Grid>
-            }
-
-            {skill._id &&
-                <Grid item xs={12} container>
-                    {sliderHorizontal('Уровень', levelMarks, level, setLevel)}
-                </Grid>
-            }
-
-            {skill._id &&
-                <Grid item xs={12} container>
-                    {sliderHorizontal('Уровень мастерства', masteryLevelMarks, masteryLevel, setMasteryLevel)}
+                    <SkillDetailsView
+                        type={type}
+                        actionTypes={actionTypes}
+                        attributes={attributes}
+                        targetType={targetType}
+                        areaType={areaType}
+                        affectedUnits={affectedUnits}
+                    />
                 </Grid>
             }
 
             {skill._id &&
                 <Grid item xs={12} container>
                     <SkillParametersView
-                        level={level + masteryLevel}
+                        level={level}
                         areaParameters={areaParameters}
                         maximumAffectedUnitsCount={maximumAffectedUnitsCount}
                         timeParameters={timeParameters}
