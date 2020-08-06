@@ -43,11 +43,11 @@ const StatsView = ({
 
     const calculate = (stat) => {
         const { relationType, base, change } = stat
-        let value;
+        let value = base
         if (relationType == 'linear') {
             value = Math.round(((parseFloat(base) + parseFloat(change) * (level - 1)) + Number.EPSILON) * 100) / 100
         }
-        else {
+        else if (relationType == 'exponential') {
             value = Math.round(((parseFloat(base) * Math.pow(parseFloat(change), (level - 1))) + Number.EPSILON) * 100) / 100
         }
         return value > 0 ? value : 0

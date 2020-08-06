@@ -37,16 +37,22 @@ const SkillParametersView = ({
         delay
     } = timeParameters
 
-    const getValue = (parameter) => {
+    const getValue = parameter => {
         const { base } = parameter
         return isNaN(parseFloat(base)) ?
             base :
             calculate(parameter)
     }
 
-    const calculate = (parameter) => {
-        const { base, change } = parameter
-        const value = Math.round(((parseFloat(base) + parseFloat(change) * (level - 1)) + Number.EPSILON) * 100) / 100
+    const calculate = parameter => {
+        const { relationType, base, change } = parameter
+        let value = base
+        if (relationType == 'linear') {
+            value = Math.round(((parseFloat(base) + parseFloat(change) * (level - 1)) + Number.EPSILON) * 100) / 100
+        }
+        else if (relationType == 'exponential') {
+            value = Math.round(((parseFloat(base) * Math.pow(parseFloat(change), (level - 1))) + Number.EPSILON) * 100) / 100
+        }
         return value > 0 ? value : 0
     }
 

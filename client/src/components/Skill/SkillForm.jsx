@@ -106,12 +106,11 @@ const SkillForm = ({
                 className={classes.form}
                 noValidate
                 onSubmit={handleSubmit(formData => {
-                    console.log(formData)
-                    {/* onSubmit({
+                    onSubmit({
                         ...skill,
                         ...formData
                     })
-                    onModeChange() */}
+                    onModeChange()
                 })}>
 
                 <Grid

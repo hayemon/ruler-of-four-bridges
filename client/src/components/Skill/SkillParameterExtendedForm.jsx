@@ -48,20 +48,21 @@ const SkillParameterExtendedForm = ({
             >
                 <Grid item xs={6}>
                     <Autocomplete
-                        id={`${fieldName}.name`}
                         options={parameterModels}
-                        getOptionLabel={(option) => option.name}
-                        margin='normal'
-                        fullWidth
-                        id={`${fieldName}.name`}
-                        name={`${fieldName}.name`}
-                        defaultValue={field.name}
-
+                        getOptionLabel={(option) => option.name || option}
+                        freeSolo
                         renderInput={(params) =>
                             <TextField
                                 {...params}
+                                inputRef={register()}
                                 variant='outlined'
-                                label='Параметр'
+                                margin='normal'
+                                fullWidth
+                                id={`${fieldName}.name`}
+                                label='База'
+                                name={`${fieldName}.name`}
+                                autoComplete='off'
+                                defaultValue={field.name}
                             />
                         }
                     />
@@ -89,7 +90,7 @@ const SkillParameterExtendedForm = ({
                             label='Тип зависимости'
                             name={`${fieldName}.relationType`}
                             control={control}
-                            defaultValue=''
+                            defaultValue='linear'
                         />
                     </FormControl>
                 </Grid>
