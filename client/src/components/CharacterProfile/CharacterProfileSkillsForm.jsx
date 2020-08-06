@@ -37,10 +37,8 @@ const CharacterProfileSkillsForm = ({
             direction='column'
         >
             {skillsFieldArray.fields.map((skill, index) =>
-                <Grid item key={index}>
-                    <Paper
-                        className='basic-padding'
-                        key={index}>
+                <Grid item key={`skills-${index}-key`}>
+                    <Paper className='basic-padding'>
                         <Grid
                             container
                             spacing={3}
@@ -59,9 +57,9 @@ const CharacterProfileSkillsForm = ({
                                             <Select>
                                                 {allSkills &&
                                                     allSkills
-                                                        .map((skillPreset, skillPresetIndex) =>
+                                                        .map(skillPreset =>
                                                             <MenuItem
-                                                                key={skillPresetIndex}
+                                                                key={skillPreset._id}
                                                                 value={skillPreset._id}
                                                             >
                                                                 {skillPreset.name}
@@ -76,7 +74,7 @@ const CharacterProfileSkillsForm = ({
                                         name={`skills[${index}].id`}
                                         control={control}
                                         defaultValue=''
-                                        className='select-flex-stretch-margin'                                        
+                                        className='select-flex-stretch-margin'
                                     />
                                 </FormControl>
                             </Grid>

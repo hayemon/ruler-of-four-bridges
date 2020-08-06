@@ -181,7 +181,10 @@ const CharacterProfileView = ({
                                                             {
                                                                 characterProfile.details
                                                                     .map((detail, index) =>
-                                                                        <TableRow key={index} className={classes.tableRow}>
+                                                                        <TableRow
+                                                                            key={`characterProfileView-details-${index}-key`}
+                                                                            className={classes.tableRow}
+                                                                        >
                                                                             <TableCell className='small-padding background-grey'>
                                                                                 {detail.key}
                                                                             </TableCell>
@@ -211,7 +214,7 @@ const CharacterProfileView = ({
                                     parameterCategories.models
                                         .map((parameterCategory, parameterCategoryIndex) =>
                                             <Stats
-                                                key={parameterCategoryIndex}
+                                                key={`characterProfileView-parameterCategories-${parameterCategoryIndex}-key`}
                                                 className='nullify'
                                                 category={parameterCategory}
                                                 stats={characterProfile.stats.filter(x => x.category == parameterCategory.key)}

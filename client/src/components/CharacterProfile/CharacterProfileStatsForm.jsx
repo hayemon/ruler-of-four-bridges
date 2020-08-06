@@ -25,7 +25,7 @@ const CharacterProfileStatsForm = ({
                         <Grid
                             item
                             xs={12}
-                            key={index}
+                            key={`characterProfileStatsForm-stats-${index}-key`}
                         >
                             <Grid
                                 container

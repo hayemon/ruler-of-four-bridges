@@ -64,10 +64,11 @@ const CharacterProfileDetailsForm = ({
             direction='column'
         >
             {detailsFieldArray.fields.map((detail, index) =>
-                <Grid item key={index}>
-                    <Paper
-                        className='basic-padding'
-                        key={index}>
+                <Grid
+                    item
+                    key={`characterProfileDetailsForm-details-${index}-key`}
+                >
+                    <Paper className='basic-padding'>
                         <Grid
                             container
                             spacing={3}
@@ -119,8 +120,8 @@ const CharacterProfileDetailsForm = ({
                             </Grid> :
                                 <Grid item xs={9}>
                                     <KeyValueInput
-                                    fieldName={`details[${index}]`}
-                                    register={register}
+                                        fieldName={`details[${index}]`}
+                                        register={register}
                                     />
                                 </Grid>
                             }

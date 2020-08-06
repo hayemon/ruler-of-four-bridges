@@ -81,7 +81,8 @@ const ParameterModelsForm = ({
                 {fields.map((parameterModel, index) =>
                     <Grid
                         item
-                        key={parameterModel._id || `newItem${index}`}>
+                        key={parameterModel._id || `parameterModelsForm-parameterModels-newItem-${index}-key`}
+                    >
                         <Paper className='basic-padding'>
                             <Grid container spacing={3}>
                                 <Grid item xs={6}>
@@ -130,7 +131,7 @@ const ParameterModelsForm = ({
                                                         parameterCategories.models
                                                             .map((parameterCategory, parameterCategoryIndex) =>
                                                                 <MenuItem
-                                                                    key={parameterCategoryIndex}
+                                                                    key={`parameterModelsForm-parameterModels-${parameterCategoryIndex}-key`}
                                                                     value={parameterCategory.key}
                                                                 >
                                                                     {parameterCategory.value}

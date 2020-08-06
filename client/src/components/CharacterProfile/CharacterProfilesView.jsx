@@ -38,7 +38,10 @@ const CharacterProfilesView = ({
                 {
                     characterProfiles
                         .map(characterProfileItem => (
-                            <Grid key={characterProfileItem._id} item xs={3}>
+                            <Grid item
+                                xs={3}
+                                key={characterProfileItem._id}
+                            >
                                 <Card className='scale-on-hover'>
                                     <CardActionArea
                                         href={`/characterProfiles/${characterProfileItem._id}`}

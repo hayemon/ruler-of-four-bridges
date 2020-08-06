@@ -22,7 +22,10 @@ const SkillsView = ({
             {
                 skills
                     .map(skillItem => (
-                        <Grid key={skillItem._id} item xs={12}>
+                        <Grid item
+                            xs={12}
+                            key={skillItem._id}
+                        >
                             <SkillItemView
                                 _id={skillItem._id}
                                 name={skillItem.name}

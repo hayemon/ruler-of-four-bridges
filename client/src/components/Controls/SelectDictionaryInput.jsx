@@ -94,7 +94,7 @@ const SelectDictionaryInput = ({
                                     dictionaries
                                         .map((dictionary, dictionaryIndex) =>
                                             <MenuItem
-                                                key={dictionaryIndex}
+                                                key={`selectDictionaryInput-dictionaries-${dictionaryIndex}-key`}
                                                 value={dictionary[dictionaryFieldValue]}
                                                 onClick={() => {
                                                     setValue(`${fieldName}.${modelFieldName}`, [])
@@ -145,7 +145,7 @@ const SelectDictionaryInput = ({
                             .map((model, modelIndex) =>
                                 <Grid
                                     item
-                                    key={modelIndex}
+                                    key={`selectDictionaryInput-selectedDictionary-${modelIndex}-key`}
                                 >
                                     <FormControlLabel
                                         control={<Checkbox />}

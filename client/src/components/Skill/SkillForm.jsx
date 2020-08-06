@@ -428,7 +428,10 @@ const SkillForm = ({
                                 </Grid>
 
                                 {costFields.fields.map((cost, costIndex) => (
-                                    <Grid item key={costIndex}>
+                                    <Grid
+                                        item
+                                        key={`skillForm-costs-${costIndex}-key`}
+                                    >
                                         <SkillParameterExtendedForm
                                             field={cost}
                                             fieldName={`costs[${costIndex}]`}
@@ -471,7 +474,10 @@ const SkillForm = ({
                                 </Grid>
 
                                 {parameterFields.fields.map((parameter, parameterIndex) => (
-                                    <Grid item key={parameterIndex}>
+                                    <Grid
+                                     item
+                                      key={`skillForm-parameters-${parameterIndex}-key`}
+                                      >
                                         <SkillParameterExtendedForm
                                             field={parameter}
                                             fieldName={`parameters[${parameterIndex}]`}

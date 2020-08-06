@@ -119,7 +119,7 @@ const StatsView = ({
                             {
                                 stats
                                     .map((stat, index) => (
-                                        <TableRow key={index}>
+                                        <TableRow key={`statsView-stats-${index}-key`}>
                                             <TableCell
                                                 align='left'
                                                 className='background-grey'

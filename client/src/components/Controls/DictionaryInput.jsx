@@ -93,7 +93,7 @@ const DictionaryInput = ({
                             .map((model, modelIndex) =>
                                 <Grid
                                     item
-                                    key={modelIndex}
+                                    key={`dictionaryInput-${dictionary.name}-models-${modelIndex}-key`}
                                 >
                                     <FormControlLabel
                                         control={<Checkbox />}

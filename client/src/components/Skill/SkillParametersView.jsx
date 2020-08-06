@@ -397,7 +397,7 @@ const SkillParametersView = ({
 
     const costsTable = () => (
         costs.map((cost, costIndex) => (
-            <TableRow key={costIndex}>
+            <TableRow key={`skillParametersView-costs-${costIndex}-key`}>
                 <TableCell
                     align='left'
                     className='background-grey'
@@ -419,7 +419,7 @@ const SkillParametersView = ({
 
     const parametersTable = () => (
         parameters.map((parameter, parameterIndex) => (
-            <TableRow key={parameterIndex}>
+            <TableRow key={`skillParametersView-parameters-${parameterIndex}-key`}>
                 <TableCell
                     align='left'
                     className='background-grey'

@@ -62,7 +62,8 @@ const DictionaryForm = ({
                 {fields.map((dictionary, index) =>
                     <Grid
                         item
-                        key={dictionary._id || `newItem${index}`}>
+                        key={dictionary._id || `dictionaryform-dictionaries-newItem-${index}-key`}
+                    >
 
                         <Grid container spacing={3}>
                             <Grid item xs={5}>
