@@ -37,15 +37,15 @@ const SkillParametersView = ({
         delay
     } = timeParameters
 
-    const getValue = parameter => {
+    const getValue = (parameter, isTime) => {
         const { base } = parameter
         return isNaN(parseFloat(base)) ?
             base :
-            calculate(parameter)
+            calculate(parameter, isTime)
     }
 
-    const calculate = parameter => {
-        const { relationType, base, change } = parameter
+    const calculate = (parameter, isTime) => {
+        const { relationType, base, change, placeholder } = parameter
         let value = base
         if (relationType == 'linear') {
             value = Math.round(((parseFloat(base) + parseFloat(change) * (level - 1)) + Number.EPSILON) * 100) / 100
@@ -53,7 +53,23 @@ const SkillParametersView = ({
         else if (relationType == 'exponential') {
             value = Math.round(((parseFloat(base) * Math.pow(parseFloat(change), (level - 1))) + Number.EPSILON) * 100) / 100
         }
-        return value > 0 ? value : 0
+        if (value > 0) {
+            if (isTime) {
+                const days = Math.floor(value / (3600 * 24))
+                const hours = Math.floor((value - days * 3600 * 24) / 3600)
+                const minutes = Math.floor((value - days * 3600 * 24 - hours * 3600) / 60)
+                const seconds = value % 60
+
+                const daysString = days ? `${days} дней ` : ''
+                const hoursString = hours ? `${hours} часов ` : ''
+                const minutesString = minutes ? `${minutes} минут ` : ''
+                const secondsString = seconds ? `${seconds} секунд` : ''
+
+                return `${daysString}${hoursString}${minutesString}${secondsString}`
+            }
+            else return value
+        }
+        return 0
     }
 
     const tableHeader = () => (
@@ -66,7 +82,7 @@ const SkillParametersView = ({
                 >
                     <Typography variant='button'>
                         Характеристика
-                                    </Typography>
+                    </Typography>
                 </TableCell>
 
                 <TableCell
@@ -76,7 +92,7 @@ const SkillParametersView = ({
                 >
                     <Typography variant='button'>
                         База
-                                    </Typography>
+                    </Typography>
                 </TableCell>
 
                 <TableCell
@@ -86,7 +102,7 @@ const SkillParametersView = ({
                 >
                     <Typography variant='button'>
                         Прирост
-                                    </Typography>
+                    </Typography>
                 </TableCell>
 
                 <TableCell
@@ -96,7 +112,7 @@ const SkillParametersView = ({
                 >
                     <Typography variant='button'>
                         Значение
-                                    </Typography>
+                    </Typography>
                 </TableCell>
             </TableRow>
         </TableHead>
@@ -145,7 +161,7 @@ const SkillParametersView = ({
                         {radius.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {getValue(radius)}
+                        {getValue(radius, false)}
                     </TableCell>
                 </TableRow>
             }
@@ -168,7 +184,7 @@ const SkillParametersView = ({
                         {angleHorizontal.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {getValue(angleHorizontal)}
+                        {getValue(angleHorizontal, false)}
                     </TableCell>
                 </TableRow>
             }
@@ -191,7 +207,7 @@ const SkillParametersView = ({
                         {angleVertical.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {getValue(angleVertical)}
+                        {getValue(angleVertical, false)}
                     </TableCell>
                 </TableRow>
             }
@@ -214,7 +230,7 @@ const SkillParametersView = ({
                         {width.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {getValue(width)}
+                        {getValue(width, false)}
                     </TableCell>
                 </TableRow>
             }
@@ -237,7 +253,7 @@ const SkillParametersView = ({
                         {height.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {getValue(height)}
+                        {getValue(height, false)}
                     </TableCell>
                 </TableRow>
             }
@@ -260,7 +276,7 @@ const SkillParametersView = ({
                         {maximumAffectedUnitsCount.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {getValue(maximumAffectedUnitsCount)}
+                        {getValue(maximumAffectedUnitsCount, false)}
                     </TableCell>
                 </TableRow>
             }
@@ -277,7 +293,7 @@ const SkillParametersView = ({
                         className='background-grey'
                     >
                         Продолжительное
-                                    </TableCell>
+                    </TableCell>
                     <TableCell align='center' colSpan='3'>
                         {isChanneling ? 'Да' : 'Нет'}
                     </TableCell>
@@ -294,7 +310,7 @@ const SkillParametersView = ({
                         className='background-grey'
                     >
                         Перезарядка
-                                    </TableCell>
+                    </TableCell>
                     <TableCell align='center'>
                         {cooldown.base}
                     </TableCell>
@@ -302,7 +318,7 @@ const SkillParametersView = ({
                         {cooldown.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {getValue(cooldown)}
+                        {getValue(cooldown, true)}
                     </TableCell>
                 </TableRow>
             }
@@ -317,7 +333,7 @@ const SkillParametersView = ({
                         className='background-grey'
                     >
                         Длительность подготовки
-                                    </TableCell>
+                    </TableCell>
                     <TableCell align='center'>
                         {cast.base}
                     </TableCell>
@@ -325,7 +341,7 @@ const SkillParametersView = ({
                         {cast.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {getValue(cast)}
+                        {getValue(cast, true)}
                     </TableCell>
                 </TableRow>
             }
@@ -340,7 +356,7 @@ const SkillParametersView = ({
                         className='background-grey'
                     >
                         Время действия
-                                    </TableCell>
+                    </TableCell>
                     <TableCell align='center'>
                         {duration.base}
                     </TableCell>
@@ -348,7 +364,7 @@ const SkillParametersView = ({
                         {duration.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {getValue(duration)}
+                        {getValue(duration, true)}
                     </TableCell>
                 </TableRow>
             }
@@ -363,7 +379,7 @@ const SkillParametersView = ({
                         className='background-grey'
                     >
                         Интервалы по
-                                    </TableCell>
+                    </TableCell>
                     <TableCell align='center'>
                         {interval.base}
                     </TableCell>
@@ -371,7 +387,7 @@ const SkillParametersView = ({
                         {interval.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {getValue(interval)}
+                        {getValue(interval, true)}
                     </TableCell>
                 </TableRow>
             }
@@ -386,7 +402,7 @@ const SkillParametersView = ({
                         className='background-grey'
                     >
                         Задержка перед активацией
-                                    </TableCell>
+                    </TableCell>
                     <TableCell align='center'>
                         {delay.base}
                     </TableCell>
@@ -394,7 +410,7 @@ const SkillParametersView = ({
                         {delay.change}
                     </TableCell>
                     <TableCell align='center'>
-                        {getValue(delay)}
+                        {getValue(delay, true)}
                     </TableCell>
                 </TableRow>
             }
@@ -417,7 +433,7 @@ const SkillParametersView = ({
                     {cost.change}
                 </TableCell>
                 <TableCell align='center'>
-                    {cost.placeholder.replace('COST', getValue(cost).toString())}
+                    {cost.placeholder.replace('COST', getValue(cost, false).toString())}
                 </TableCell>
             </TableRow>
         ))
@@ -439,7 +455,7 @@ const SkillParametersView = ({
                     {parameter.change}
                 </TableCell>
                 <TableCell align='center'>
-                    {parameter.placeholder.replace('PARAMETER', getValue(parameter).toString())}
+                    {parameter.placeholder.replace('PARAMETER', getValue(parameter, false).toString())}
                 </TableCell>
             </TableRow>
         ))
